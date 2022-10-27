@@ -1,2 +1,5 @@
 ﻿#include <iostream>
 
+int main() {
+
+}
