@@ -1,4 +1,6 @@
-﻿class CGAME {
+﻿#include <Windows.h>
+
+class CGAME {
 
 };
 
