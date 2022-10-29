@@ -1,2 +1,3 @@
 #pragma once
-void loadTexture();
+sf::Texture texture;
+sf::Sprite loadTexture();

@@ -1,6 +1,9 @@
 #include "graphics.h"
 #include <SFML/Graphics.hpp>
-void loadTextures() {
-	sf::Texture texture;
+sf::Sprite loadTextures() {
 	texture.loadFromFile("Sprite\\car.png");
+	texture.setSmooth(true); //lam diu texture
+	sf::Sprite sprite;
+	sprite.setTexture(texture); //tao sprite
+	return sprite;
 }
