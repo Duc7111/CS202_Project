@@ -15,7 +15,7 @@ int main()
         }
 
         window.clear();
-        window.draw(loadTexture());
+        window.draw(sprite);
         window.display();
     }
 

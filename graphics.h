@@ -1,4 +1,4 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-sf::Sprite loadTexture();
+extern sf::Sprite sprite;
+void loadTexture();
