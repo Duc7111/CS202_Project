@@ -1,6 +1,6 @@
 #include "graphics.h"
-#include <SFML/Graphics.hpp>
-sf::Sprite loadTextures() {
+
+sf::Sprite loadTexture() {
 	texture.loadFromFile("Sprite\\car.png");
 	texture.setSmooth(true); //lam diu texture
 	sf::Sprite sprite;
