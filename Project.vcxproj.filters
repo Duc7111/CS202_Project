@@ -46,7 +46,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Sprite\car.png">
+    <Image Include="car.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
