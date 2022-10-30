@@ -4,7 +4,7 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-
+    loadTexture();
     while (window.isOpen())
     {
         sf::Event event;
