@@ -1,3 +1,4 @@
+#include "graphics.h"
 class CVEHICLE {
 	int mX, mY;
 public:
@@ -5,9 +6,12 @@ public:
 	//...
 };
 
-class CTRUCK : public CVEHICLE {
+class CCAR : public CVEHICLE {
 public:
-	//...
+	CCAR(); //load sprite tu texture o day
+	sf::Sprite carSprite;
+private:
+	sf::Texture carTexture;
 };
 
 class CTRUCK : public CVEHICLE {
