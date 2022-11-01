@@ -11,3 +11,6 @@ CCAR::CCAR() //load sprite tu texture o day
 void CCAR::Move(int, int) {
 
 }
+void CCAR::setPosition(float x, float y) {
+	carSprite.setPosition(sf::Vector2f(x, y));
+}

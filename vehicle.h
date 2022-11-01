@@ -10,6 +10,7 @@ public:
 	CCAR(); //load sprite tu texture o day
 	sf::Sprite carSprite;
 	void Move(int, int);
+	void setPosition(float x, float y);
 private:
 	sf::Texture carTexture;
 };
