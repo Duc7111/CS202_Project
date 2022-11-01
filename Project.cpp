@@ -2,7 +2,7 @@
 #include "graphics.h"
 
 void main(int argc, char** argv[]) {
-    sf::RenderWindow window(sf::VideoMode(640, 480),
+    sf::RenderWindow window(sf::VideoMode(1020, 680),
         "Bouncing car.");
 
     sf::Texture carTexture;
@@ -21,7 +21,7 @@ void main(int argc, char** argv[]) {
             }
         }
 
-        car.setPosition(sf::Vector2f(250.f, 250.f));
+        car.setPosition(sf::Vector2f(300.f, 250.f));
 
         window.clear(sf::Color(16, 16, 16, 255)); // Dark gray.
         window.draw(car); // Drawing our sprite.
