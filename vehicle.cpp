@@ -8,3 +8,6 @@ CCAR::CCAR() //load sprite tu texture o day
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
 }
+void CCAR::Move(int, int) {
+
+}
