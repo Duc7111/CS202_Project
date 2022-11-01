@@ -1,17 +1,11 @@
 ﻿
 #include "graphics.h"
+#include "vehicle.h"
 
 void main(int argc, char** argv[]) {
     sf::RenderWindow window(sf::VideoMode(1020, 680),
         "Bouncing car.");
 
-    sf::Texture carTexture;
-    carTexture.loadFromFile("car.png");
-    sf::Sprite car(carTexture);
-    sf::Vector2u size = carTexture.getSize();
-    car.setOrigin(size.x / 2, size.y / 2);
-    sf::Vector2f increment(0.4f, 0.4f);
-    car.scale(sf::Vector2f(0.25f, 0.25f));
 
     while (window.isOpen()) {
         sf::Event event;
