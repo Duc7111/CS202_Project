@@ -1,3 +1,4 @@
+#pragma once
 class CANIMAL {
 	int mX, mY;
 public:

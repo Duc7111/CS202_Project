@@ -1,5 +1,6 @@
 ﻿#include "vehicle.h"
 #include "animal.h"
+#pragma once
 class CPEOPLE {
 	int mX, mY;
 	bool mState; //Trạng thái sống chết

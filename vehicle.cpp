@@ -17,16 +17,17 @@ void CCAR::setPosition(float x, float y) {
 
 std::vector<CCAR> cars;
 
-void generateCar() {
+void generateCar(sf::RenderWindow& window) {
 	CCAR newCar;
 	newCar.setPosition(0.f, 250.f); //dat xe moi o vi tri ben trai
-	newCar.Move(); //bay gio lam ham move de di chuyen
+	window.draw(newCar.carSprite);
+	//newCar.Move(); //bay gio lam ham move de di chuyen
 }
 
-void checkShouldGenerate() //ktra co nen generate xe, dung thread
+void checkShouldGenerate(sf::RenderWindow& window) //ktra co nen generate xe, dung thread
 {
 	CCAR latestCar = cars.back();
 	if (latestCar.carSprite.getPosition().x == 20.f) {
-		generateCar();
+		generateCar(window);
 	}
 }

@@ -15,10 +15,11 @@ void main(int argc, char** argv[]) {
             }
         }
 
-        car.setPosition(250.f, 250.f);
+        //car.setPosition(250.f, 250.f);
 
         window.clear(sf::Color(16, 16, 16, 255)); // Dark gray.
-        window.draw(car.carSprite); // Drawing our sprite.
+        generateCar(window);
+        //window.draw(car.carSprite); // Drawing our sprite.
         window.display();
     }
 }
