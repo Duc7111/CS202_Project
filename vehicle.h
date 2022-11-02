@@ -23,3 +23,5 @@ public:
 extern std::vector<CCAR> cars;
 void generateCar(); //tao mot xe
 //ta se tao vong lap de generate car nay sau khi xe truoc di duoc 20m
+
+void checkShouldGenerate(); //ktra co nen generate xe, dung thread
