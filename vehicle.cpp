@@ -14,3 +14,10 @@ void CCAR::Move(int, int) {
 void CCAR::setPosition(float x, float y) {
 	carSprite.setPosition(sf::Vector2f(x, y));
 }
+
+std::vector<CCAR> cars;
+void generateCar() {
+	CCAR newCar;
+	newCar.setPosition(0.f, 0.f); //dat xe moi o vi tri ben trai
+	newCar.Move(); //bay gio lam ham move de di chuyen
+}
