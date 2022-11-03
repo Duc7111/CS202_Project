@@ -5,3 +5,7 @@
 x64
 # Mac
 .DS_Store
+
+#others
+Makefile
+*.o
