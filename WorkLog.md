@@ -7,3 +7,11 @@
 4. Vuong Quang Viet Tung - 21125145 - viettungvuong
 
 ## Work log:
+
+### 1. Classes
+ - Player:
+    + People
+ - Obstacle:
+    + Animal
+    + Vihecle
+ - Game:
