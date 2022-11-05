@@ -3,7 +3,7 @@
 #include "vehicle.h"
 
 void main(int argc, char** argv[]) {
-    sf::RenderWindow window(sf::VideoMode(1020, 680),
+    sf::RenderWindow window(sf::VideoMode(1366, 768),
         "Bouncing car.");
 
     CCAR car;
