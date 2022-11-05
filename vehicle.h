@@ -1,5 +1,6 @@
 #include "graphics.h"
 #pragma once
+const float Y = 250.f;
 class CVEHICLE {
 	int mX, mY;
 public:

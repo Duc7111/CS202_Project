@@ -7,7 +7,7 @@ CCAR::CCAR() //load sprite tu texture o day
 	carSprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
-	carSprite.setPosition(10.f, 250.f);
+	carSprite.setPosition(10.f, Y);
 	//day vao vector chua cac xe da tao
 }
 CCAR::CCAR(float x) {
@@ -17,7 +17,7 @@ CCAR::CCAR(float x) {
 	carSprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
-	carSprite.setPosition(x, 250.f);
+	carSprite.setPosition(x, Y);
 }
 void CCAR::Move(float x, float y) {
 	carSprite.move(x, y);
@@ -35,47 +35,32 @@ void generateCar() {
 	generatedCars.push_back(CCAR());
 }
 
-//void CCAR::drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms) {
-//	moveInWindow(clock, elapsed, update_ms);
-//	window.clear(sf::Color(16, 16, 16, 255));
-//	window.draw(this->carSprite);
-//}
-//void CCAR::moveInWindow(sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms) {
-//
-//    elapsed += clock.restart();
-//    while (elapsed >= update_ms) {
-//		float newX = this->carSprite.getPosition().x + 0.01f;
-//		float currentY = this->carSprite.getPosition().y;
-//		this->carSprite.setPosition(newX, currentY);
-//
-//        elapsed -= update_ms;
-//
-//		if (newX == 20.f)
-//			generateCar();
-//    }
-//}
+
 
 std::vector<CCAR> generatedCars;
-
+const float setX = -500;
+const float speed = 0.005f;
 void drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms, std::vector<CCAR>& generatedCars) {
 	elapsed += clock.restart();
+
 	while (elapsed >= update_ms) {
 		for (int i = 0; i < generatedCars.size(); i++) {
-			float newX = generatedCars[i].carSprite.getPosition().x + 0.01f;
-			float currentY = generatedCars[i].carSprite.getPosition().y;
-			generatedCars[i].carSprite.setPosition(newX, currentY);
+			float newX = generatedCars[i].carSprite.getPosition().x + (speed * elapsed.asSeconds());
+			if (newX > 1840)
+				newX = setX;
+			generatedCars[i].carSprite.setPosition(newX, Y);
 		}
-		//float newX = generatedCars[0].carSprite.getPosition().x + 0.01f;
-		//float currentY = generatedCars[0].carSprite.getPosition().y;
-		//generatedCars[0].carSprite.setPosition(newX, currentY);
-
-		//newX = generatedCars[1].carSprite.getPosition().x + 0.01f;
-		//currentY = generatedCars[1].carSprite.getPosition().y;
-		//generatedCars[1].carSprite.setPosition(newX, currentY);
 		elapsed -= update_ms;
 
 		/*if (newX == 20.f)
 			generateCar();*/
+
+		for (int i = 0; i < generatedCars.size(); i++) {
+			if (generatedCars[i].carSprite.getPosition().x > 1840) {
+				generatedCars[i].carSprite.setPosition(setX, Y);
+			}
+
+		}
 	}
 	window.clear(sf::Color(16, 16, 16, 255));
 	for (CCAR car : generatedCars)

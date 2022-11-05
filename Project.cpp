@@ -32,14 +32,7 @@ void main(int argc, char** argv[]) {
 		}
 
 		drawCar(window, clock, elapsed, update_ms, generatedCars);
-		/*window.draw(newCar.carSprite);
-		window.draw(newCar2.carSprite);*/
-		//dat tat ca window draw ke nhau
-		/*drawCar(window, clock, elapsed, update_ms, newCar);
-		drawCar(window, clock, elapsed, update_ms, newCar2);*/
-		//de y neu tao car o ngoai vong lap thi no se chay dc
-		/*for (int i=0; i<generatedCars.size(); i++)
-		   drawCar(window, clock, elapsed, update_ms,generatedCars[i]);*/
+
 		window.display();
 	}
 }
