@@ -2,18 +2,24 @@
 #include "graphics.h"
 #include "vehicle.h"
 #include <iostream>
+#include <thread>
 
 void main(int argc, char** argv[]) {
     sf::RenderWindow window(sf::VideoMode(1366, 768),
-        "Bouncing car.");
+        "PROJECT CS202");
 
     //CCAR car;
 
     sf::Clock clock;
     sf::Time elapsed;
 
-    generateCar();
-    CCAR newCar, newCar2;
+    //generateCar();
+    CCAR newCar;
+    CCAR newCar2(20);
+    CCAR newCar3(5);
+    generatedCars.push_back(newCar);
+    generatedCars.push_back(newCar2);
+    generatedCars.push_back(newCar3);
     std::cout << generatedCars.size();
 
     const sf::Time update_ms = sf::seconds(1.f / 30.f);
@@ -25,8 +31,12 @@ void main(int argc, char** argv[]) {
             }
         }
 
-        drawCar(window, clock, elapsed, update_ms, newCar);
-        drawCar(window, clock, elapsed, update_ms, newCar2);
+        drawCar(window, clock, elapsed, update_ms, generatedCars);
+        /*window.draw(newCar.carSprite);
+        window.draw(newCar2.carSprite);*/
+        //dat tat ca window draw ke nhau
+        /*drawCar(window, clock, elapsed, update_ms, newCar);
+        drawCar(window, clock, elapsed, update_ms, newCar2);*/
         //de y neu tao car o ngoai vong lap thi no se chay dc
         /*for (int i=0; i<generatedCars.size(); i++)
            drawCar(window, clock, elapsed, update_ms,generatedCars[i]);*/
