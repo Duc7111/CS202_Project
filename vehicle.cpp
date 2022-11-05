@@ -8,6 +8,7 @@ CCAR::CCAR() //load sprite tu texture o day
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
 	carSprite.setPosition(10.f, 250.f);
+	 //day vao vector chua cac xe da tao
 }
 void CCAR::Move(float x, float y) {
 	carSprite.move(x,y);
@@ -19,32 +20,46 @@ void CCAR::setPosition(float x, float y) {
 
 std::vector<CCAR> cars;
 
-//void generateCar(sf::RenderWindow& window) {
-//	CCAR newCar;
-//	newCar.setPosition(360.f, 250.f); //dat xe moi o vi tri ben trai
-//	window.draw(newCar.carSprite);
-//	//newCar.Move(); //bay gio lam ham move de di chuyen
-//}
-
-//void checkShouldGenerate(sf::RenderWindow& window) //ktra co nen generate xe, dung thread
-//{
-//	CCAR latestCar = cars.back();
-//	if (latestCar.carSprite.getPosition().x == 20.f) {
-//		generateCar(window);
-//	}
-//}
-
-void CCAR::drawCar(sf::RenderWindow& window) {
-	window.draw(this->carSprite);
+void generateCar() {
+	//newCar.setPosition(10.f, 250.f); //dat xe moi o vi tri ben trai
+	//newCar.Move(); //bay gio lam ham move de di chuyen
+	generatedCars.push_back(CCAR());
 }
-void CCAR::moveInWindow(sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms) {
 
-    elapsed += clock.restart();
-    while (elapsed >= update_ms) {
-		float newX = this->carSprite.getPosition().x + 0.01f;
-		float currentY = this->carSprite.getPosition().y;
-		this->carSprite.setPosition(newX, currentY);
+//void CCAR::drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms) {
+//	moveInWindow(clock, elapsed, update_ms);
+//	window.clear(sf::Color(16, 16, 16, 255));
+//	window.draw(this->carSprite);
+//}
+//void CCAR::moveInWindow(sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms) {
+//
+//    elapsed += clock.restart();
+//    while (elapsed >= update_ms) {
+//		float newX = this->carSprite.getPosition().x + 0.01f;
+//		float currentY = this->carSprite.getPosition().y;
+//		this->carSprite.setPosition(newX, currentY);
+//
+//        elapsed -= update_ms;
+//
+//		if (newX == 20.f)
+//			generateCar();
+//    }
+//}
 
-        elapsed -= update_ms;
-    }
+std::vector<CCAR> generatedCars;
+
+void drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms, CCAR& car) {
+	elapsed += clock.restart();
+	while (elapsed >= update_ms) {
+		float newX = car.carSprite.getPosition().x + 0.01f;
+		float currentY = car.carSprite.getPosition().y;
+		car.carSprite.setPosition(newX, currentY);
+
+		elapsed -= update_ms;
+
+		if (newX == 20.f)
+			generateCar();
+	}
+	window.clear(sf::Color(16, 16, 16, 255));
+	window.draw(car.carSprite);
 }
