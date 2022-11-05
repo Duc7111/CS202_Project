@@ -8,19 +8,19 @@ CCAR::CCAR() //load sprite tu texture o day
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
 	carSprite.setPosition(10.f, 250.f);
-	 //day vao vector chua cac xe da tao
+	//day vao vector chua cac xe da tao
 }
-CCAR::CCAR(int x) {
+CCAR::CCAR(float x) {
 	carTexture.loadFromFile("car.png");
 	carSprite = sf::Sprite(carTexture);
 	sf::Vector2u size = carTexture.getSize();
 	carSprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
-	carSprite.setPosition(10.f, 25*x);
+	carSprite.setPosition(x, 250.f);
 }
 void CCAR::Move(float x, float y) {
-	carSprite.move(x,y);
+	carSprite.move(x, y);
 }
 
 void CCAR::setPosition(float x, float y) {
@@ -78,6 +78,6 @@ void drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const
 			generateCar();*/
 	}
 	window.clear(sf::Color(16, 16, 16, 255));
-	for (CCAR car: generatedCars)
-	    window.draw(car.carSprite);
+	for (CCAR car : generatedCars)
+		window.draw(car.carSprite);
 }

@@ -3,13 +3,13 @@
 class CVEHICLE {
 	int mX, mY;
 public:
-	virtual void Move(float, float)=0;
+	virtual void Move(float, float) = 0;
 };
 
 class CCAR : public CVEHICLE {
 public:
 	CCAR(); //load sprite tu texture o day
-	CCAR(int x);
+	CCAR(float x);
 	sf::Sprite carSprite;
 	void Move(float x, float y);
 	void setPosition(float x, float y);
