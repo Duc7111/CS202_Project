@@ -38,9 +38,9 @@ void generateCar() {
 
 bool isRunning = true;
 std::vector<CCAR> generatedCars;
-const float setX = -500;
+const float setX = -1500;
 const float speed = 200;
-const float timeStep = 1.f / 30.f;
+const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 
 	for (int i = 0; i < generatedCars.size(); i++) {
