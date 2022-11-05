@@ -13,7 +13,7 @@ void main(int argc, char** argv[]) {
     sf::Time elapsed;
 
     generateCar();
-    CCAR newCar;
+    CCAR newCar, newCar2;
     std::cout << generatedCars.size();
 
     const sf::Time update_ms = sf::seconds(1.f / 30.f);
@@ -26,6 +26,7 @@ void main(int argc, char** argv[]) {
         }
 
         drawCar(window, clock, elapsed, update_ms, newCar);
+        drawCar(window, clock, elapsed, update_ms, newCar2);
         //de y neu tao car o ngoai vong lap thi no se chay dc
         /*for (int i=0; i<generatedCars.size(); i++)
            drawCar(window, clock, elapsed, update_ms,generatedCars[i]);*/
