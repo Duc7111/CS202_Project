@@ -33,4 +33,4 @@ void generateCar(); //tao mot xe
 
 //void checkShouldGenerate(sf::RenderWindow& window); //ktra co nen generate xe, dung thread
 
-void drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms, std::vector<CCAR>& generatedCars);
+void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars);

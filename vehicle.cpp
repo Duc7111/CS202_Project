@@ -36,32 +36,30 @@ void generateCar() {
 }
 
 
-
+bool isRunning = true;
 std::vector<CCAR> generatedCars;
 const float setX = -500;
-const float speed = 0.005f;
-void drawCar(sf::RenderWindow& window, sf::Clock clock, sf::Time& elapsed, const sf::Time& update_ms, std::vector<CCAR>& generatedCars) {
-	elapsed += clock.restart();
+const float speed = 200;
+const float timeStep = 1.f / 30.f;
+void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 
-	while (elapsed >= update_ms) {
-		for (int i = 0; i < generatedCars.size(); i++) {
-			float newX = generatedCars[i].carSprite.getPosition().x + (speed * elapsed.asSeconds());
-			if (newX > 1840)
-				newX = setX;
-			generatedCars[i].carSprite.setPosition(newX, Y);
-		}
-		elapsed -= update_ms;
-
-		/*if (newX == 20.f)
-			generateCar();*/
-
-		for (int i = 0; i < generatedCars.size(); i++) {
-			if (generatedCars[i].carSprite.getPosition().x > 1840) {
-				generatedCars[i].carSprite.setPosition(setX, Y);
-			}
-
-		}
+	for (int i = 0; i < generatedCars.size(); i++) {
+		float newX = generatedCars[i].carSprite.getPosition().x + (speed * timeStep);
+		if (newX > 1840)
+			newX = setX;
+		generatedCars[i].carSprite.setPosition(newX, Y);
 	}
+
+	/*if (newX == 20.f)
+		generateCar();*/
+
+	for (int i = 0; i < generatedCars.size(); i++) {
+		if (generatedCars[i].carSprite.getPosition().x > 1840) {
+			generatedCars[i].carSprite.setPosition(setX, Y);
+		}
+
+	}
+
 	window.clear(sf::Color(16, 16, 16, 255));
 	for (CCAR car : generatedCars)
 		window.draw(car.carSprite);

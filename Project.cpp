@@ -7,7 +7,7 @@
 void main(int argc, char** argv[]) {
 	sf::RenderWindow window(sf::VideoMode(1840, 1250),
 		"PROJECT CS202");
-
+	window.setFramerateLimit(30);
 	//CCAR car;
 
 	sf::Clock clock;
@@ -31,7 +31,7 @@ void main(int argc, char** argv[]) {
 			}
 		}
 
-		drawCar(window, clock, elapsed, update_ms, generatedCars);
+		drawCar(window, generatedCars);
 
 		window.display();
 	}
