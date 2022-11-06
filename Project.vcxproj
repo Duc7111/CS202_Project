@@ -136,6 +136,7 @@
     <ClCompile Include="animal.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="people.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="vehicle.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="animal.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="objectPool.h" />
     <ClInclude Include="people.h" />
     <ClInclude Include="vehicle.h" />
   </ItemGroup>
