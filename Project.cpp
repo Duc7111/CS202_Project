@@ -7,13 +7,14 @@
 void main(int argc, char** argv[]) {
 	sf::RenderWindow window(sf::VideoMode(1840, 1250),
 		"PROJECT CS202");
-	window.setFramerateLimit(30);
+	//window.setFramerateLimit(30);
 	//CCAR car;
 
 	sf::Clock clock;
 	sf::Time elapsed;
 
-	//tao xe();
+	//tao xe
+	//de lam object pooling sau
 	CCAR newCar;
 	CCAR newCar2(-500);
 	CCAR newCar3(-1000);
