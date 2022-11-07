@@ -2,29 +2,29 @@
 CCAR::CCAR() //load sprite tu texture o day
 {
 	carTexture.loadFromFile("car.png");
-	carSprite = sf::Sprite(carTexture);
+	sprite = sf::Sprite(carTexture);
 	sf::Vector2u size = carTexture.getSize();
-	carSprite.setOrigin(size.x / 2, size.y / 2);
+	sprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
-	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
-	carSprite.setPosition(10.f, Y);
+	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.setPosition(10.f, Y);
 	//day vao vector chua cac xe da tao
 }
 CCAR::CCAR(float x) {
 	carTexture.loadFromFile("car.png");
-	carSprite = sf::Sprite(carTexture);
+	sprite = sf::Sprite(carTexture);
 	sf::Vector2u size = carTexture.getSize();
-	carSprite.setOrigin(size.x / 2, size.y / 2);
+	sprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
-	carSprite.scale(sf::Vector2f(0.25f, 0.25f));
-	carSprite.setPosition(x, Y);
+	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.setPosition(x, Y);
 }
 void CCAR::Move(float x, float y) {
-	carSprite.move(x, y);
+	sprite.move(x, y);
 }
 
 void CCAR::setPosition(float x, float y) {
-	carSprite.setPosition(sf::Vector2f(x, y));
+	sprite.setPosition(sf::Vector2f(x, y));
 }
 
 std::vector<CCAR> cars;
@@ -41,26 +41,27 @@ std::vector<CCAR> generatedCars;
 const float setX = -1500;
 const float speed = 100;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
+
 void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 
 	for (int i = 0; i < generatedCars.size(); i++) {
-		float newX = generatedCars[i].carSprite.getPosition().x + (speed * timeStep);
+		float newX = generatedCars[i].sprite.getPosition().x + (speed * timeStep);
 		if (newX > 1840)
 			newX = setX;
-		generatedCars[i].carSprite.setPosition(newX, Y);
+		generatedCars[i].sprite.setPosition(newX, Y);
 	}
 
 	/*if (newX == 20.f)
 		generateCar();*/
 
 	for (int i = 0; i < generatedCars.size(); i++) {
-		if (generatedCars[i].carSprite.getPosition().x > 1840) {
-			generatedCars[i].carSprite.setPosition(setX, Y);
+		if (generatedCars[i].sprite.getPosition().x > 1840) {
+			generatedCars[i].sprite.setPosition(setX, Y);
 		}
 
 	}
 
 	window.clear(sf::Color(16, 16, 16, 255));
 	for (CCAR car : generatedCars)
-		window.draw(car.carSprite);
+		window.draw(car.sprite);
 }

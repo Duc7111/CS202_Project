@@ -1,6 +1,7 @@
 ﻿
 #include "graphics.h"
 #include "vehicle.h"
+#include "game.h"
 #include <iostream>
 #include <thread>
 
@@ -33,7 +34,7 @@ void main(int argc, char** argv[]) {
 			}
 		}
 
-		drawCar(window, generatedCars);
+		drawObjects(window, generatedCars);
 
 		window.display();
 	}

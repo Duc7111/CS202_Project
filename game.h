@@ -30,5 +30,31 @@ public:
 	void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 
 };
+const float setX = -1500;
+const float speed = 100;
+const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
+template <typename T>
+void drawObjects(sf::RenderWindow& window, std::vector<T>& generated) {
 
+	for (int i = 0; i < generated.size(); i++) {
+		float newX = generated[i].sprite.getPosition().x + (speed * timeStep);
+		if (newX > 1840)
+			newX = setX;
+		generated[i].sprite.setPosition(newX, Y);
+	}
+
+	/*if (newX == 20.f)
+		generateCar();*/
+
+	for (int i = 0; i < generated.size(); i++) {
+		if (generated[i].sprite.getPosition().x > 1840) {
+			generated[i].sprite.setPosition(setX, Y);
+		}
+
+	}
+
+	window.clear(sf::Color(16, 16, 16, 255));
+	for (T car : generated)
+		window.draw(car.sprite);
+}
 

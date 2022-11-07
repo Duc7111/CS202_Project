@@ -2,16 +2,17 @@
 #pragma once
 const float Y = 250.f;
 class CVEHICLE {
+private:
 	int mX, mY;
 public:
 	virtual void Move(float, float) = 0;
+	sf::Sprite sprite;
 };
 
 class CCAR : public CVEHICLE {
 public:
 	CCAR(); //load sprite tu texture o day
 	CCAR(float x);
-	sf::Sprite carSprite;
 	void Move(float x, float y);
 	void setPosition(float x, float y);
 
