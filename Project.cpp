@@ -8,31 +8,37 @@
 void main(int argc, char** argv[]) {
 	sf::RenderWindow window(sf::VideoMode(1840, 1250),
 		"PROJECT CS202");
-	//window.setFramerateLimit(30);
-	//CCAR car;
 
 	sf::Clock clock;
 	sf::Time elapsed;
 
 	//tao xe
 	//de lam object pooling sau	
-	//de coi con cach nao khong
+
+	//test
 	CCAR newCar;
 	for (int i = 0; i < 6; i++) {
-		newCar = CCAR(-500 * i);
 		generatedCars.push_back(newCar);
 	}
 
-	std::cout << generatedCars.size() << "\n";
-
-	//doan nay de test
 	std::vector<CTRUCK> generatedTrucks;
 	CTRUCK newTruck;
 	for (int i = 0; i < 6; i++) {
-		newTruck = CTRUCK(-500 * i);
 		generatedTrucks.push_back(newTruck);
 	}
-	std::cout << generatedTrucks.size() << "\n";
+
+	std::vector<CVEHICLE*> generatedVehicles;
+	for (int i = 0; i < 6; i++) {
+		generatedVehicles.push_back(&generatedTrucks[i]);
+		generatedVehicles[i]->loadTexture(-500 * i);
+	}
+
+	for (int i = 0; i < 6; i++) {
+		generatedVehicles.push_back(&generatedCars[i]);
+		generatedVehicles[6 + i]->loadTexture(-500 * i);
+	}
+
+	//
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 	while (window.isOpen()) {
@@ -43,8 +49,15 @@ void main(int argc, char** argv[]) {
 			}
 		}
 
-		//drawObjects(window, generatedCars);
-		drawObjects(window, generatedTrucks);
+		//std::thread t1(drawObjects<CCAR>, std::ref(window), std::ref(generatedCars));
+		//std::thread t2(drawObjects<CTRUCK>, std::ref(window), std::ref(generatedTrucks));
+		//t1.join();
+		////t2.join();
+
+		drawObjects(window, generatedVehicles);
+		//drawObjects(window, generatedTrucks);
+		//hien gio chua ve ca 2 duoc, khong dung thread duoc nen co the se ket hop de ve chung trong mot ham tat ca luon
+		//de van dung polymorphism
 
 		window.display();
 	}
