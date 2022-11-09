@@ -39,7 +39,7 @@ CTRUCK::CTRUCK(float x) {
 	sprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-	sprite.setPosition(10.f, YTruck);
+	sprite.setPosition(x, YTruck);
 }
 void CVEHICLE::Move(float x, float y) {
 	sprite.move(x, y);

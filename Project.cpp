@@ -23,7 +23,16 @@ void main(int argc, char** argv[]) {
 		generatedCars.push_back(newCar);
 	}
 
-	std::cout << generatedCars.size();
+	std::cout << generatedCars.size() << "\n";
+
+	//doan nay de test
+	std::vector<CTRUCK> generatedTrucks;
+	CTRUCK newTruck;
+	for (int i = 0; i < 6; i++) {
+		newTruck = CTRUCK(-500 * i);
+		generatedTrucks.push_back(newTruck);
+	}
+	std::cout << generatedTrucks.size() << "\n";
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 	while (window.isOpen()) {
@@ -34,7 +43,8 @@ void main(int argc, char** argv[]) {
 			}
 		}
 
-		drawObjects(window, generatedCars);
+		//drawObjects(window, generatedCars);
+		drawObjects(window, generatedTrucks);
 
 		window.display();
 	}
