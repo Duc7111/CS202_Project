@@ -61,5 +61,8 @@
     <Image Include="car.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="truck.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

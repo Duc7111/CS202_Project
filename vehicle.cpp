@@ -1,25 +1,44 @@
 #include "vehicle.h"
 CCAR::CCAR() //load sprite tu texture o day
 {
-	carTexture.loadFromFile("car.png");
-	sprite = sf::Sprite(carTexture);
-	sf::Vector2u size = carTexture.getSize();
+	texture.loadFromFile("car.png");
+	sprite = sf::Sprite(texture);
+	sf::Vector2u size = texture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-	sprite.setPosition(10.f, Y);
+	sprite.setPosition(10.f, YCar);
 	//day vao vector chua cac xe da tao
 }
 CCAR::CCAR(float x) {
-	carTexture.loadFromFile("car.png");
-	sprite = sf::Sprite(carTexture);
-	sf::Vector2u size = carTexture.getSize();
+	texture.loadFromFile("car.png");
+	sprite = sf::Sprite(texture);
+	sf::Vector2u size = texture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
 	sf::Vector2f increment(0.4f, 0.4f);
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-	sprite.setPosition(x, Y);
+	sprite.setPosition(x, YCar);
 }
-void CCAR::Move(float x, float y) {
+
+CTRUCK::CTRUCK() {
+	texture.loadFromFile("truck.png");
+	sprite = sf::Sprite(texture);
+	sf::Vector2u size = texture.getSize();
+	sprite.setOrigin(size.x / 2, size.y / 2);
+	sf::Vector2f increment(0.4f, 0.4f);
+	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.setPosition(10.f, YCar);
+}
+CTRUCK::CTRUCK(float x) {
+	texture.loadFromFile("truck.png");
+	sprite = sf::Sprite(texture);
+	sf::Vector2u size = texture.getSize();
+	sprite.setOrigin(size.x / 2, size.y / 2);
+	sf::Vector2f increment(0.4f, 0.4f);
+	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.setPosition(10.f, YCar);
+}
+void CVEHICLE::Move(float x, float y) {
 	sprite.move(x, y);
 }
 
@@ -48,7 +67,7 @@ void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 		float newX = generatedCars[i].sprite.getPosition().x + (speed * timeStep);
 		if (newX > 1840)
 			newX = setX;
-		generatedCars[i].sprite.setPosition(newX, Y);
+		generatedCars[i].sprite.setPosition(newX, YCar);
 	}
 
 	/*if (newX == 20.f)
@@ -56,7 +75,7 @@ void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 
 	for (int i = 0; i < generatedCars.size(); i++) {
 		if (generatedCars[i].sprite.getPosition().x > 1840) {
-			generatedCars[i].sprite.setPosition(setX, Y);
+			generatedCars[i].sprite.setPosition(setX, YCar);
 		}
 
 	}

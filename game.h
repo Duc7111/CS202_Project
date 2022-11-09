@@ -40,7 +40,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T>& generated) {
 		float newX = generated[i].sprite.getPosition().x + (speed * timeStep);
 		if (newX > 1840)
 			newX = setX;
-		generated[i].sprite.setPosition(newX, Y);
+		generated[i].sprite.setPosition(newX, YCar);
 	}
 
 	/*if (newX == 20.f)
@@ -48,7 +48,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T>& generated) {
 
 	for (int i = 0; i < generated.size(); i++) {
 		if (generated[i].sprite.getPosition().x > 1840) {
-			generated[i].sprite.setPosition(setX, Y);
+			generated[i].sprite.setPosition(setX, YCar);
 		}
 
 	}
