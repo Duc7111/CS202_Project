@@ -1,4 +1,7 @@
 #include "vehicle.h"
+#include "game.h"
+std::vector<CCAR> generatedCars;
+std::vector<CCAR> cars;
 CCAR::CCAR() //load sprite tu texture o day
 {
 	texture.loadFromFile("car.png");
@@ -46,7 +49,7 @@ void CCAR::setPosition(float x, float y) {
 	sprite.setPosition(sf::Vector2f(x, y));
 }
 
-std::vector<CCAR> cars;
+
 
 void generateCar() {
 	//newCar.setPosition(10.f, 250.f); //dat xe moi o vi tri ben trai
@@ -55,11 +58,8 @@ void generateCar() {
 }
 
 
-bool isRunning = true;
-std::vector<CCAR> generatedCars;
-const float setX = -1500;
-const float speed = 100;
-const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
+
+
 
 void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars) {
 
