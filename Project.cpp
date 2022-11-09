@@ -16,6 +16,7 @@ void main(int argc, char** argv[]) {
 	//de lam object pooling sau	
 
 	//test
+	//std::vector<CCAR> generatedCars;
 	CCAR newCar;
 	for (int i = 0; i < 6; i++) {
 		generatedCars.push_back(newCar);
