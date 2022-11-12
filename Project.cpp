@@ -12,33 +12,20 @@ void main(int argc, char** argv[]) {
 	sf::Clock clock;
 	sf::Time elapsed;
 
-	//tao xe
-	//de lam object pooling sau	
-
-	//test
-	//std::vector<CCAR> generatedCars;
-	CCAR newCar;
-	for (int i = 0; i < 6; i++) {
-		generatedCars.push_back(newCar);
-	}
-
-	std::vector<CTRUCK> generatedTrucks;
-	CTRUCK newTruck;
-	for (int i = 0; i < 6; i++) {
-		generatedTrucks.push_back(newTruck);
-	}
-
 	std::vector<CVEHICLE*> generatedVehicles;
-	for (int i = 0; i < 6; i++) {
-		generatedVehicles.push_back(&generatedTrucks[i]);
-		generatedVehicles[i]->loadTexture(-500 * i);
-	}
 
-	for (int i = 0; i < 6; i++) {
-		generatedVehicles.push_back(&generatedCars[i]);
-		generatedVehicles[6 + i]->loadTexture(-500 * i);
-	}
 
+	for (int i = 0; i < 12; i++) {
+		if (i < 6) {
+			CCAR* tempCar = new CCAR;
+			generatedVehicles.push_back(tempCar);
+		}
+		else {
+			CTRUCK* tempTruck = new CTRUCK;
+			generatedVehicles.push_back(tempTruck);
+		}
+		generatedVehicles[i]->loadTexture(-500 * (i < 6 ? i : i - 6));
+	}
 	//
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
