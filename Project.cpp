@@ -16,14 +16,14 @@ void main(int argc, char** argv[]) {
 
 
 	for (int i = 0; i < 12; i++) {
+		CVEHICLE* temp;
 		if (i < 6) {
-			CCAR* tempCar = new CCAR;
-			generatedVehicles.push_back(tempCar);
+			temp = new CCAR;
 		}
 		else {
-			CTRUCK* tempTruck = new CTRUCK;
-			generatedVehicles.push_back(tempTruck);
+			temp = new CTRUCK;
 		}
+		generatedVehicles.push_back(temp);
 		generatedVehicles[i]->loadTexture(-500 * (i < 6 ? i : i - 6));
 	}
 	//
@@ -37,15 +37,7 @@ void main(int argc, char** argv[]) {
 			}
 		}
 
-		//std::thread t1(drawObjects<CCAR>, std::ref(window), std::ref(generatedCars));
-		//std::thread t2(drawObjects<CTRUCK>, std::ref(window), std::ref(generatedTrucks));
-		//t1.join();
-		////t2.join();
-
 		drawObjects(window, generatedVehicles);
-		//drawObjects(window, generatedTrucks);
-		//hien gio chua ve ca 2 duoc, khong dung thread duoc nen co the se ket hop de ve chung trong mot ham tat ca luon
-		//de van dung polymorphism
 
 		window.display();
 	}
