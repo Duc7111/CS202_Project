@@ -155,6 +155,7 @@ void keyHandler(KEY_EVENT_RECORD key) {
 					currentIndex--;
 				gameMenu(currentIndex);
 			}
+			break;
 		}
 		case KEY_DOWN: {
 			clrscr();
@@ -165,6 +166,7 @@ void keyHandler(KEY_EVENT_RECORD key) {
 					currentIndex++;
 				gameMenu(currentIndex);
 			}
+			break;
 		}
 		case '\r': //phim enter
 			clrscr();
@@ -184,6 +186,7 @@ void keyHandler(KEY_EVENT_RECORD key) {
 				}
 				}
 			}
+			break;
 		}
 	}
 }
