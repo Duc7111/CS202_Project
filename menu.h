@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <Windows.h>
 extern int menu, currentIndex;
 #define KEY_UP 0x26

@@ -1,6 +1,10 @@
 #include "menu.h"
 #include <stdio.h>
+#include <string>
+#include "game.h"
 int menu, currentIndex;
+HANDLE console::input;
+HANDLE console::output;
 void eventHandler()
 {
 	while (1)
@@ -26,15 +30,7 @@ void eventHandler()
 		}
 	}
 }
-void keyHandler(KEY_EVENT_RECORD key) {
-	if (key.bKeyDown) {
-		switch (key.wVirtualKeyCode) {
-		case KEY_UP:
-			clrscr();
-			//cho nay la co menu
-		}
-	}
-}
+
 
 void clrscr(void)
 {
@@ -112,11 +108,6 @@ void resettextattr()
 	SetConsoleTextAttribute(console::output, Mau_Mac_Dinh);
 }
 
-void resettextattr()
-{
-	DWORD Mau_Mac_Dinh = textattr();
-	SetConsoleTextAttribute(console::output, Mau_Mac_Dinh);
-}
 
 void inChuCoMau(SHORT x, SHORT y, WORD color, WORD background, LPSTR str, ...)
 {
@@ -138,20 +129,61 @@ void inChuCoMau(SHORT x, SHORT y, WORD color, WORD background, LPSTR str, ...)
 void gameMenu(short index) {
 	clrscr();
 	menu = 0;
-
+	std::string s;
+	currentIndex = index;
+	s = "1. Play\n";
 	LPSTR STRTextMenuChinh = const_cast<char*>(s.c_str());
-	inChuCoMau((ConsoleWidth / 2) - (strlen(STRTextMenuChinh) / 2), 2, 3, 0, STRTextMenuChinh);
-
-
-	currentIndex = index; //tuong tu tren
-	s = "1. Play";
-	STRTextMenuChinh = const_cast<char*>(s.c_str());
 	inChuCoMau((ConsoleWidth / 2) - (strlen(STRTextMenuChinh) / 2), 6, 15, ((currentIndex == 0) ? 2 : 0), STRTextMenuChinh);
-	s = "2. High score";
+	s = "2. High score\n";
 	STRTextMenuChinh = const_cast<char*>(s.c_str());
 	inChuCoMau((ConsoleWidth / 2) - (strlen(STRTextMenuChinh) / 2), 7, 15, ((currentIndex == 1) ? 2 : 0), STRTextMenuChinh);
-	s = "3. Exit";
+	s = "3. Exit\n";
 	STRTextMenuChinh = const_cast<char*>(s.c_str());
 	inChuCoMau((ConsoleWidth / 2) - (strlen(STRTextMenuChinh) / 2), 8, 15, ((currentIndex == 2) ? 2 : 0), STRTextMenuChinh);
 
+}
+
+void keyHandler(KEY_EVENT_RECORD key) {
+	if (key.bKeyDown) {
+		switch (key.wVirtualKeyCode) {
+		case KEY_UP: {
+			clrscr();
+			if (menu == 0) {
+				if (currentIndex == 0)
+					currentIndex = 2;
+				else
+					currentIndex--;
+				gameMenu(currentIndex);
+			}
+		}
+		case KEY_DOWN: {
+			clrscr();
+			if (menu == 0) {
+				if (currentIndex == 2)
+					currentIndex = 0;
+				else
+					currentIndex++;
+				gameMenu(currentIndex);
+			}
+		}
+		case '\r': //phim enter
+			clrscr();
+			if (menu == 0) { //o menu start game
+				switch (currentIndex) {
+				case 0: { //index 0 
+					playGame();
+					break;
+				}
+				case 1: {
+					//highScore();
+					break;
+				}
+				case 2: {
+					exit(0);
+					break;
+				}
+				}
+			}
+		}
+	}
 }

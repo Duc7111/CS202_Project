@@ -1,4 +1,5 @@
-﻿#include "vehicle.h"
+﻿#include <SFML/Graphics.hpp>
+#include "vehicle.h"
 #include "animal.h"
 #include "people.h"
 #include <Windows.h>
@@ -54,28 +55,6 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	}
 
 }
-//void drawObjects(sf::RenderWindow& window, std::vector<T>& generated) {
-//
-//	for (int i = 0; i < generated.size(); i++) {
-//		float newX = generated[i].sprite.getPosition().x + (speed * timeStep);
-//		if (newX > 1840)
-//			newX = setX;
-//		generated[i].sprite.setPosition(newX, YCar);
-//	}
-//
-//	/*if (newX == 20.f)
-//		generateCar();*/
-//
-//	for (int i = 0; i < generated.size(); i++) {
-//		if (generated[i].sprite.getPosition().x > 1840) {
-//			generated[i].sprite.setPosition(setX, YCar);
-//		}
-//
-//	}
-//
-//	window.clear(sf::Color(16, 16, 16, 255)); //do cai cau nay nen mat xe cu
-//
-//	for (T car : generated)
-//		window.draw(car.sprite);
-//}
 
+void playGame();
+void highScore();
