@@ -1,6 +1,6 @@
 #include "game.h"
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1840, 1250),
+	sf::RenderWindow window(sf::VideoMode(1200, 1200),
 		"PROJECT CS202");
 
 	sf::Clock clock;
