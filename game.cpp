@@ -1,7 +1,6 @@
 #include "game.h"
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1200, 1200),
-		"PROJECT CS202");
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;

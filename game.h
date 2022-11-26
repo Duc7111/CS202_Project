@@ -32,7 +32,7 @@ public:
 
 };
 const float setX = -1500;
-const float speed = 25;
+const float speed = 10;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
 extern CVEHICLE** vehicles; //mang chua cac loai xe ung dung polymorphism
@@ -42,7 +42,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 
 	for (int i = 0; i < generated.size(); i++) {
 		float newX = generated[i]->getSprite().getPosition().x + (speed * timeStep);
-		if (newX > 1500)
+		if (newX > 1400)
 			newX = setX;
 		float currentY = generated[i]->getSprite().getPosition().y;
 		generated[i]->setPosition(newX, currentY);
