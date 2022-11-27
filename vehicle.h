@@ -40,6 +40,12 @@ public:
 	sf::Texture getTexture();
 };
 
+class CROAD : public CVEHICLE {
+	void loadTexture(float x);
+	sf::Sprite getSprite();
+	sf::Texture getTexture();
+};
+
 extern std::vector<CCAR> cars;
 extern std::vector<CCAR> generatedCars;
 void generateCar(); //tao mot xe
