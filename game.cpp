@@ -1,6 +1,6 @@
 #include "game.h"
 
-enum gameState{END, CON, PAUSE};
+enum gameState { END, CON, PAUSE };
 
 CGAME::CGAME() : level(0)
 {
@@ -70,7 +70,8 @@ void CGAME::startGame()
 		updatePosAnimal();
 		updatePosVehicle();
 		//condition check
-		if (cn.isDead()) gS = END;
+		if (cn.isDead())
+			gS = END;
 
 		//screen drawing
 	}
@@ -115,7 +116,7 @@ void CGAME::saveGame(ofstream& fout)
 	{
 		bool b = typeid(*p) == typeid(CTRUCK);
 		fout.write((char*)&b, sizeof(b));
-		if(b) fout.write((char*)p, sizeof(CTRUCK));
+		if (b) fout.write((char*)p, sizeof(CTRUCK));
 		else fout.write((char*)p, sizeof(CVEHICLE));
 	}
 	for (CANIMAL* p : arrAnimal)
