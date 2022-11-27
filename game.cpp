@@ -59,8 +59,8 @@ CANIMAL* makeAnimal(bool b)
 void CGAME::startGame()
 {
 	//Initialize
-	gameState gS;
-	char input;
+	gameState gS = CON;
+	char input = 0;
 	//inputing thread
 
 	while (gS)
@@ -70,7 +70,7 @@ void CGAME::startGame()
 		updatePosAnimal();
 		updatePosVehicle();
 		//condition check
-		if (cn.isDead()) gS = END;
+		//if (cn.isDead()) gS = END;
 
 		//screen drawing
 	}
