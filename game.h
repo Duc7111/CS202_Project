@@ -55,8 +55,6 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 		generated[i]->setPosition(newX, currentY);
 	}
 
-	window.clear(sf::Color(16, 16, 16, 255)); //do cai cau nay nen mat xe cu
-
 	for (int i = 0; i < generated.size(); i++) {
 		window.draw(generated[i]->getSprite());
 	}

@@ -1,15 +1,15 @@
-﻿
-#include "graphics.h"
+﻿#include "graphics.h"
 #include "vehicle.h"
 #include "game.h"
 #include <iostream>
-#include <thread>
+//#include <thread>
 #include "menu.h"
 
-void main(int argc, char** argv[]) {
+int main(int argc, char** argv[]) {
 	//them may cai event handler o day
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
 	gameMenu(0);
 	eventHandler();
+	return 0;
 }

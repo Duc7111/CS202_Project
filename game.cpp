@@ -155,7 +155,7 @@ void CGAME::updatePosAnimal()
 }
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -175,7 +175,8 @@ void playGame() {
 		generatedVehicles[i]->loadTexture(-500 * (i < 6 ? i : i - 6));
 	}
 	//
-
+	CPEOPLE player;
+	player.loadTexture();
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 	while (window.isOpen()) {
 		sf::Event event;
@@ -183,7 +184,28 @@ void playGame() {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
+			if (event.type == sf::Event::KeyPressed) {
+				switch (event.key.code) {
+				case sf::Keyboard::Key::W:
+					player.goUp();
+					break;
+				case sf::Keyboard::Key::S:
+					player.goDown();
+					break;
+				case sf::Keyboard::Key::A:
+					player.goLeft();
+					break;
+				case sf::Keyboard::Key::D:
+					player.goRight();
+					break;
+				default:
+					break;
+				}
+			}
 		}
+		window.clear();
+
+		player.drawInWindow(window);
 
 		drawObjects(window, generatedVehicles);
 
