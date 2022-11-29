@@ -65,9 +65,6 @@
     <ClInclude Include="menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="collider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -77,6 +74,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="truck.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player_back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player_front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="player_right.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
