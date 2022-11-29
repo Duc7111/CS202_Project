@@ -65,7 +65,6 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	//ROAD newRoad2;
 	//newRoad2.drawRoad(window, YTruck + 50);
 }
-
+void moveWorld(sf::RenderWindow& window, const CPEOPLE& player);
 void playGame();
 void highScore();
-

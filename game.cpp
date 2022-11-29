@@ -155,6 +155,28 @@ void CGAME::updatePosAnimal()
 
 }
 
+void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
+	sf::View view = window.getView();
+	sf::Vector2i position = player.getPosition();
+	unsigned int direction = player.getDirection();
+	switch (player.getDirection()) {
+	case 1: {
+		view.move(0, -4);
+		//thay doi limit di chuyen
+	}
+	case 2: //di xuong
+	{
+		if (position.x > 0)
+			view.move(0, 4);
+		//limit view di xuong luc ban dau
+		//thay doi limit di chuyen
+		break;
+	}
+	//queo trai, queo phai khong can di chuyen view
+	}
+	window.setView(view);
+}
+
 void playGame() {
 	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
@@ -235,7 +257,7 @@ void playGame() {
 		road1.drawRoad(window);
 		road2.drawRoad(window);
 
-		player.drawInWindow(window);
+		player.drawPlayer(window);
 
 		drawObjects(window, generatedVehicles);
 
