@@ -213,7 +213,7 @@ void playGame() {
 				default:
 					break;
 				}
-				moveWorld(window, player.mDirection);
+				player.moveWorld(window);
 			}
 		}
 		window.clear();
@@ -233,20 +233,3 @@ void playGame() {
 }
 
 
-void moveWorld(sf::RenderWindow& window, int mDirection) {
-	sf::View view = window.getView();
-	switch (mDirection) {
-	case 1: //di len
-	{
-		view.move(0, -10);
-		break;
-	}
-	case 2: //di xuong
-	{
-		view.move(0, 10);
-		break;
-	}
-	//queo trai, queo phai khong can di chuyen view
-	}
-	window.setView(view);
-}

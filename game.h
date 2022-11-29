@@ -69,4 +69,3 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 void playGame();
 void highScore();
 
-void moveWorld(sf::RenderWindow& window, int mDirection);
