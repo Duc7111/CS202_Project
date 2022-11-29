@@ -31,7 +31,7 @@ unsigned int CPEOPLE::getDirection() {
 }
 
 void CPEOPLE::goUp() {
-	if (mY == 18) return;
+	//if (mY == 18) return;
 	if (mDirection != 1) {
 		mDirection = 1;
 		sprite.setTexture(texture[0]);
@@ -84,4 +84,26 @@ bool CPEOPLE::isFinish()
 bool CPEOPLE::isDead()
 {
 	return false;
+}
+
+void CPEOPLE::moveWorld(sf::RenderWindow& window) {
+	sf::View view = window.getView();
+	switch (mDirection) {
+	case 1: //di len
+	{
+		view.move(0, -4);
+		//thay doi limit di chuyen
+		break;
+	}
+	case 2: //di xuong
+	{
+		if (mY > 0)
+			view.move(0, 4);
+		//limit view di xuong luc ban dau
+		//thay doi limit di chuyen
+		break;
+	}
+	//queo trai, queo phai khong can di chuyen view
+	}
+	window.setView(view);
 }
