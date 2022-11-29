@@ -26,7 +26,7 @@ sf::Vector2i CPEOPLE::getPosition() const {
 	return sf::Vector2i(mX, mY);
 }
 
-unsigned int CPEOPLE::getDirection() {
+unsigned int CPEOPLE::getDirection() const {
 	return mDirection;
 }
 
@@ -84,26 +84,4 @@ bool CPEOPLE::isFinish()
 bool CPEOPLE::isDead()
 {
 	return false;
-}
-
-void CPEOPLE::moveWorld(sf::RenderWindow& window) {
-	sf::View view = window.getView();
-	switch (mDirection) {
-	case 1: //di len
-	{
-		view.move(0, -4);
-		//thay doi limit di chuyen
-		break;
-	}
-	case 2: //di xuong
-	{
-		if (mY > 0)
-			view.move(0, 4);
-		//limit view di xuong luc ban dau
-		//thay doi limit di chuyen
-		break;
-	}
-	//queo trai, queo phai khong can di chuyen view
-	}
-	window.setView(view);
 }

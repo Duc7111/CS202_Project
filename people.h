@@ -16,7 +16,7 @@ public:
 	void loadTexture(); // load texture
 	void drawPlayer(sf::RenderWindow& window); // draw current object	sf::Vector2i getPosition(); // Return mY, mX in the form of sf::Vector2i
 	sf::Vector2i getPosition() const;
-	unsigned int getDirection();
+	unsigned int getDirection() const;
 	void goUp(); // go up
 	void goDown(); // go down
 	void goRight(); // go right
@@ -25,6 +25,4 @@ public:
 	bool isImpact(const CANIMAL*&);
 	bool isFinish();
 	bool isDead();
-
-	void moveWorld(sf::RenderWindow& window);
 };
