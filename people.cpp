@@ -28,7 +28,7 @@ sf::Vector2i CPEOPLE::getPosition() const {
 }
 
 void CPEOPLE::goUp() {
-	if (mY == 17) return;
+	//if (mY == 17) return;
 	if (mDirection != 1) {
 		mDirection = 1;
 		sprite.setTexture(texture[0]);

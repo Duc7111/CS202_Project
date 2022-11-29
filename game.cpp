@@ -185,7 +185,10 @@ void playGame() {
 	sf::Texture bgTexture;
 	bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(bgTexture);
+
 	bg.setScale(1280, 720);
+	sf::Sprite bg2(bg); //de keo len trong moveWorld
+	bg2.setPosition(0, -1280);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -218,6 +221,7 @@ void playGame() {
 		}
 		window.clear();
 		window.draw(bg);
+		window.draw(bg2);
 		road1.drawRoad(window);
 		road2.drawRoad(window);
 
