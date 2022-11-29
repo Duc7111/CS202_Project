@@ -4,5 +4,8 @@ class ROAD {
 private:
 	sf::Sprite sprite;
 	sf::Texture texture;
-};
 
+public:
+	void loadTexture(float y);
+	void drawRoad(sf::RenderWindow& window);
+};

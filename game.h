@@ -2,7 +2,7 @@
 #include "vehicle.h"
 #include "animal.h"
 #include "people.h"
-
+#include "road.h"
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
@@ -12,7 +12,7 @@
 #define LEVEL_MAX 5
 
 using namespace std;
-class CGAME 
+class CGAME
 {
 private:
 	unsigned short level;
@@ -58,7 +58,10 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	for (int i = 0; i < generated.size(); i++) {
 		window.draw(generated[i]->getSprite());
 	}
-
+	//ROAD newRoad;
+	//newRoad.drawRoad(window, YCar + 50);
+	//ROAD newRoad2;
+	//newRoad2.drawRoad(window, YTruck + 50);
 }
 
 void playGame();

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "road.h"
 
 enum gameState { END, CON, PAUSE };
 
@@ -176,8 +177,13 @@ void playGame() {
 	}
 	//
 	CPEOPLE player;
+	ROAD road1, road2;
 	player.loadTexture();
+	road1.loadTexture(YCar + 50);
+	road2.loadTexture(YTruck + 50);
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
+
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -204,10 +210,12 @@ void playGame() {
 			}
 		}
 		window.clear();
-
+		road1.drawRoad(window);
+		road2.drawRoad(window);
 		player.drawInWindow(window);
 
 		drawObjects(window, generatedVehicles);
+
 
 		window.display();
 	}
