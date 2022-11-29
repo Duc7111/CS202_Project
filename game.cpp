@@ -156,7 +156,7 @@ void CGAME::updatePosAnimal()
 }
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1240, 1020), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -185,7 +185,7 @@ void playGame() {
 	sf::Texture bgTexture;
 	bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(bgTexture);
-	bg.setScale(1280, 1020);
+	bg.setScale(1280, 720);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -224,7 +224,11 @@ void playGame() {
 
 		drawObjects(window, generatedVehicles);
 
+		CGAME::current = window.getView().getCenter();
+		cout << "Current view center: " << CGAME::current.x << " - " << CGAME::current.y << "\n";
 
 		window.display();
 	}
 }
+
+sf::Vector2f CGAME::current;

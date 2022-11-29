@@ -1,7 +1,7 @@
 #include "graphics.h"
 #pragma once
-const float YCar = 350.f;
-const float YTruck = 600.f;
+const float YCar = 150.f;
+const float YTruck = 400.f;
 
 
 class CVEHICLE {

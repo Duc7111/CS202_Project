@@ -6,7 +6,7 @@ sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	return sf::Vector2f(x, y);
 }
 
-CPEOPLE::CPEOPLE() : mX(15), mY(17), mDirection(0), mState(1) {}
+CPEOPLE::CPEOPLE() : mX(15), mY(0), mDirection(0), mState(1) {}
 
 void CPEOPLE::loadTexture() {
 	texture[0].loadFromFile("player_back.png");
