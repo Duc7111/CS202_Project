@@ -1,7 +1,7 @@
 #include "graphics.h"
 #pragma once
-const float YCar = 150.f;
-const float YTruck = 400.f;
+extern float YCar;
+extern float YTruck;
 
 
 class CVEHICLE {
@@ -45,4 +45,3 @@ extern std::vector<CCAR> cars;
 extern std::vector<CCAR> generatedCars;
 void generateCar(); //tao mot xe
 
-void drawCar(sf::RenderWindow& window, std::vector<CCAR>& generatedCars);

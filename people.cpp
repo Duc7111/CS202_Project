@@ -83,24 +83,41 @@ bool CPEOPLE::isDead()
 	return false;
 }
 
-void CPEOPLE::moveWorld(sf::RenderWindow& window) {
+void moveWorld(sf::RenderWindow& window, const CPEOPLE& player)
+{
+
 	sf::View view = window.getView();
-	switch (mDirection) {
+	bool set = false;
+	switch (player.mDirection) {
 	case 1: //di len
 	{
-		view.move(0, -4);
+		set = true;
+
 		//thay doi limit di chuyen
+		if (player.mY % 15 == 0) //cai nay nghia la cham den gioi han background hien tai
+		{
+			//YCar -= 600;
+			//YTruck -= 600;
+			//std::cout << YCar << "\n";
+			//std::cout << player.mY << "\n";
+			//phai dat vi tri duong va xe tuong ung theo YCar va YTruck nay
+		}
 		break;
 	}
 	case 2: //di xuong
 	{
-		if (mY > 0)
-			view.move(0, 4);
+		if (player.mY > 0)
+			set = true;
 		//limit view di xuong luc ban dau
 		//thay doi limit di chuyen
 		break;
 	}
 	//queo trai, queo phai khong can di chuyen view
 	}
+	window.clear();
+	view.setCenter(player.sprite.getPosition());
+
+
 	window.setView(view);
+
 }

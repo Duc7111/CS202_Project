@@ -7,10 +7,11 @@
 class CPEOPLE {
 	int mX, mY; // position in the cell-based location system
 	bool mState; // state of living (mState = true if player is alive)
-
-	sf::Texture texture[4];
 	static sf::Vector2f drawPosition(int mX, int mY);
+	sf::Texture texture[4];
+
 public:
+
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
 	sf::Sprite sprite;
 	CPEOPLE();
@@ -26,5 +27,5 @@ public:
 	bool isFinish();
 	bool isDead();
 
-	void moveWorld(sf::RenderWindow& window);
+	friend void moveWorld(sf::RenderWindow& window, const CPEOPLE& player);
 };

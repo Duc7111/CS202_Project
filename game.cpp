@@ -187,13 +187,17 @@ void playGame() {
 	sf::Sprite bg(bgTexture);
 
 	bg.setScale(1280, 720);
+	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(0, -1280);
+	bg2.setPosition(-100, -1280);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
+	sf::View camera;
 
 	while (window.isOpen()) {
+
+		//std::cout << player.drawPosition(15, 0).y << " "; //680
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
@@ -216,10 +220,16 @@ void playGame() {
 				default:
 					break;
 				}
-				player.moveWorld(window);
+				moveWorld(window, player);
 			}
 		}
+		moveWorld(window, player);
 		window.clear();
+
+		//camera.setCenter(player.sprite.getPosition());
+		//camera.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
+		//window.setView(camera);
+
 		window.draw(bg);
 		window.draw(bg2);
 		road1.drawRoad(window);
@@ -228,6 +238,7 @@ void playGame() {
 		player.drawInWindow(window);
 
 		drawObjects(window, generatedVehicles);
+
 
 		/*CGAME::current = window.getView();*/
 

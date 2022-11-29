@@ -3,8 +3,10 @@
 std::vector<CCAR> generatedCars;
 std::vector<CCAR> cars;
 
+float YCar = 150.f;
+float YTruck = 400.f;
+
 void CCAR::loadTexture(float x) {
-	std::cout << "car load\n";
 	CVEHICLE::texture.loadFromFile("car.png");
 	CVEHICLE::sprite = sf::Sprite(CVEHICLE::texture);
 	sf::Vector2u size = texture.getSize();
@@ -14,7 +16,6 @@ void CCAR::loadTexture(float x) {
 	sprite.setPosition(x, YCar);
 }
 void CTRUCK::loadTexture(float x) {
-	std::cout << "truck load\n";
 	CVEHICLE::texture.loadFromFile("truck.png");
 	CVEHICLE::sprite = sf::Sprite(CVEHICLE::texture);
 	sf::Vector2u size = texture.getSize();
