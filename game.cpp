@@ -155,7 +155,7 @@ void CGAME::updatePosAnimal()
 }
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1240, 1020), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;

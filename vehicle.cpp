@@ -35,41 +35,7 @@ sf::Texture CCAR::getTexture() {
 sf::Texture CTRUCK::getTexture() {
 	return this->texture;
 }
-//CCAR::CCAR() //load sprite tu texture o day
-//{
-//	loadTexture();
-//	//day vao vector chua cac xe da tao
-//}
-//CCAR::CCAR(float x) {
-//	/*texture.loadFromFile("car.png");
-//	sprite = sf::Sprite(texture);
-//	sf::Vector2u size = texture.getSize();
-//	sprite.setOrigin(size.x / 2, size.y / 2);
-//	sf::Vector2f increment(0.4f, 0.4f);
-//	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-//	sprite.setPosition(x, YCar);*/
-//
-//	loadTexture(x);
-//}
-//
-//CTRUCK::CTRUCK() {
-//	texture.loadFromFile("truck.png");
-//	sprite = sf::Sprite(texture);
-//	sf::Vector2u size = texture.getSize();
-//	sprite.setOrigin(size.x / 2, size.y / 2);
-//	sf::Vector2f increment(0.4f, 0.4f);
-//	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-//	sprite.setPosition(10.f, YTruck);
-//}
-//CTRUCK::CTRUCK(float x) {
-//	texture.loadFromFile("truck.png");
-//	sprite = sf::Sprite(texture);
-//	sf::Vector2u size = texture.getSize();
-//	sprite.setOrigin(size.x / 2, size.y / 2);
-//	sf::Vector2f increment(0.4f, 0.4f);
-//	sprite.scale(sf::Vector2f(0.25f, 0.25f));
-//	sprite.setPosition(x, YTruck);
-//}
+
 void CVEHICLE::Move(float x, float y) {
 	sprite.move(x, y);
 }

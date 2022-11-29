@@ -1,7 +1,7 @@
 #include "graphics.h"
 #pragma once
 const float YCar = 250.f;
-const float YTruck = 750.f;
+const float YTruck = 500.f;
 
 
 class CVEHICLE {
@@ -40,11 +40,6 @@ public:
 	sf::Texture getTexture();
 };
 
-class CROAD : public CVEHICLE {
-	void loadTexture(float x);
-	sf::Sprite getSprite();
-	sf::Texture getTexture();
-};
 
 extern std::vector<CCAR> cars;
 extern std::vector<CCAR> generatedCars;
