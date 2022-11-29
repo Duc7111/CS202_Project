@@ -174,6 +174,8 @@ void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
 	}
 	//queo trai, queo phai khong can di chuyen view
 	}
+	window.clear();
+	view.setCenter(player.getPositionInWorld());
 	window.setView(view);
 }
 
@@ -195,7 +197,7 @@ void playGame() {
 			temp = new CTRUCK;
 		}
 		generatedVehicles.push_back(temp);
-		generatedVehicles[i]->loadTexture(-500 * (i < 6 ? i : i - 6));
+		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400);
 	}
 	//
 	CPEOPLE player;
@@ -215,7 +217,6 @@ void playGame() {
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
-	sf::View camera;
 
 	while (window.isOpen()) {
 
@@ -242,7 +243,6 @@ void playGame() {
 				default:
 					break;
 				}
-				moveWorld(window, player);
 			}
 		}
 		moveWorld(window, player);

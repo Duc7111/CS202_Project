@@ -26,6 +26,10 @@ sf::Vector2i CPEOPLE::getPosition() const {
 	return sf::Vector2i(mX, mY);
 }
 
+sf::Vector2f CPEOPLE::getPositionInWorld() const {
+	return sprite.getPosition();
+}
+
 unsigned int CPEOPLE::getDirection() const {
 	return mDirection;
 }

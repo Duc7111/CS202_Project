@@ -40,7 +40,7 @@ public:
 	void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 
 };
-const float setX = -1500;
+const float setX = -1200;
 const float speed = 10;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
@@ -51,7 +51,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 
 	for (int i = 0; i < generated.size(); i++) {
 		float newX = generated[i]->getSprite().getPosition().x + (speed * timeStep);
-		if (newX > 1400)
+		if (newX >= 1600)
 			newX = setX;
 		float currentY = generated[i]->getSprite().getPosition().y;
 		generated[i]->setPosition(newX, currentY);
