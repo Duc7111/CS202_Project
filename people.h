@@ -7,10 +7,11 @@
 class CPEOPLE {
 	int mX, mY; // position in the cell-based location system
 	bool mState; // state of living (mState = true if player is alive)
-	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
+
 	sf::Texture texture[4];
-	static sf::Vector2f drawPosition(int mX, int mY); 
+	static sf::Vector2f drawPosition(int mX, int mY);
 public:
+	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
 	sf::Sprite sprite;
 	CPEOPLE();
 	void loadTexture(); // load texture

@@ -22,7 +22,6 @@ private:
 	vector<CANIMAL*> arrAnimal;
 	CPEOPLE cn;
 public:
-	static sf::Vector2f current;
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
 	~CGAME(); // Hủy tài nguyên đã cấp phát
@@ -70,4 +69,4 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 void playGame();
 void highScore();
 
-void moveWorld(sf::Vector2f destination);
+void moveWorld(sf::RenderWindow& window, int mDirection);

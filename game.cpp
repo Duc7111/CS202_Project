@@ -213,6 +213,7 @@ void playGame() {
 				default:
 					break;
 				}
+				moveWorld(window, player.mDirection);
 			}
 		}
 		window.clear();
@@ -224,11 +225,28 @@ void playGame() {
 
 		drawObjects(window, generatedVehicles);
 
-		CGAME::current = window.getView().getCenter();
-		cout << "Current view center: " << CGAME::current.x << " - " << CGAME::current.y << "\n";
+		/*CGAME::current = window.getView();*/
+
 
 		window.display();
 	}
 }
 
-sf::Vector2f CGAME::current;
+
+void moveWorld(sf::RenderWindow& window, int mDirection) {
+	sf::View view = window.getView();
+	switch (mDirection) {
+	case 1: //di len
+	{
+		view.move(0, -10);
+		break;
+	}
+	case 2: //di xuong
+	{
+		view.move(0, 10);
+		break;
+	}
+	//queo trai, queo phai khong can di chuyen view
+	}
+	window.setView(view);
+}
