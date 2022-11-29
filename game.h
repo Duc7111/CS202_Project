@@ -11,6 +11,8 @@
 
 #define LEVEL_MAX 5
 
+const float roadOffset = 175;
+
 using namespace std;
 class CGAME
 {

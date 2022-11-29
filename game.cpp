@@ -178,9 +178,15 @@ void playGame() {
 	//
 	CPEOPLE player;
 	ROAD road1, road2;
+	GRASS grass, grass2, grass3, grass4, grass5;
 	player.loadTexture();
 	road1.loadTexture(YCar + 50);
 	road2.loadTexture(YTruck + 50);
+	grass.loadTexture(YCar + roadOffset);
+	grass2.loadTexture(YTruck + roadOffset);
+	grass3.loadTexture(YTruck + (2 * roadOffset) - 30);
+	grass4.loadTexture(140);
+	grass5.loadTexture(2 * roadOffset - 75);
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
 
@@ -212,6 +218,11 @@ void playGame() {
 		window.clear();
 		road1.drawRoad(window);
 		road2.drawRoad(window);
+		grass.drawRoad(window);
+		grass2.drawRoad(window);
+		grass3.drawRoad(window);
+		grass4.drawRoad(window);
+		grass5.drawRoad(window);
 		player.drawInWindow(window);
 
 		drawObjects(window, generatedVehicles);
