@@ -213,7 +213,7 @@ void playGame() {
 				default:
 					break;
 				}
-				moveWorld(window, player.mDirection);
+				moveWorld(window, player.getDirection());
 			}
 		}
 		window.clear();
@@ -221,7 +221,7 @@ void playGame() {
 		road1.drawRoad(window);
 		road2.drawRoad(window);
 
-		player.drawInWindow(window);
+		player.drawPlayer(window);
 
 		drawObjects(window, generatedVehicles);
 

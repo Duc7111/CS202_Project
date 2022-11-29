@@ -1,8 +1,8 @@
 #include "people.h"
 
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
-	float x = (mX / 31.0f) * 1240;
-	float y = ((18.0f - (mY + 1.0f)) / 18.0f) * 720;
+	float x = (mX / 19.0f) * 1216;
+	float y = ((10.0f - mY) / 11.0f) * 640;
 	return sf::Vector2f(x, y);
 }
 
@@ -14,11 +14,10 @@ void CPEOPLE::loadTexture() {
 	texture[2].loadFromFile("player_right.png");
 	texture[3].loadFromFile("player_left.png");
 	sprite.setTexture(texture[0]);
-	std::cout << drawPosition(mX, mY).x << " " << drawPosition(mX, mY).y;
 	sprite.setPosition(drawPosition(mX, mY));
 }
 
-void CPEOPLE::drawInWindow(sf::RenderWindow& window) {
+void CPEOPLE::drawPlayer(sf::RenderWindow& window) {
 	sprite.setPosition(drawPosition(mX, mY));
 	window.draw(sprite);
 }
@@ -27,8 +26,12 @@ sf::Vector2i CPEOPLE::getPosition() const {
 	return sf::Vector2i(mX, mY);
 }
 
+unsigned int CPEOPLE::getDirection() {
+	return mDirection;
+}
+
 void CPEOPLE::goUp() {
-	if (mY == 17) return;
+	if (mY == 18) return;
 	if (mDirection != 1) {
 		mDirection = 1;
 		sprite.setTexture(texture[0]);
@@ -46,7 +49,7 @@ void CPEOPLE::goDown() {
 }
 
 void CPEOPLE::goRight() {
-	if (mX == 30) return;
+	if (mX == 18) return;
 	if (mDirection != 3) {
 		mDirection = 3;
 		sprite.setTexture(texture[2]);
