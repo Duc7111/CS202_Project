@@ -33,12 +33,8 @@ public:
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
 	void loadGame(ifstream&); // Thực hiện tải lại trò chơi đã lưu
 	void saveGame(ofstream&); // Thực hiện lưu lại dữ liệu trò chơi
-	void pauseGame(HANDLE); // Tạm dừng Thread
-	void resumeGame(HANDLE); //Quay lai Thread
-	void updatePosPeople(char); //Thực hiện điều khiển di chuyển của CPEOPLE
-	void updatePosVehicle(); //Thực hiện cho CTRUCK & CCAR di chuyển
-	void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
-
+	static void pauseGame(); // Tạm dừng Thread
+	//void resumeGame(); //Quay lai Thread
 };
 const float setX = -1200;
 const float speed = 10;

@@ -1,8 +1,6 @@
 #include "game.h"
 #include "road.h"
 
-enum gameState { END, CON, PAUSE };
-
 CGAME::CGAME() : level(0)
 {
 	//Add code if needed
@@ -60,16 +58,11 @@ CANIMAL* makeAnimal(bool b)
 void CGAME::startGame()
 {
 	//Initialize
-	gameState gS = CON;
-	char input = 0;
 	//inputing thread
 
-	while (gS)
+	while (false)
 	{
 		//data controlling
-		updatePosPeople(input);
-		updatePosAnimal();
-		updatePosVehicle();
 		//condition check
 		//if (cn.isDead()) gS = END;
 
@@ -130,29 +123,98 @@ void CGAME::saveGame(ofstream& fout)
 	fout.write((char*)&cn, sizeof(cn));
 }
 //Continnue when game is good designed
-void CGAME::pauseGame(HANDLE)
+void CGAME::pauseGame()
 {
+	sf::RenderWindow window(sf::VideoMode(400, 200), "Pause screen", sf::Style::None);
+	bool moveInput[2] = { 1,1 };
+	sf::Font font;
+	if (!font.loadFromFile("ARLRDBD.TTF")) exit(0);
+	sf::Text Title, opt[3];
+	Title.setFont(font); 
+	Title.setStyle(sf::Text::Bold);
+	Title.setString("PAUSE");
+	Title.setCharacterSize(50);
 
-}
+	opt[0].setFont(font);
+	opt[0].setString("Continue");
+	opt[0].setCharacterSize(30);
+	opt[0].setPosition(sf::Vector2f(0.f, 60.f));
+	opt[0].setStyle(sf::Text::Underlined);
 
-void CGAME::resumeGame(HANDLE)
-{
+	opt[1].setFont(font);
+	opt[1].setString("Save");
+	opt[1].setCharacterSize(30);
+	opt[1].setPosition(sf::Vector2f(0.f, 100.f));
 
-}
+	opt[2].setFont(font);
+	opt[2].setString("Quit");
+	opt[2].setCharacterSize(30);
+	opt[2].setPosition(sf::Vector2f(0.f, 140.f));
+	int i = 0;
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+				window.close();
+			if (event.type == sf::Event::KeyReleased)
+			{
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Up:
+					moveInput[0] = true;
+					break;
 
-void CGAME::updatePosPeople(char input)
-{
+				case sf::Keyboard::Down:
+					moveInput[1] = true;
+					break;
 
-}
-
-void CGAME::updatePosVehicle()
-{
-
-}
-
-void CGAME::updatePosAnimal()
-{
-
+				default:
+					break;
+				}
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && moveInput[0])
+		{
+			if (i > 0)
+			{
+				opt[i].setStyle(sf::Text::Regular);
+				opt[--i].setStyle(sf::Text::Underlined);
+			}
+			moveInput[0] = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && moveInput[1])
+		{
+			if (i < 2)
+			{
+				opt[i].setStyle(sf::Text::Regular);
+				opt[++i].setStyle(sf::Text::Underlined);
+			}
+			moveInput[1] = false;
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			switch(i)
+			{
+			case 0:
+				window.close();
+				break;
+			case 1:
+				//saving functions...
+				window.close();
+				break;
+			case 2:
+				//return something, modify later
+				window.close();
+				break;
+			}
+		window.clear();
+		window.draw(Title);
+		window.draw(opt[0]);
+		window.draw(opt[1]);
+		window.draw(opt[2]);
+		window.display();
+	}
 }
 
 void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
@@ -246,6 +308,9 @@ void playGame() {
 					break;
 				case sf::Keyboard::Key::D:
 					player.goRight();
+					break;
+				case sf::Keyboard::Key::Escape:
+					CGAME::pauseGame();
 					break;
 				default:
 					break;
