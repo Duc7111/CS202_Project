@@ -11,6 +11,7 @@
 
 #define LEVEL_MAX 5
 
+extern std::vector<CVEHICLE*> generatedVehicles;
 const float roadOffset = 175;
 
 using namespace std;
@@ -45,6 +46,8 @@ const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
 extern CVEHICLE** vehicles; //mang chua cac loai xe ung dung polymorphism
 
+void initializeVehicles();
+
 template <typename T>
 void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 
@@ -59,11 +62,9 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	for (int i = 0; i < generated.size(); i++) {
 		window.draw(generated[i]->getSprite());
 	}
-	//ROAD newRoad;
-	//newRoad.drawRoad(window, YCar + 50);
-	//ROAD newRoad2;
-	//newRoad2.drawRoad(window, YTruck + 50);
 }
-void moveWorld(sf::RenderWindow& window, const CPEOPLE& player);
+void moveWorld(sf::RenderWindow& window, CPEOPLE& player);
 void playGame();
 void highScore();
+
+extern ROAD road1, road2;

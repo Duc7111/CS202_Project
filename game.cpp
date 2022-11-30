@@ -220,47 +220,65 @@ void CGAME::pauseGame()
 	}
 }
 
-void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
+void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 	sf::View view = window.getView();
 	sf::Vector2i position = player.getPosition();
 	unsigned int direction = player.getDirection();
 	bool noMove = false; //khong di chuyen camera
 	if (player.getDirection() == 3 || player.getDirection() == 4)
 		noMove = true;
-	switch (player.getDirection()) {
-	case 1: {
-		view.move(0, -4);
-		//thay doi limit di chuyen
+
+	//switch (player.getDirection()) {
+	//case 1: {
+	//	//view.move(0, -4);
+	//	//thay doi limit di chuyen
+	//	/*std::cout << player.getPosition().y << " ";*/
+	//	break;
+
+	//}
+	//case 2: //di xuong
+	//{
+	//	//if (position.x > 0)
+	//	//	view.move(0, 4);
+	//	//limit view di xuong luc ban dau
+	//	//thay doi limit di chuyen
+	//	/*std::cout << player.getPosition().y << " ";*/
+
+	//	break;
+	//}
+	////queo trai, queo phai khong can di chuyen view
+	//}
+
+	int y = player.getPosition().y;
+
+	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
+		//se co ktra di len di xuong de chon y phu hop
+		if (player.getDirection() == 1) {
+			YCar -= 900;
+			YTruck -= 900;
+		}
+		else if (player.getDirection() == 2) {
+			YCar += 900;
+			YTruck += 900;
+		}
+
+		player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
+		initializeVehicles();
 	}
-	case 2: //di xuong
-	{
-		if (position.x > 0)
-			view.move(0, 4);
-		//limit view di xuong luc ban dau
-		//thay doi limit di chuyen
-		break;
-	}
-	//queo trai, queo phai khong can di chuyen view
-	}
+	else if (y % 15 != 0)
+		player.reinitializedVehicle = false;
 
 	window.clear();
 	if (!noMove) {
 		view.setCenter(player.getPositionInWorld());
 	}
-
+	//initializeVehicles() //di chuyen len thi tao xe o tren
+	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
 	window.setView(view);
 }
 
-void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
-
-	sf::Clock clock;
-	sf::Time elapsed;
-
-	std::vector<CVEHICLE*> generatedVehicles;
-
-	CGAME::carTexture.loadFromFile("car.png");
-	CGAME::truckTexture.loadFromFile("truck.png");//load texture
+void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
+	generatedVehicles.clear();//xoa vector di, trong truong hop cap nhat vi tri
 
 	for (int i = 0; i < 12; i++) {
 		CVEHICLE* temp;
@@ -273,12 +291,29 @@ void playGame() {
 		generatedVehicles.push_back(temp);
 		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400); //se thu lam co 1 texture va nhieu sprite tu texture do
 	}
-	//
-	CPEOPLE player;
-	ROAD road1, road2;
-	player.loadTexture();
+
 	road1.loadTexture(YCar + 50);
 	road2.loadTexture(YTruck + 50);
+}
+
+std::vector<CVEHICLE*> generatedVehicles;
+ROAD road1, road2;
+
+void playGame() {
+	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+
+	sf::Clock clock;
+	sf::Time elapsed;
+
+
+	CGAME::carTexture.loadFromFile("car.png");
+	CGAME::truckTexture.loadFromFile("truck.png");//load texture
+	initializeVehicles();
+
+	//
+	CPEOPLE player;
+	player.loadTexture();
+
 
 	sf::Texture bgTexture;
 	bgTexture.loadFromFile("bg.png");

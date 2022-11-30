@@ -1,7 +1,6 @@
 #include "vehicle.h"
 #include "game.h"
-std::vector<CCAR> generatedCars;
-std::vector<CCAR> cars;
+
 
 float YCar = 150.f;
 float YTruck = 400.f;
@@ -37,13 +36,8 @@ void CVEHICLE::setPosition(float x, float y) {
 	sprite.setPosition(sf::Vector2f(x, y));
 }
 
-void generateCar() {
-	//newCar.setPosition(10.f, 250.f); //dat xe moi o vi tri ben trai
-	//newCar.Move(); //bay gio lam ham move de di chuyen
-	generatedCars.push_back(CCAR());
-}
-
 
 void CVEHICLE::drawInWindow(sf::RenderWindow& window) {
 	window.draw(this->sprite);
 }
+

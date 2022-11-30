@@ -3,7 +3,6 @@
 extern float YCar;
 extern float YTruck;
 
-
 class CVEHICLE {
 private:
 	int mX, mY;
@@ -45,7 +44,5 @@ public:
 };
 
 
-extern std::vector<CCAR> cars;
-extern std::vector<CCAR> generatedCars;
 void generateCar(); //tao mot xe
 

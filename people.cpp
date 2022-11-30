@@ -40,7 +40,9 @@ void CPEOPLE::goUp() {
 		mDirection = 1;
 		sprite.setTexture(texture[0]);
 	}
+	mPrevY = mY;
 	++mY;
+
 }
 
 void CPEOPLE::goDown() {
@@ -49,6 +51,7 @@ void CPEOPLE::goDown() {
 		mDirection = 2;
 		sprite.setTexture(texture[1]);
 	}
+	mPrevY = mY;
 	--mY;
 }
 
@@ -88,4 +91,8 @@ bool CPEOPLE::isFinish()
 bool CPEOPLE::isDead()
 {
 	return false;
+}
+
+int CPEOPLE::getPrevY() const {
+	return mPrevY;
 }
