@@ -228,38 +228,19 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 	if (player.getDirection() == 3 || player.getDirection() == 4)
 		noMove = true;
 
-	//switch (player.getDirection()) {
-	//case 1: {
-	//	//view.move(0, -4);
-	//	//thay doi limit di chuyen
-	//	/*std::cout << player.getPosition().y << " ";*/
-	//	break;
 
-	//}
-	//case 2: //di xuong
-	//{
-	//	//if (position.x > 0)
-	//	//	view.move(0, 4);
-	//	//limit view di xuong luc ban dau
-	//	//thay doi limit di chuyen
-	//	/*std::cout << player.getPosition().y << " ";*/
-
-	//	break;
-	//}
-	////queo trai, queo phai khong can di chuyen view
-	//}
 
 	int y = player.getPosition().y;
 
 	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
 		//se co ktra di len di xuong de chon y phu hop
 		if (player.getDirection() == 1) {
-			YCar -= 900;
-			YTruck -= 900;
+			YCar -= 950;
+			YTruck -= 950;
 		}
 		else if (player.getDirection() == 2) {
-			YCar += 900;
-			YTruck += 900;
+			YCar += 950;
+			YTruck += 950;
 		}
 
 		player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
@@ -294,6 +275,7 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 
 	road1.loadTexture(YCar + 50);
 	road2.loadTexture(YTruck + 50);
+	//de tao them 2 lan duong cho background phu nua
 }
 
 std::vector<CVEHICLE*> generatedVehicles;

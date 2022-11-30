@@ -6,6 +6,7 @@ protected:
 	sf::Texture texture;
 
 public:
+	ROAD();
 	void loadTexture(float y);
 	void drawRoad(sf::RenderWindow& window);
 };
