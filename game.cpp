@@ -159,6 +159,9 @@ void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
 	sf::View view = window.getView();
 	sf::Vector2i position = player.getPosition();
 	unsigned int direction = player.getDirection();
+	bool noMove = false; //khong di chuyen camera
+	if (player.getDirection() == 3 || player.getDirection() == 4)
+		noMove = true;
 	switch (player.getDirection()) {
 	case 1: {
 		view.move(0, -4);
@@ -174,8 +177,12 @@ void moveWorld(sf::RenderWindow& window, const CPEOPLE& player) {
 	}
 	//queo trai, queo phai khong can di chuyen view
 	}
+
 	window.clear();
-	view.setCenter(player.getPositionInWorld());
+	if (!noMove) {
+		view.setCenter(player.getPositionInWorld());
+	}
+
 	window.setView(view);
 }
 
