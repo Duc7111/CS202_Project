@@ -35,6 +35,9 @@ public:
 	void saveGame(ofstream&); // Thực hiện lưu lại dữ liệu trò chơi
 	static void pauseGame(); // Tạm dừng Thread
 	//void resumeGame(); //Quay lai Thread
+
+	static sf::Texture carTexture;
+	static sf::Texture truckTexture;
 };
 const float setX = -1200;
 const float speed = 10;

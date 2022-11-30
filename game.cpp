@@ -1,6 +1,9 @@
 #include "game.h"
 #include "road.h"
 
+sf::Texture CGAME::carTexture;
+sf::Texture CGAME::truckTexture;
+
 CGAME::CGAME() : level(0)
 {
 	//Add code if needed
@@ -130,7 +133,7 @@ void CGAME::pauseGame()
 	sf::Font font;
 	if (!font.loadFromFile("ARLRDBD.TTF")) exit(0);
 	sf::Text Title, opt[3];
-	Title.setFont(font); 
+	Title.setFont(font);
 	Title.setStyle(sf::Text::Bold);
 	Title.setString("PAUSE");
 	Title.setCharacterSize(50);
@@ -194,7 +197,7 @@ void CGAME::pauseGame()
 			moveInput[1] = false;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-			switch(i)
+			switch (i)
 			{
 			case 0:
 				window.close();
@@ -256,6 +259,8 @@ void playGame() {
 
 	std::vector<CVEHICLE*> generatedVehicles;
 
+	CGAME::carTexture.loadFromFile("car.png");
+	CGAME::truckTexture.loadFromFile("truck.png");//load texture
 
 	for (int i = 0; i < 12; i++) {
 		CVEHICLE* temp;
@@ -266,7 +271,7 @@ void playGame() {
 			temp = new CTRUCK;
 		}
 		generatedVehicles.push_back(temp);
-		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400);
+		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400); //se thu lam co 1 texture va nhieu sprite tu texture do
 	}
 	//
 	CPEOPLE player;
