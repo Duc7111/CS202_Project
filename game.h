@@ -67,4 +67,8 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player);
 void playGame();
 void highScore();
 
-extern ROAD road1, road2;
+extern ROAD road1, road2, road3, road4;
+
+void switchBg(); //dung khi di chuyen len
+
+const float moveOffset = 950;

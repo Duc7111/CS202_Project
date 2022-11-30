@@ -235,16 +235,17 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
 		//se co ktra di len di xuong de chon y phu hop
 		if (player.getDirection() == 1) {
-			YCar -= 950;
-			YTruck -= 950;
+			YCar -= moveOffset;
+			YTruck -= moveOffset;
 		}
 		else if (player.getDirection() == 2) {
-			YCar += 950;
-			YTruck += 950;
+			YCar += moveOffset;
+			YTruck += moveOffset;
 		}
 
 		player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
 		initializeVehicles();
+		switchBg();
 	}
 	else if (y % 15 != 0)
 		player.reinitializedVehicle = false;
@@ -270,16 +271,31 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 			temp = new CTRUCK;
 		}
 		generatedVehicles.push_back(temp);
-		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400); //se thu lam co 1 texture va nhieu sprite tu texture do
+		generatedVehicles[i]->loadTexture(-600 * (i < 6 ? i : i - 6) + 400);
 	}
+
+	for (int i = 0; i < 12; i++) {
+		CVEHICLE* temp;
+		if (i < 6) {
+			temp = new CCAR;
+		}
+		else {
+			temp = new CTRUCK;
+		}
+		generatedVehicles.push_back(temp);
+		generatedVehicles[12 + i]->loadTextureForeground(-600 * (i < 6 ? i : i - 6) + 400);
+	}
+	//se co mot cai de tao xe va duong o bg phu nua
 
 	road1.loadTexture(YCar + 50);
 	road2.loadTexture(YTruck + 50);
+	road3.loadTexture((YCar - moveOffset - 150) + 50);
+	road4.loadTexture((YTruck - moveOffset - 150) + 50);
 	//de tao them 2 lan duong cho background phu nua
 }
 
 std::vector<CVEHICLE*> generatedVehicles;
-ROAD road1, road2;
+ROAD road1, road2, road3, road4;
 
 void playGame() {
 	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
@@ -350,6 +366,8 @@ void playGame() {
 		window.draw(bg2);
 		road1.drawRoad(window);
 		road2.drawRoad(window);
+		road3.drawRoad(window);
+		road4.drawRoad(window);
 
 		player.drawPlayer(window);
 
@@ -364,3 +382,6 @@ void playGame() {
 }
 
 
+void switchBg() {
+
+}
