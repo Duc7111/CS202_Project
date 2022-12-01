@@ -6,13 +6,16 @@ sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	return sf::Vector2f(x, y);
 }
 
-CPEOPLE::CPEOPLE() : mX(15), mY(0), mDirection(0), mState(1) {}
-
-void CPEOPLE::loadTexture() {
+CPEOPLE::CPEOPLE() : mX(15), mY(0), mDirection(0), mState(1) {
 	texture[0].loadFromFile("player_back.png");
 	texture[1].loadFromFile("player_front.png");
 	texture[2].loadFromFile("player_right.png");
 	texture[3].loadFromFile("player_left.png");
+	img = texture[0].copyToImage();
+}
+
+void CPEOPLE::loadTexture() {
+
 	sprite.setTexture(texture[0]);
 	sprite.setPosition(drawPosition(mX, mY));
 }
@@ -96,3 +99,4 @@ bool CPEOPLE::isDead()
 int CPEOPLE::getPrevY() const {
 	return mPrevY;
 }
+

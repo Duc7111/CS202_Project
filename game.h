@@ -39,6 +39,8 @@ public:
 
 	static sf::Texture carTexture;
 	static sf::Texture truckTexture;
+	static sf::Image carImage;
+	static sf::Image truckImage;
 };
 const float setX = -1200;
 const float speed = 10;

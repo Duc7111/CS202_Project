@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "collider.h"
 #pragma once
 extern float YCar;
 extern float YTruck;
@@ -7,14 +8,19 @@ class CVEHICLE {
 private:
 	int mX, mY;
 
+
 public:
+
+
 	void Move(float x, float y);
 	void setPosition(float x, float y);
 	void drawInWindow(sf::RenderWindow& window);
 	virtual void loadTexture(float x) = 0;
 	virtual void loadTextureForeground(float x) = 0; //tao sprite cho background phu
 	virtual sf::Sprite getSprite() = 0;
-	//virtual sf::Texture getTexture() = 0;
+	virtual sf::Texture getTexture() = 0;
+	virtual sf::Image getImage() = 0;
+
 protected:
 	sf::Sprite sprite;
 	//sf::Texture texture;
@@ -32,12 +38,15 @@ public:
 	//sf::Texture getTexture();
 
 	void loadTextureForeground(float x);
+	sf::Texture getTexture();
+	sf::Image getImage();
+
 };
 
 
 class CTRUCK : public CVEHICLE {
 private:
-	static sf::Texture truckTextre;
+
 public:
 	CTRUCK();
 	/*CTRUCK(float x);*/
@@ -45,9 +54,10 @@ public:
 	sf::Sprite getSprite();
 
 	void loadTextureForeground(float x);
-	//sf::Texture getTexture();
+	sf::Texture getTexture();
+	sf::Image getImage();
 };
 
 
-void generateCar(); //tao mot xe
+
 

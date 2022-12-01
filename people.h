@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include "animal.h"
 #include "vehicle.h"
+#include "collider.h"
 
 class CPEOPLE {
 	int mX, mY; // position in the cell-based location system
@@ -12,6 +13,8 @@ class CPEOPLE {
 	static sf::Vector2f drawPosition(int mX, int mY);
 	sf::Sprite sprite;
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
+
+
 
 public:
 	CPEOPLE();
@@ -30,6 +33,11 @@ public:
 	bool isFinish();
 	bool isDead();
 
+	sf::Sprite getSprite() { return sprite; }
+	sf::Texture getTexture() { return texture[0]; }
+	sf::Image img;
 
 	bool reinitializedVehicle = false;
+
+
 };

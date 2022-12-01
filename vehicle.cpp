@@ -5,15 +5,20 @@
 float YCar = 150.f;
 float YTruck = 400.f;
 
+
 CCAR::CCAR() {
 	CVEHICLE::sprite = sf::Sprite(CGAME::carTexture);
 	sf::Vector2u size = CGAME::carTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+
+
 }
 void CCAR::loadTexture(float x) {
 
 	sprite.setPosition(x, YCar);
+
+
 }
 void CCAR::loadTextureForeground(float x) {
 	loadTexture(x);
@@ -24,10 +29,14 @@ CTRUCK::CTRUCK() {
 	sf::Vector2u size = CGAME::truckTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+
+
 }
 void CTRUCK::loadTexture(float x) {
 
 	sprite.setPosition(x, YTruck);
+
+
 }
 void CTRUCK::loadTextureForeground(float x) {
 	loadTexture(x);
@@ -53,3 +62,18 @@ void CVEHICLE::drawInWindow(sf::RenderWindow& window) {
 	window.draw(this->sprite);
 }
 
+
+
+sf::Texture CCAR::getTexture() {
+	return CGAME::carTexture;
+}
+
+sf::Texture CTRUCK::getTexture() {
+	return CGAME::truckTexture;
+}
+sf::Image CCAR::getImage() {
+	return CGAME::carImage;
+}
+sf::Image CTRUCK::getImage() {
+	return CGAME::truckImage;
+}

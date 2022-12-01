@@ -1,16 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-class Collider
-{
-public:
-	Collider(sf::RectangleShape& obj);
 
-	bool isCollided(Collider& other);
 
-	sf::Vector2f getObjPos();
-	sf::Vector2f getObjSize();
-
-private:
-	sf::RectangleShape& obj;
-};
-
+bool PixelPerfectCollision(const sf::Sprite& a, const sf::Sprite& b,
+	const sf::Image& imgA, const sf::Image& imgB);

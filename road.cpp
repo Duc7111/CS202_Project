@@ -9,7 +9,7 @@ ROAD::ROAD() {
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
 }
 void ROAD::loadTexture(float y) {
-	std::cout << "road load\n";
+
 
 	sprite.setPosition(0, y);
 }
@@ -19,7 +19,6 @@ void ROAD::drawRoad(sf::RenderWindow& window) {
 }
 
 void GRASS::loadTexture(float y) {
-	std::cout << "grass load\n";
 	texture.loadFromFile("grass.png");
 	sprite = sf::Sprite(texture);
 	sf::Vector2u size = texture.getSize();
@@ -38,7 +37,7 @@ DIRT::DIRT() {
 	sprite.scale(sf::Vector2f(0.25f, 0.25f));
 }
 void DIRT::loadTexture(float y) {
-	std::cout << "dirt load\n";
+
 
 	sprite.setPosition(0, y);
 }

@@ -3,6 +3,8 @@
 
 sf::Texture CGAME::carTexture;
 sf::Texture CGAME::truckTexture;
+sf::Image CGAME::carImage;
+sf::Image CGAME::truckImage;
 
 CGAME::CGAME() : level(0)
 {
@@ -312,6 +314,8 @@ void playGame() {
 
 	CGAME::carTexture.loadFromFile("car.png");
 	CGAME::truckTexture.loadFromFile("truck.png");//load texture
+	CGAME::carImage = CGAME::carTexture.copyToImage();
+	CGAME::truckImage = CGAME::truckTexture.copyToImage();
 	initializeVehicles();
 
 	//
@@ -382,6 +386,17 @@ void playGame() {
 		dirt4.drawRoad(window);
 
 		player.drawPlayer(window);
+
+
+
+
+		//code nay test thu cai ktra va cham
+		for (int i = 0; i < generatedVehicles.size(); i++) {
+			if (PixelPerfectCollision(player.getSprite(), generatedVehicles[i]->getSprite(), player.img, generatedVehicles[i]->getImage())) {
+				std::cout << "Collided with " << i << "\n";
+			}
+		}
+
 
 		drawObjects(window, generatedVehicles);
 
