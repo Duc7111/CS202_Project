@@ -16,3 +16,8 @@ public:
 	void loadTexture(float y); //overload cai cua thang Grass
 };
 
+class DIRT : public ROAD {
+public:
+	DIRT();
+	void loadTexture(float y);
+};

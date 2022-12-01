@@ -291,11 +291,17 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 	road2.loadTexture(YTruck + 50);
 	road3.loadTexture((YCar - moveOffset - 150) + 50);
 	road4.loadTexture((YTruck - moveOffset - 150) + 50);
+
+	dirt1.loadTexture((YCar - 300) + 50);
+	dirt2.loadTexture((YCar - 550) + 50);
+	dirt3.loadTexture((YCar - 300 - moveOffset - 50) + 50);
+	dirt4.loadTexture((YCar - 550 - moveOffset - 50) + 50);
 	//de tao them 2 lan duong cho background phu nua
 }
 
 std::vector<CVEHICLE*> generatedVehicles;
 ROAD road1, road2, road3, road4;
+DIRT dirt1, dirt2, dirt3, dirt4;
 
 void playGame() {
 	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
@@ -364,10 +370,16 @@ void playGame() {
 
 		window.draw(bg);
 		window.draw(bg2);
+
 		road1.drawRoad(window);
 		road2.drawRoad(window);
 		road3.drawRoad(window);
 		road4.drawRoad(window);
+
+		dirt1.drawRoad(window);
+		dirt2.drawRoad(window);
+		dirt3.drawRoad(window);
+		dirt4.drawRoad(window);
 
 		player.drawPlayer(window);
 

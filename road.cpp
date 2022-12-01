@@ -29,3 +29,16 @@ void GRASS::loadTexture(float y) {
 	sprite.setPosition(0, y);
 }
 
+DIRT::DIRT() {
+	texture.loadFromFile("dirt.png");
+	sprite = sf::Sprite(texture);
+	sf::Vector2u size = texture.getSize();
+	sprite.setOrigin(size.x / 2, size.y / 2);
+	sprite.setScale(1000, 0.6f);
+	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+}
+void DIRT::loadTexture(float y) {
+	std::cout << "dirt load\n";
+
+	sprite.setPosition(0, y);
+}
