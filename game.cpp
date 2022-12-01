@@ -391,11 +391,8 @@ void playGame() {
 
 
 		//code nay test thu cai ktra va cham
-		for (int i = 0; i < generatedVehicles.size(); i++) {
-			if (PixelPerfectCollision(player.getSprite(), generatedVehicles[i]->getSprite(), player.img, generatedVehicles[i]->getImage())) {
-				std::cout << "Collided with " << i << "\n";
-			}
-		}
+		if (player.collidedWithEnemy())
+			std::cout << "Collided\n";
 
 
 		drawObjects(window, generatedVehicles);

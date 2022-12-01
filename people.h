@@ -5,6 +5,7 @@
 #include "vehicle.h"
 #include "collider.h"
 
+
 class CPEOPLE {
 	int mX, mY; // position in the cell-based location system
 	int mPrevY = 0; //y truoc do
@@ -13,7 +14,7 @@ class CPEOPLE {
 	static sf::Vector2f drawPosition(int mX, int mY);
 	sf::Sprite sprite;
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
-
+	sf::Image img;
 
 
 public:
@@ -35,9 +36,10 @@ public:
 
 	sf::Sprite getSprite() { return sprite; }
 	sf::Texture getTexture() { return texture[0]; }
-	sf::Image img;
+
 
 	bool reinitializedVehicle = false;
 
+	bool collidedWithEnemy();
 
 };

@@ -1,5 +1,5 @@
 #include "people.h"
-
+#include "game.h"
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	float x = (mX / 19.0f) * 1216;
 	float y = ((10.0f - mY) / 11.0f) * 640;
@@ -100,3 +100,11 @@ int CPEOPLE::getPrevY() const {
 	return mPrevY;
 }
 
+bool CPEOPLE::collidedWithEnemy() {
+	for (int i = 0; i < generatedVehicles.size(); i++) {
+		if (PixelPerfectCollision(sprite, generatedVehicles[i]->getSprite(), img, generatedVehicles[i]->getImage())) {
+			return true;
+		}
+	}
+	return false;
+}

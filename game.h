@@ -43,10 +43,10 @@ public:
 	static sf::Image truckImage;
 };
 const float setX = -1200;
-const float speed = 10;
+const float speed = 40;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
-extern CVEHICLE** vehicles; //mang chua cac loai xe ung dung polymorphism
+
 
 void initializeVehicles();
 
