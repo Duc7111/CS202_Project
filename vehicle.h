@@ -10,8 +10,6 @@ private:
 
 
 public:
-
-
 	void Move(float x, float y);
 	void setPosition(float x, float y);
 	void drawInWindow(sf::RenderWindow& window);
@@ -58,6 +56,15 @@ public:
 	sf::Image getImage();
 };
 
+class TRAFFICLIGHT {
+private:
+	sf::Texture texture[3];
+public:
+	TRAFFICLIGHT();
+	sf::Sprite sprite;
+	int status;
 
 
+	static bool isStopped; //ktra den xanh den do
+};
 
