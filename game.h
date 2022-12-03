@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include "animal.h"
-#include "people.h"
 #include "vehicle.h"
+#include "people.h"
 #include "road.h"
 #include <Windows.h>
 #include <iostream>

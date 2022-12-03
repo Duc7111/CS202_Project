@@ -1,7 +1,5 @@
-
 #pragma once
 #include "graphics.h"
-
 
 
 extern float YCar;

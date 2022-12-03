@@ -1,5 +1,7 @@
+
 #include "vehicle.h"
 #include "game.h"
+
 float YCar = 150.f;
 float YTruck = 400.f;
 
