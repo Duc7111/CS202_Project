@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="animal.cpp" />
     <ClCompile Include="collider.cpp" />
+    <ClCompile Include="dice.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -156,11 +157,13 @@
   <ItemGroup>
     <ClInclude Include="animal.h" />
     <ClInclude Include="collider.h" />
+    <ClInclude Include="dice.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="objectPool.h" />
     <ClInclude Include="people.h" />
+    <ClInclude Include="position.h" />
     <ClInclude Include="randomizer.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="vehicle.h" />

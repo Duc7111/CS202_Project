@@ -1,39 +1,39 @@
 #include "randomizer.h"
 
-CSEED::CSEED() : seed(10, grass) {}
+SEED::SEED() : seed(10, grass) {}
 
-CSEED::CSEED(const std::vector<ROAD_T>& seed) : seed(seed) {}
+SEED::SEED(const std::vector<ROAD_T>& seed) : seed(seed) {}
 
-ROAD_T& CSEED::operator[](size_t idx) {
+ROAD_T& SEED::operator[](size_t idx) {
 	return seed[idx];
 }
 
-const ROAD_T& CSEED::operator[](size_t idx) const {
+const ROAD_T& SEED::operator[](size_t idx) const {
 	return seed[idx];
 }
 
-std::random_device DICE::rd;
-std::mt19937 DICE::rng{DICE::rd()};
-std::uniform_int_distribution<int> DICE::coin(0, 1);
-std::uniform_int_distribution<int> DICE::uid;
+std::random_device DICE_S::rd;
+std::mt19937 DICE_S::rng{DICE_S::rd()};
+std::uniform_int_distribution<int> DICE_S::coin(0, 1);
+std::uniform_int_distribution<int> DICE_S::uid;
 
-DICE::DICE() : numRoadMax(5) {}
+DICE_S::DICE_S() : numRoadMax(5) {}
 
-DICE::DICE(int numRoadMax) {
+DICE_S::DICE_S(int numRoadMax) {
 	if (numRoadMax > 5) this->numRoadMax = 5;
 	else if (numRoadMax < 3) this->numRoadMax = 3;
 	else this->numRoadMax = numRoadMax;
 }
 
-void DICE::setUpperLimit(int numRoadMax) {
+void DICE_S::setUpperLimit(int numRoadMax) {
 	if (numRoadMax > 5) this->numRoadMax = 5;
 	else if (numRoadMax < 3) this->numRoadMax = 3;
 	else this->numRoadMax = numRoadMax;
 }
 
-CSEED DICE::generateSeed() {
+SEED DICE_S::generateSeed() {
 	uid = std::uniform_int_distribution<int>(numRoadMin, numRoadMax);
-	CSEED seed;
+	SEED seed;
 	int numRoad = uid(rng);
 	int typeRoad = 0;
 	int road = 0;
@@ -57,7 +57,7 @@ CSEED DICE::generateSeed() {
 	return seed;
 }
 
-bool DICE::checkAboveBelow(const CSEED& seed, int road) {
+bool DICE_S::checkAboveBelow(const SEED& seed, int road) {
 	if ((road == 9) && (seed[road - 1] != grass)) return false;
 	if ((seed[road - 1] != grass) || (seed[road + 1] != grass)) return false;
 	return true;
