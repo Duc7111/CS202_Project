@@ -2,87 +2,106 @@
 
 #include "vehicle.h"
 #include "animal.h"
+#include "position.h"
 
 #include <SFML/Graphics.hpp>
 #include <random>
 #include <time.h>
 #include <string>
 
-class ROAD {
+class Road {
 protected:
+	static sf::Texture texture[2];
+
 	sf::Sprite sprite;
-	sf::Texture texture;
 public:
+	Road();
+
 	bool status;
 
-	ROAD();
-	void loadTexture(float y);
-	bool loadTexture(std::string fileName);
-	void setPosition(float y);
-	void drawRoad(sf::RenderWindow& window);
+	virtual void setPosition(float y);
+	virtual void resetSprite() = 0;
+	virtual void draw(sf::RenderWindow& window) = 0;
 };
-
-class GRASS : public ROAD {
-public:
-	void loadTexture(float y); //overload cai cua thang Grass
-};
-
-class DIRT : public ROAD {
-public:
-	DIRT();
-	void loadTexture(float y);
-};
-
-
-//NEW ROAD - USE THESE
 
 #define OBJ_MAX 5
 
-class VehicleRoad : public ROAD
+template<class T>
+struct ObjQueue //built only for Road
+{
+	T arr[OBJ_MAX] = default;
+	int front, size;
+
+	ObjQueue() : front(0), size(0) {}
+
+	bool isEmpty()
+	{
+		if (size == 0) return true;
+		return false;
+	}
+
+	void push(T)
+	{
+		if (size == OBJ_MAX) return;
+		++size;
+		front = (front - 1) % OBJ_MAX;
+		arr[front] = T;
+	}
+	T& pop() //check isEmpty before calling
+	{
+		return arr[(front + size--)%OBJ_MAX];
+	}
+};
+
+class VehicleRoad : public Road
 {
 private:
 	struct TF
 	{
 		bool status;//true: green, false: red
+		sf::RectangleShape shape;
 
-		sf::Sprite sprite;
-		sf::Texture G, R;
-
-		TF() : status(true) {}
+		TF() : status(true), shape(sf::Vector2f(M_CELL/10, M_CELL/10))
+		{
+			shape.setFillColor(sf::Color::Green);
+		}
 
 		void function(){}
-		bool setTexture(std::string greenLight, std::string redLight){}
 	}traficLight;
 
 	float v;
-	int front, end;
-	CVEHICLE* a[OBJ_MAX];
+	ObjQueue<CVEHICLE*> vQueue;
 
-	static CVEHICLE* VehicleFactory(float y);
+	CVEHICLE* VehicleFactory();
 
 public:
-	VehicleRoad(float velocity);
+	VehicleRoad();
 	~VehicleRoad();
 
-	bool loadTexture(std::string fileName);
-	using ROAD::setPosition;
+	static bool loadTexture(std::string fileName);
+
+	void resetSprite();
+	void setPosition(float y);
 	void run();
+	void draw(sf::RenderWindow& window);
 };
 
-class AnimalRoad : public ROAD
+class AnimalRoad : public Road
 {
 private:
 	float v;
-	int front, end;
-	CANIMAL* a[OBJ_MAX];
+	ObjQueue<CANIMAL*> aQueue;
 
-	static CANIMAL* AnimalFactory(float y);
+	CANIMAL* AnimalFactory();
 
 public:
 	AnimalRoad();
 	~AnimalRoad();
 
-	bool loadTexture(std::string fileName);
-	using ROAD::setPosition;
+	static bool loadTexture(std::string fileName);
+
+	void resetSprite();
+	void setPosition(float y);
 	void run();
+	void draw(sf::RenderWindow& window);
 };
