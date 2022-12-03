@@ -1,5 +1,7 @@
 #include "people.h"
 #include "game.h"
+#include "animal.h"
+#include "vehicle.h"
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	float x = (mX / 19.0f) * 1216;
 	float y = ((10.0f - mY) / 11.0f) * 640;
