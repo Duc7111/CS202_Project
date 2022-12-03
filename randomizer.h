@@ -6,24 +6,24 @@ enum ROAD_T : unsigned char {
 	asphalt, dirt, grass
 };
 
-class CSEED {
+class SEED {
 public:
-	CSEED();
-	CSEED(const std::vector<ROAD_T>& seed);
+	SEED();
+	SEED(const std::vector<ROAD_T>& seed);
 	ROAD_T& operator[](size_t idx);
 	const ROAD_T& operator[](size_t idx) const;
 private:
 	std::vector<ROAD_T> seed;
 };
 
-class DICE {
+class DICE_S {
 public:
-	DICE();
-	DICE(int numRoadMax);
+	DICE_S();
+	DICE_S(int numRoadMax);
 	void setUpperLimit(int numRoadMax);
-	CSEED generateSeed();
+	SEED generateSeed();
 private:
-	bool checkAboveBelow(const CSEED& seed, int road);
+	bool checkAboveBelow(const SEED& seed, int road);
 	int numRoadMax;
 	static const int numRoadMin = 3;
 	static std::random_device rd;

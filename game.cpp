@@ -1,5 +1,5 @@
 #include "game.h"
-#include "road.h"
+
 
 sf::Texture CGAME::carTexture;
 sf::Texture CGAME::truckTexture;
@@ -289,15 +289,15 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 	}
 	//se co mot cai de tao xe va duong o bg phu nua
 
-	road1.loadTexture(YCar + 50);
-	road2.loadTexture(YTruck + 50);
-	road3.loadTexture((YCar - moveOffset - 150) + 50);
-	road4.loadTexture((YTruck - moveOffset - 150) + 50);
+	//road1.loadTexture(YCar + 50);
+	//road2.loadTexture(YTruck + 50);
+	//road3.loadTexture((YCar - moveOffset - 150) + 50);
+	//road4.loadTexture((YTruck - moveOffset - 150) + 50);
 
-	dirt1.loadTexture((YCar - 300) + 50);
-	dirt2.loadTexture((YCar - 550) + 50);
-	dirt3.loadTexture((YCar - 300 - moveOffset - 50) + 50);
-	dirt4.loadTexture((YCar - 550 - moveOffset - 50) + 50);
+	//dirt1.loadTexture((YCar - 300) + 50);
+	//dirt2.loadTexture((YCar - 550) + 50);
+	//dirt3.loadTexture((YCar - 300 - moveOffset - 50) + 50);
+	//dirt4.loadTexture((YCar - 550 - moveOffset - 50) + 50);
 	//de tao them 2 lan duong cho background phu nua
 }
 
@@ -375,15 +375,15 @@ void playGame() {
 		window.draw(bg);
 		window.draw(bg2);
 
-		road1.drawRoad(window);
-		road2.drawRoad(window);
-		road3.drawRoad(window);
-		road4.drawRoad(window);
+		//road1.drawRoad(window);
+		//road2.drawRoad(window);
+		//road3.drawRoad(window);
+		//road4.drawRoad(window);
 
-		dirt1.drawRoad(window);
-		dirt2.drawRoad(window);
-		dirt3.drawRoad(window);
-		dirt4.drawRoad(window);
+		//dirt1.drawRoad(window);
+		//dirt2.drawRoad(window);
+		//dirt3.drawRoad(window);
+		//dirt4.drawRoad(window);
 
 		player.drawPlayer(window);
 

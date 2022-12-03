@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include <iostream>
 #include <SFML\Graphics.hpp>
-#include "animal.h"
-#include "vehicle.h"
+
 #include "collider.h"
 
+class CVEHICLE;
+class CANIMAL;
 
 class CPEOPLE {
 	int mX, mY; // position in the cell-based location system

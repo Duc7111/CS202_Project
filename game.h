@@ -1,12 +1,14 @@
-﻿#include <SFML/Graphics.hpp>
-#include "vehicle.h"
+﻿#pragma once
+#include <SFML/Graphics.hpp>
 #include "animal.h"
+#include "vehicle.h"
 #include "people.h"
 #include "road.h"
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 #pragma once
 
 #define LEVEL_MAX 5

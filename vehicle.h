@@ -1,8 +1,12 @@
-#include "graphics.h"
-#include "collider.h"
+
 #pragma once
+#include "graphics.h"
+
+
 extern float YCar;
 extern float YTruck;
+
+class CGAME;
 
 class CVEHICLE {
 private:
