@@ -303,8 +303,8 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 }
 
 std::vector<CVEHICLE*> generatedVehicles;
-ROAD road1, road2, road3, road4;
-DIRT dirt1, dirt2, dirt3, dirt4;
+//ROAD road1, road2, road3, road4;
+//DIRT dirt1, dirt2, dirt3, dirt4;
 
 void playGame() {
 	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
