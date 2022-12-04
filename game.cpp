@@ -1,4 +1,5 @@
 #include "game.h"
+#include "effect.h"
 
 
 sf::Texture CGAME::carTexture;
@@ -311,6 +312,7 @@ void playGame() {
 	sf::Clock clock;
 	sf::Time elapsed;
 
+	explosion::loadTexture();
 
 	CGAME::carTexture.loadFromFile("car.png");
 	CGAME::truckTexture.loadFromFile("truck.png");//load texture

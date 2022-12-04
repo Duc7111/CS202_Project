@@ -144,6 +144,7 @@
     <ClCompile Include="animal.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="dice.cpp" />
+    <ClCompile Include="effect.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="animal.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="dice.h" />
+    <ClInclude Include="effect.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="menu.h" />
