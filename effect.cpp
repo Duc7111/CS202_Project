@@ -14,7 +14,7 @@ void explosion::loadTexture() {
 
 }
 
-void explosion::animateExplosion(sf::Sprite targetSprite) {
+void explosion::animateExplosion(sf::Sprite& targetSprite) {
 	sf::Clock clock;
 	int i = 0;
 	while (i < 8) {
