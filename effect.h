@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-const std::string explosionPath = "/explosion/";
+const std::string explosionPath = "explosion/";
 extern std::vector<sf::Texture> explosionTextures;
 
 namespace explosion {
