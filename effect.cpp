@@ -3,7 +3,7 @@
 std::vector<sf::Texture> explosionTextures;
 
 void explosion::loadTexture() {
-	for (int i = 0; i < 8; i++) {
+	for (int i = 1; i <= 4; i++) { //co may cai texture no se kh xai hien tai
 		sf::Texture temp;
 		std::string path = explosionPath + "tile00";
 		path += std::to_string(i);
@@ -14,12 +14,16 @@ void explosion::loadTexture() {
 
 }
 
-void explosion::animateExplosion(sf::Sprite& targetSprite) {
+void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite& targetSprite) {
 	sf::Clock clock;
 	int i = 0;
-	while (i < 8) {
-		if (clock.getElapsedTime().asSeconds() > 1.0f) {
+	while (i < explosionTextures.size()) {
+		if (clock.getElapsedTime().asSeconds() > 0.2f) {
+			window.clear();
 			targetSprite.setTexture(explosionTextures[i++]);
+			targetSprite.setScale(3, 3);
+			window.draw(targetSprite);
+			window.display();
 			clock.restart();
 		}
 	}
