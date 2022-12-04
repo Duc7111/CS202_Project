@@ -8,6 +8,7 @@ extern float YTruck;
 
 class CGAME;
 
+
 class CVEHICLE {
 private:
 	int mX, mY;

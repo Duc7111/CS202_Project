@@ -53,16 +53,16 @@ const float diffSensor = 5;
 bool CarNearbySensor(int i, std::vector<CVEHICLE*> generatedVehicles) {
 	int prevIdx = i - 1, nextIdx = i + 1;
 	prevIdx = std::max(prevIdx, 0);
-	nextIdx = std::min(nextIdx,
-		(int)generatedVehicles.size());
+	//nextIdx = std::min(nextIdx,
+	//	(int)generatedVehicles.size());
 
 	sf::Vector2f prevPos = generatedVehicles[prevIdx]->getSprite().getPosition();
-	sf::Vector2f nextPos = generatedVehicles[nextIdx]->getSprite().getPosition();
+	//sf::Vector2f nextPos = generatedVehicles[nextIdx]->getSprite().getPosition();
 	sf::Vector2f currentPos = generatedVehicles[i]->getSprite().getPosition();
 
 	int diffPrev = abs(prevPos.x - currentPos.x);
-	int diffNext = abs(nextPos.x - currentPos.x);
-	if (diffPrev <= diffSensor || diffNext <= diffSensor) { //neu gan xe truoc hoac xe sau
+	//int diffNext = abs(nextPos.x - currentPos.x);
+	if (diffPrev <= diffSensor/* || diffNext <= diffSensor*/) { //neu gan xe truoc
 		return true;
 	}
 
