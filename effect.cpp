@@ -6,7 +6,7 @@ void explosion::loadTexture() {
 	for (int i = 0; i < 8; i++) {
 		sf::Texture temp;
 		std::string path = explosionPath + "tile00";
-		path += i;
+		path += std::to_string(i);
 		path += ".png";
 		temp.loadFromFile(path);
 		explosionTextures.push_back(temp);
