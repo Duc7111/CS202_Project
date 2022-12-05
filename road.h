@@ -11,6 +11,7 @@
 
 class Road {
 protected:
+	static sf::RenderWindow* windowHandle;
 	static sf::Texture texture[2];
 
 	sf::Sprite sprite;
@@ -18,6 +19,8 @@ public:
 	Road();
 
 	bool status;
+
+	static void setWindow(sf::RenderWindow* windowHandle);
 
 	virtual void setPosition(float y);
 	virtual void resetSprite() = 0;
@@ -27,17 +30,23 @@ public:
 #define OBJ_MAX 5
 
 template<class T>
-struct ObjQueue //built only for Road
+class ObjQueue //built only for Road
 {
+private:
 	T arr[OBJ_MAX] = default;
 	int front, size;
 
+public:
 	ObjQueue() : front(0), size(0) {}
 
 	bool isEmpty()
 	{
 		if (size == 0) return true;
 		return false;
+	}
+	int size()
+	{
+		return size;
 	}
 
 	void push(T)
@@ -50,6 +59,16 @@ struct ObjQueue //built only for Road
 	T& pop() //check isEmpty before calling
 	{
 		return arr[(front + size--)%OBJ_MAX];
+	}
+
+	void reset()
+	{
+		front = size = 0;
+	}
+
+	T& operator[](int i)
+	{
+		return arr[(front + i)%OBJ_MAX];
 	}
 };
 
@@ -83,7 +102,7 @@ public:
 	void resetSprite();
 	void setPosition(float y);
 	void run();
-	void draw(sf::RenderWindow& window);
+	void draw();
 };
 
 class AnimalRoad : public Road
@@ -103,5 +122,5 @@ public:
 	void resetSprite();
 	void setPosition(float y);
 	void run();
-	void draw(sf::RenderWindow& window);
+	void draw();
 };

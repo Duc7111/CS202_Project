@@ -5,8 +5,10 @@
 class CANIMAL {
 	int mX, mY;
 public:
-	virtual void Move(int, int);
+	virtual void Move(float, float);
 	virtual void Tell();
+
+	virtual sf::Sprite getSprite();
 	virtual void drawInWindow(sf::RenderWindow& window);
 };
 
