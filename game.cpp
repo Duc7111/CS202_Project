@@ -307,7 +307,7 @@ std::vector<CVEHICLE*> generatedVehicles;
 //DIRT dirt1, dirt2, dirt3, dirt4;
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1300, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -329,10 +329,10 @@ void playGame() {
 	bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(bgTexture);
 
-	bg.setScale(1280, 720);
+	bg.setScale(1300, 7000);
 	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-100, -1280);
+	bg2.setPosition(-100, -1300);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 

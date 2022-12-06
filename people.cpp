@@ -3,12 +3,13 @@
 #include "animal.h"
 #include "vehicle.h"
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
-	float x = (mX / 19.0f) * 1216;
-	float y = ((10.0f - mY) / 11.0f) * 640;
+	float x = (mX / 13.0f) * 1300 + 10;
+	float y = ((6.0f - mY) / 7.0f) * 700 + 10;
+	cout << x << " " << y << "\n";
 	return sf::Vector2f(x, y);
 }
 
-CPEOPLE::CPEOPLE() : mX(15), mY(0), mDirection(0), mState(1) {
+CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1) {
 	texture[0].loadFromFile("player_back.png");
 	texture[1].loadFromFile("player_front.png");
 	texture[2].loadFromFile("player_right.png");
@@ -61,7 +62,7 @@ void CPEOPLE::goDown() {
 }
 
 void CPEOPLE::goRight() {
-	if (mX == 18) return;
+	if (mX == 12) return;
 	if (mDirection != 3) {
 		mDirection = 3;
 		sprite.setTexture(texture[2]);
