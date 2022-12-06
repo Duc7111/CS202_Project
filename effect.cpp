@@ -1,31 +1,19 @@
 #include "effect.h"
 #include<windows.h>
-std::vector<sf::Texture> explosionTextures;
+sf::Texture explosionTexture;
 
 void explosion::loadTexture() {
-	for (int i = 1; i <= 4; i++) { //co may cai texture no se kh xai hien tai
-		sf::Texture temp;
-		std::string path = explosionPath + "tile00";
-		path += std::to_string(i);
-		path += ".png";
-		temp.loadFromFile(path);
-		explosionTextures.push_back(temp);
-	}
-
+	sf::Texture temp;
+	std::string path = explosionPath + "tile003.png";
+	temp.loadFromFile(path);
+	explosionTexture = sf::Texture(temp);
 }
 
-void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite& targetSprite) {
-	sf::Clock clock;
-	int i = 0;
-	while (i < explosionTextures.size()) {
-		if (clock.getElapsedTime().asSeconds() > explosionBreak) {
-			window.clear();
-			targetSprite.setTexture(explosionTextures[i++]);
-			targetSprite.setScale(3, 3);
-			window.draw(targetSprite);
-			window.display();
-			clock.restart();
-		}
-	}
+void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite targetSprite) {
+	sf::Vector2f explodePos = targetSprite.getPosition();
+	sf::Sprite explodeSprite(explosionTexture);
+	explodeSprite.setScale(3, 3);
+	explodeSprite.setPosition(explodePos - sf::Vector2f(0, 100));
+	window.draw(explodeSprite);
 
 }

@@ -231,8 +231,6 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 	if (player.getDirection() == 3 || player.getDirection() == 4)
 		noMove = true;
 
-
-
 	int y = player.getPosition().y;
 
 	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
@@ -255,7 +253,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	window.clear();
 	if (!noMove) {
-		view.setCenter(player.getPositionInWorld());
+		view.setCenter(sf::Vector2f(player.getRealX(6), player.getPositionInWorld().y));
 	}
 	//initializeVehicles() //di chuyen len thi tao xe o tren
 	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
@@ -307,7 +305,7 @@ std::vector<CVEHICLE*> generatedVehicles;
 //DIRT dirt1, dirt2, dirt3, dirt4;
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1240, 720), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1300, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -329,10 +327,10 @@ void playGame() {
 	bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(bgTexture);
 
-	bg.setScale(1280, 720);
+	bg.setScale(1300, 7000);
 	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-100, -1280);
+	bg2.setPosition(-100, -1300);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -370,32 +368,15 @@ void playGame() {
 		moveWorld(window, player);
 		window.clear();
 
-		//camera.setCenter(player.sprite.getPosition());
-		//camera.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
-		//window.setView(camera);
-
 		window.draw(bg);
 		window.draw(bg2);
 
-		//road1.drawRoad(window);
-		//road2.drawRoad(window);
-		//road3.drawRoad(window);
-		//road4.drawRoad(window);
-
-		//dirt1.drawRoad(window);
-		//dirt2.drawRoad(window);
-		//dirt3.drawRoad(window);
-		//dirt4.drawRoad(window);
-
 		player.drawPlayer(window);
 
-
-
-
-		//code nay test thu cai ktra va cham
-		if (player.collidedWithEnemy())
-			std::cout << "Collided\n";
-
+		int collidedIndex = -1;
+		if (player.collidedWithEnemy(collidedIndex)) {
+			explosion::animateExplosion(window, generatedVehicles[collidedIndex]->getSprite());
+		}
 
 		drawObjects(window, generatedVehicles);
 
