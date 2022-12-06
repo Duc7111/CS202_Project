@@ -109,9 +109,10 @@ int CPEOPLE::getPrevY() const {
 	return mPrevY;
 }
 
-bool CPEOPLE::collidedWithEnemy() {
+bool CPEOPLE::collidedWithEnemy(int& collidedIndex) {
 	for (int i = 0; i < generatedVehicles.size(); i++) {
 		if (PixelPerfectCollision(sprite, generatedVehicles[i]->getSprite(), img, generatedVehicles[i]->getImage())) {
+			collidedIndex = i;
 			return true;
 		}
 	}

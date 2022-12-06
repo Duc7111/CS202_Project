@@ -368,32 +368,15 @@ void playGame() {
 		moveWorld(window, player);
 		window.clear();
 
-		//camera.setCenter(player.sprite.getPosition());
-		//camera.setViewport(sf::FloatRect(0.25f, 0.25, 0.5f, 0.5f));
-		//window.setView(camera);
-
 		window.draw(bg);
 		window.draw(bg2);
 
-		//road1.drawRoad(window);
-		//road2.drawRoad(window);
-		//road3.drawRoad(window);
-		//road4.drawRoad(window);
-
-		//dirt1.drawRoad(window);
-		//dirt2.drawRoad(window);
-		//dirt3.drawRoad(window);
-		//dirt4.drawRoad(window);
-
 		player.drawPlayer(window);
 
-
-
-
-		//code nay test thu cai ktra va cham
-		//if (player.collidedWithEnemy())
-		//	std::cout << "Collided\n";
-
+		int collidedIndex = -1;
+		if (player.collidedWithEnemy(collidedIndex)) {
+			explosion::animateExplosion(window, generatedVehicles[collidedIndex]->getSprite());
+		}
 
 		drawObjects(window, generatedVehicles);
 

@@ -41,7 +41,7 @@ public:
 
 	bool reinitializedVehicle = false;
 
-	bool collidedWithEnemy();
+	bool collidedWithEnemy(int& collidedIndex);
 
 	float getRealX(float mX); //cai nay chi dung cho cai camera
 
