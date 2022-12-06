@@ -151,7 +151,6 @@
     <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="people.cpp" />
     <ClCompile Include="Project.cpp" />
-    <ClCompile Include="randomizer.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="vehicle.cpp" />
   </ItemGroup>
@@ -166,7 +165,6 @@
     <ClInclude Include="objectPool.h" />
     <ClInclude Include="people.h" />
     <ClInclude Include="position.h" />
-    <ClInclude Include="randomizer.h" />
     <ClInclude Include="road.h" />
     <ClInclude Include="vehicle.h" />
   </ItemGroup>

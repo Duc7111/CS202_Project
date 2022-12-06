@@ -23,19 +23,29 @@ void Road::setPosition(float y)
 
 CVEHICLE* VehicleRoad::VehicleFactory()
 {
-	
+	CVEHICLE* vehicle;
+	// Type
+	if (DICE::flip()) vehicle = new CCAR;
+	else vehicle = new CTRUCK;
+	//position
+	float x = vQueue[0]->getTexture().getSize().x* vQueue[0]->getSprite().getScale().x + 10.f;
+	x = DICE::random(-x * 5, -x);
+
+	vehicle->setPosition(x, sprite.getPosition().y);
+	return vehicle;
 }
 
 VehicleRoad::VehicleRoad() : v(0) {}
 
 VehicleRoad::~VehicleRoad()
 {
-	for (int i = vQueue.size() - 1; i > -1; ++i) delete vQueue[i];
+	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
 }
 
 bool VehicleRoad::loadTexture(std::string fileName)
 {
 	if(!texture[0].loadFromFile(fileName)) return false;
+	return true;
 }
 
 void VehicleRoad::resetSprite()
@@ -60,7 +70,11 @@ void VehicleRoad::setPosition(float y)
 void VehicleRoad::run()
 {
 	// Check condition
-	if (!status) return;
+	if (!status)
+	{
+		traficLight.clock.restart();
+		return;
+	}
 	// Trafic light
 	traficLight.function();
 	if (!traficLight.status) return;
@@ -70,8 +84,8 @@ void VehicleRoad::run()
 	for (int i = vQueue.size() - 1; i > -1; --i)
 		vQueue[i]->Move(v, 0);
 	// New vehicle
-	if (vQueue.size() == OBJ_MAX || DICE::random(-2, 2)) return;
-	vQueue.push(VehicleFactory());
+	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x < 0))
+		vQueue.push(VehicleFactory());
 }
 
 void VehicleRoad::draw()
@@ -86,7 +100,16 @@ void VehicleRoad::draw()
 
 CANIMAL* AnimalRoad::AnimalFactory()
 {
+	CANIMAL* animal;
+	// Type
+	if (DICE::flip()) animal = new CDINAUSOR;
+	else animal = new CBIRD;
+	//position
+	float x = aQueue[0]->getTexture().getSize().x * aQueue[0]->getSprite().getScale().x + 10.f;
+	x = DICE::random(-x * 5, -x);
 
+	animal->setPosition(x, sprite.getPosition().y);
+	return animal;
 }
 
 AnimalRoad::AnimalRoad() : v(0) {}

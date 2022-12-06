@@ -78,13 +78,24 @@ private:
 	{
 		bool status;//true: green, false: red
 		sf::RectangleShape shape;
+		sf::Clock clock;
 
 		TF() : status(true), shape(sf::Vector2f(M_CELL/10, M_CELL/10))
 		{
 			shape.setFillColor(sf::Color::Green);
 		}
 
-		void function(){}
+		void function()
+		{
+			sf::Time time = clock.getElapsedTime();
+			if (time.asSeconds() > 3.f)
+			{
+				status = !status;
+				if (status) shape.setFillColor(sf::Color::Green);
+				else shape.setFillColor(sf::Color::Red);
+				clock.restart();
+			}
+		}
 	}traficLight;
 
 	float v;

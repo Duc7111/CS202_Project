@@ -45,9 +45,6 @@
     <ClCompile Include="road.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="randomizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="road.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="randomizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="position.h">
