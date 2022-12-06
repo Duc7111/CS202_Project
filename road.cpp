@@ -1,9 +1,11 @@
 #include "road.h"
-#include "dice.h"
 
 #include <iostream>
 
 #define WINDOW (*windowHandle)
+
+sf::RenderWindow* Road::windowHandle = nullptr;
+sf::Texture Road::texture[];
 
 Road::Road() : status(false){}
 

@@ -1,10 +1,9 @@
 #pragma once
-
+#include <SFML/Graphics.hpp>
 #include "vehicle.h"
 #include "animal.h"
 #include "position.h"
-
-#include <SFML/Graphics.hpp>
+#include "dice.h"
 #include <random>
 #include <time.h>
 #include <string>
@@ -33,37 +32,37 @@ template<class T>
 class ObjQueue //built only for Road
 {
 private:
-	T arr[OBJ_MAX] = default;
-	int front, size;
+	T arr[OBJ_MAX]; // = default;
+	int front, size_v;
 
 public:
-	ObjQueue() : front(0), size(0) {}
+	ObjQueue() : front(0), size_v(0) {}
 
 	bool isEmpty()
 	{
-		if (size == 0) return true;
+		if (size_v == 0) return true;
 		return false;
 	}
 	int size()
 	{
-		return size;
+		return size_v;
 	}
 
-	void push(T)
+	void push(T value)
 	{
-		if (size == OBJ_MAX) return;
-		++size;
+		if (size_v == OBJ_MAX) return;
+		++size_v;
 		front = (front - 1) % OBJ_MAX;
-		arr[front] = T;
+		arr[front] = value;
 	}
 	T& pop() //check isEmpty before calling
 	{
-		return arr[(front + size--)%OBJ_MAX];
+		return arr[(front + size_v--)%OBJ_MAX];
 	}
 
 	void reset()
 	{
-		front = size = 0;
+		front = size_v = 0;
 	}
 
 	T& operator[](int i)
