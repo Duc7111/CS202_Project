@@ -43,4 +43,6 @@ public:
 
 	bool collidedWithEnemy();
 
+	float getRealX(float mX); //cai nay chi dung cho cai camera
+
 };

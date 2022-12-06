@@ -19,7 +19,7 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite& targetSpr
 	int i = 0;
 	while (i < explosionTextures.size()) {
 		if (clock.getElapsedTime().asSeconds() > explosionBreak) {
-			window.clear();
+			/*window.clear();*/
 			targetSprite.setTexture(explosionTextures[i++]);
 			targetSprite.setScale(3, 3);
 			window.draw(targetSprite);

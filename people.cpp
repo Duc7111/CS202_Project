@@ -2,10 +2,14 @@
 #include "game.h"
 #include "animal.h"
 #include "vehicle.h"
+float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
+{
+	return (mX / 13.0f) * 1300 + 10;
+}
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	float x = (mX / 13.0f) * 1300 + 10;
 	float y = ((6.0f - mY) / 7.0f) * 700 + 10;
-	cout << x << " " << y << "\n";
+	//cout << x << " " << y << "\n";
 	return sf::Vector2f(x, y);
 }
 
@@ -68,6 +72,7 @@ void CPEOPLE::goRight() {
 		sprite.setTexture(texture[2]);
 	}
 	++mX;
+	cout << mX << "\n";
 }
 
 void CPEOPLE::goLeft() {
@@ -77,6 +82,7 @@ void CPEOPLE::goLeft() {
 		sprite.setTexture(texture[3]);
 	}
 	--mX;
+	cout << mX << "\n";
 }
 
 bool CPEOPLE::isImpact(const CVEHICLE*&)

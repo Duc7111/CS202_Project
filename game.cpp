@@ -231,8 +231,6 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 	if (player.getDirection() == 3 || player.getDirection() == 4)
 		noMove = true;
 
-
-
 	int y = player.getPosition().y;
 
 	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
@@ -255,7 +253,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	window.clear();
 	if (!noMove) {
-		view.setCenter(player.getPositionInWorld());
+		view.setCenter(sf::Vector2f(player.getRealX(6), player.getPositionInWorld().y));
 	}
 	//initializeVehicles() //di chuyen len thi tao xe o tren
 	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
@@ -393,8 +391,8 @@ void playGame() {
 
 
 		//code nay test thu cai ktra va cham
-		if (player.collidedWithEnemy())
-			std::cout << "Collided\n";
+		//if (player.collidedWithEnemy())
+		//	std::cout << "Collided\n";
 
 
 		drawObjects(window, generatedVehicles);
