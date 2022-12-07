@@ -77,3 +77,16 @@ sf::Image CCAR::getImage() {
 sf::Image CTRUCK::getImage() {
 	return CGAME::truckImage;
 }
+
+TRAFFICLIGHT::TRAFFICLIGHT() {
+	texture[0].loadFromFile("trafficLight/red.png");
+	texture[1].loadFromFile("trafficLight/yellow.png");
+	texture[2].loadFromFile("trafficLight/green.png");
+	status = 2;
+	sprite = sf::Sprite(texture[status]);
+}
+
+void TRAFFICLIGHT::switchStatus(int newStatus) {
+	sprite = sf::Sprite(texture[newStatus]);
+
+}

@@ -7,7 +7,11 @@
 sf::RenderWindow* Road::windowHandle = nullptr;
 sf::Texture Road::texture[];
 
-Road::Road() : status(false){}
+
+Road::Road() : status(false) {
+	texture[0].loadFromFile("road.png");
+	texture[1].loadFromFile("road2.png");
+}
 
 void Road::setWindow(sf::RenderWindow* window)
 {
@@ -28,7 +32,7 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	if (DICE::flip()) vehicle = new CCAR;
 	else vehicle = new CTRUCK;
 	//position
-	float x = vQueue[0]->getTexture().getSize().x* vQueue[0]->getSprite().getScale().x + 10.f;
+	float x = vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x + 10.f;
 	x = DICE::random(-x * 5, -x);
 
 	vehicle->setPosition(x, sprite.getPosition().y);
@@ -44,7 +48,7 @@ VehicleRoad::~VehicleRoad()
 
 bool VehicleRoad::loadTexture(std::string fileName)
 {
-	if(!texture[0].loadFromFile(fileName)) return false;
+	if (!texture[0].loadFromFile(fileName)) return false;
 	return true;
 }
 

@@ -24,6 +24,7 @@ public:
 	virtual void setPosition(float y);
 	virtual void resetSprite() = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
+
 };
 
 #define OBJ_MAX 5
@@ -57,7 +58,7 @@ public:
 	}
 	T& pop() //check isEmpty before calling
 	{
-		return arr[(front + size_v--)%OBJ_MAX];
+		return arr[(front + size_v--) % OBJ_MAX];
 	}
 
 	void reset()
@@ -67,7 +68,7 @@ public:
 
 	T& operator[](int i)
 	{
-		return arr[(front + i)%OBJ_MAX];
+		return arr[(front + i) % OBJ_MAX];
 	}
 };
 
@@ -80,7 +81,7 @@ private:
 		sf::RectangleShape shape;
 		sf::Clock clock;
 
-		TF() : status(true), shape(sf::Vector2f(M_CELL/10, M_CELL/10))
+		TF() : status(true), shape(sf::Vector2f(M_CELL / 10, M_CELL / 10))
 		{
 			shape.setFillColor(sf::Color::Green);
 		}
@@ -134,3 +135,4 @@ public:
 	void run();
 	void draw();
 };
+

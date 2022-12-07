@@ -67,9 +67,9 @@ private:
 public:
 	TRAFFICLIGHT();
 	sf::Sprite sprite;
-	int status;
+	int status = 2;//mac dinh la den xanh
 
-
+	void switchStatus(int newStatus);
 	static bool isStopped; //ktra den xanh den do
 };
 
