@@ -1,6 +1,6 @@
 #include "game.h"
 #include "effect.h"
-
+#include "audio.h"
 
 sf::Texture CGAME::carTexture;
 sf::Texture CGAME::truckTexture;
@@ -312,6 +312,7 @@ void playGame() {
 	sf::Time elapsed;
 
 	explosion::loadTexture();
+	audio::loadSound();
 
 	CGAME::carTexture.loadFromFile("car.png");
 	CGAME::truckTexture.loadFromFile("truck.png");//load texture
@@ -347,18 +348,23 @@ void playGame() {
 				switch (event.key.code) {
 				case sf::Keyboard::Key::W:
 					player.goUp();
+					audio::playMove();
 					break;
 				case sf::Keyboard::Key::S:
 					player.goDown();
+					audio::playMove();
 					break;
 				case sf::Keyboard::Key::A:
 					player.goLeft();
+					audio::playMove();
 					break;
 				case sf::Keyboard::Key::D:
 					player.goRight();
+					audio::playMove();
 					break;
 				case sf::Keyboard::Key::Escape:
 					CGAME::pauseGame();
+					audio::playMove();
 					break;
 				default:
 					break;

@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animal.cpp" />
+    <ClCompile Include="audio.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="dice.cpp" />
     <ClCompile Include="effect.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animal.h" />
+    <ClInclude Include="audio.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="dice.h" />
     <ClInclude Include="effect.h" />
