@@ -235,9 +235,10 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
 		//se co ktra di len di xuong de chon y phu hop
-		if (player.getDirection() == 1) {
+		if (player.getDirection() == 1) { //di len
 			YCar -= moveOffset;
 			YTruck -= moveOffset;
+			addBg(player, CGAME::bgs);
 		}
 		else if (player.getDirection() == 2) {
 			YCar += moveOffset;
@@ -246,7 +247,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 		player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
 		initializeVehicles();
-		switchBg();
+
 	}
 	else if (y % 15 != 0)
 		player.reinitializedVehicle = false;
@@ -322,15 +323,14 @@ void playGame() {
 	CPEOPLE player;
 	player.loadTexture();
 
-
-	sf::Texture bgTexture;
-	bgTexture.loadFromFile("bg.png");
-	sf::Sprite bg(bgTexture);
-
-	bg.setScale(1300, 7000);
+	CGAME::bgTexture.loadFromFile("bg.png");
+	sf::Sprite bg(CGAME::bgTexture);
+	bg.setScale(1300, bgPos);
 	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-100, -1300);
+	bg2.setPosition(-100, bgPos -= bgOffset);
+	CGAME::bgs.push_back(bg);
+	CGAME::bgs.push_back(bg2);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -368,8 +368,7 @@ void playGame() {
 		moveWorld(window, player);
 		window.clear();
 
-		window.draw(bg);
-		window.draw(bg2);
+		drawBgs(window, CGAME::bgs);
 
 		player.drawPlayer(window);
 
@@ -388,7 +387,20 @@ void playGame() {
 	}
 }
 
+int bgPos = 7000;
+sf::Texture CGAME::bgTexture;
+std::vector<sf::Sprite> CGAME::bgs;
 
-void switchBg() {
+void addBg(const CPEOPLE& player, std::vector<sf::Sprite>& bgs) {
+	sf::Sprite bgSprite(CGAME::bgTexture);
+	bgSprite.setScale(1300, 7000);
+	bgSprite.setPosition(sf::Vector2f(-100, bgPos -= bgOffset));
+	bgs.push_back(bgSprite);
+}
+
+void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
+	for (int i = 0; i < bgs.size(); i++) {
+		window.draw(bgs[i]);
+	}
 
 }

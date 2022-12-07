@@ -14,6 +14,8 @@
 #define LEVEL_MAX 5
 
 extern std::vector<CVEHICLE*> generatedVehicles;
+
+
 const float roadOffset = 175;
 
 using namespace std;
@@ -43,12 +45,15 @@ public:
 	static sf::Texture truckTexture;
 	static sf::Image carImage;
 	static sf::Image truckImage;
+	static sf::Texture bgTexture;
+	static std::vector<sf::Sprite> bgs;
 };
 const float setX = -1200;
 const float speed = 40;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
-
+extern int bgPos;
+const int bgOffset = 8300;
 
 void initializeVehicles();
 
@@ -74,6 +79,7 @@ void highScore();
 //extern ROAD road1, road2, road3, road4;
 //extern DIRT dirt1, dirt2, dirt3, dirt4;
 
-void switchBg(); //dung khi di chuyen len
+void addBg(const CPEOPLE& player, std::vector<sf::Sprite>& bgs); //dung khi di chuyen len
+void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs);
 
 const float moveOffset = 950;

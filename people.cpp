@@ -72,7 +72,6 @@ void CPEOPLE::goRight() {
 		sprite.setTexture(texture[2]);
 	}
 	++mX;
-	cout << mX << "\n";
 }
 
 void CPEOPLE::goLeft() {
@@ -82,7 +81,6 @@ void CPEOPLE::goLeft() {
 		sprite.setTexture(texture[3]);
 	}
 	--mX;
-	cout << mX << "\n";
 }
 
 bool CPEOPLE::isImpact(const CVEHICLE*&)
