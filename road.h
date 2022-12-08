@@ -20,9 +20,13 @@ public:
 	bool status;
 
 	static void setWindow(sf::RenderWindow* windowHandle);
-
-	virtual void setPosition(float y);
+	
 	virtual void resetSprite() = 0;
+
+	virtual void setPosition(float y) = 0;
+	virtual void setVelocity(float velocity) = 0;
+
+	virtual void run() = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 
 };
@@ -111,7 +115,10 @@ public:
 	static bool loadTexture();
 
 	void resetSprite();
+
 	void setPosition(float y);
+	void setVelocity(float velocity);
+
 	void run();
 	void draw();
 };
@@ -131,7 +138,10 @@ public:
 	static bool loadTexture();
 
 	void resetSprite();
+
 	void setPosition(float y);
+	void setVelocity(float velocity);
+
 	void run();
 	void draw();
 };

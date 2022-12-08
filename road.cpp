@@ -70,6 +70,11 @@ void VehicleRoad::setPosition(float y)
 	vQueue.reset();
 }
 
+void VehicleRoad::setVelocity(float velocity)
+{
+	if(velocity > 0) v = velocity;
+}
+
 void VehicleRoad::run()
 {
 	// Check condition
@@ -142,6 +147,11 @@ void AnimalRoad::setPosition(float y)
 	// Reset queue
 	for (int i = aQueue.size() - 1; i > -1; --i) delete aQueue[i];
 	aQueue.reset();
+}
+
+void AnimalRoad::setVelocity(float velocity)
+{
+	if (velocity > 0) v = velocity;
 }
 
 void AnimalRoad::run()
