@@ -254,7 +254,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	window.clear();
 	if (!noMove) {
-		view.setCenter(sf::Vector2f(player.getRealX(6), player.getPositionInWorld().y));
+		view.setCenter(sf::Vector2f(player.getRealX(6.5), player.getPositionInWorld().y));
 	}
 	//initializeVehicles() //di chuyen len thi tao xe o tren
 	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
@@ -326,10 +326,10 @@ void playGame() {
 
 	CGAME::bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(CGAME::bgTexture);
-	bg.setScale(1300, bgPos);
-	bg.setPosition(-100, 0);
+	bg.setScale(1500, 7000);
+	bg.setPosition(-200, bgPos);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-100, bgPos -= bgOffset);
+	bg2.setPosition(-200, bgPos -= bgOffset);
 	CGAME::bgs.push_back(bg);
 	CGAME::bgs.push_back(bg2);
 
@@ -393,14 +393,14 @@ void playGame() {
 	}
 }
 
-int bgPos = 7000;
+int bgPos = 0;
 sf::Texture CGAME::bgTexture;
 std::vector<sf::Sprite> CGAME::bgs;
 
 void addBg(const CPEOPLE& player, std::vector<sf::Sprite>& bgs) {
 	sf::Sprite bgSprite(CGAME::bgTexture);
-	bgSprite.setScale(1300, 7000);
-	bgSprite.setPosition(sf::Vector2f(-100, bgPos -= bgOffset));
+	bgSprite.setScale(1500, 7000);
+	bgSprite.setPosition(sf::Vector2f(-200, bgPos -= bgOffset));
 	bgs.push_back(bgSprite);
 }
 
