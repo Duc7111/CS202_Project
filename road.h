@@ -20,14 +20,14 @@ public:
 	bool status;
 
 	static void setWindow(sf::RenderWindow* windowHandle);
-	
+
 	virtual void resetSprite() = 0;
 
 	virtual void setPosition(float y) = 0;
 	virtual void setVelocity(float velocity) = 0;
 
 	virtual void run() = 0;
-	virtual void draw(sf::RenderWindow& window) = 0;
+	virtual void draw() = 0;
 
 };
 
