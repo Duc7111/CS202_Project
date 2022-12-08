@@ -9,8 +9,7 @@ sf::Texture Road::texture[];
 
 
 Road::Road() : status(false) {
-	texture[0].loadFromFile("road.png");
-	texture[1].loadFromFile("road2.png");
+
 }
 
 void Road::setWindow(sf::RenderWindow* window)
@@ -46,9 +45,9 @@ VehicleRoad::~VehicleRoad()
 	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
 }
 
-bool VehicleRoad::loadTexture(std::string fileName)
+bool VehicleRoad::loadTexture()
 {
-	if (!texture[0].loadFromFile(fileName)) return false;
+	if (!texture[0].loadFromFile("road1.png")) return false;
 	return true;
 }
 
@@ -123,9 +122,9 @@ AnimalRoad::~AnimalRoad()
 	while (!aQueue.isEmpty()) delete aQueue.pop();
 }
 
-bool AnimalRoad::loadTexture(std::string fileName)
+bool AnimalRoad::loadTexture()
 {
-	return texture[1].loadFromFile(fileName);
+	return texture[1].loadFromFile("road2.png");
 }
 
 void AnimalRoad::resetSprite()

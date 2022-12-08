@@ -108,7 +108,7 @@ public:
 	VehicleRoad();
 	~VehicleRoad();
 
-	static bool loadTexture(std::string fileName);
+	static bool loadTexture();
 
 	void resetSprite();
 	void setPosition(float y);
@@ -128,7 +128,7 @@ public:
 	AnimalRoad();
 	~AnimalRoad();
 
-	static bool loadTexture(std::string fileName);
+	static bool loadTexture();
 
 	void resetSprite();
 	void setPosition(float y);
