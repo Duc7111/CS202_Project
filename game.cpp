@@ -306,7 +306,7 @@ std::vector<CVEHICLE*> generatedVehicles;
 //DIRT dirt1, dirt2, dirt3, dirt4;
 
 void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1300, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1280, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 
 	sf::Clock clock;
 	sf::Time elapsed;
