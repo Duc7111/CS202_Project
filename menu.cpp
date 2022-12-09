@@ -202,14 +202,25 @@ void graphicalMenu(sf::RenderWindow& window) {
 	highScoreBtn = sf::Sprite(highScore);
 	loadBtn = sf::Sprite(load);
 
-	playBtn.setPosition(550, 100);
+	playBtn.setPosition(550, 300);
 	highScoreBtn.setPosition(450, 400);
 	loadBtn.setPosition(650, 400);
+
+	sf::Font font;
+	font.loadFromFile("ZenDots-Regular.ttf");
+	sf::Text title;
+	title.setFont(font);
+	title.setString("Crossing Road");
+	title.setCharacterSize(65);
+	title.setFillColor(sf::Color::White);
+	title.setStyle(sf::Text::Bold);
+	title.setPosition(350, 50);
 
 	while (window.isOpen()) {
 		window.draw(playBtn);
 		window.draw(highScoreBtn);
 		window.draw(loadBtn);
+		window.draw(title);
 
 		if (playBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //neu bam vao button
