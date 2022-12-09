@@ -400,6 +400,9 @@ void playGame(sf::RenderWindow& window) {
 
 		window.display();
 	}
+
+	for (int i = 0; i < generatedVehicles.size(); i++)
+		delete generatedVehicles[i];
 }
 
 int bgPos = 0;
