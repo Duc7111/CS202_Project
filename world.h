@@ -13,7 +13,7 @@ public:
 	void loadBackground();
 	void forward();
 	void backward(CPEOPLE& player);
-	void drawWorld();
+	void drawWorld(sf::RenderWindow& window);
 private:
 	static Road* createRoad(SEED_T seed_type);
 	sf::Texture texture;

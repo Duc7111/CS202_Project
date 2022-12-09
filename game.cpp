@@ -302,8 +302,7 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 }
 
 std::vector<CVEHICLE*> generatedVehicles;
-//ROAD road1, road2, road3, road4;
-//DIRT dirt1, dirt2, dirt3, dirt4;
+int YScoreText = 300;
 
 void playGame(sf::RenderWindow& window) {
 
@@ -324,7 +323,15 @@ void playGame(sf::RenderWindow& window) {
 	CPEOPLE player;
 	player.loadTexture();
 
+	CGAME::font.loadFromFile("ZenDots-Regular.ttf");
+	CGAME::currentScore.setFont(CGAME::font);
+	CGAME::currentScore.setCharacterSize(45);
+	CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
+
+
+
 	VehicleRoad::loadTexture();
+
 
 	WORLD world;
 	world.createWorld(window);
@@ -342,7 +349,7 @@ void playGame(sf::RenderWindow& window) {
 
 
 	while (window.isOpen()) {
-
+		CGAME::currentScore.setString(std::to_string(CGAME::score)); //hien thi diem
 		//std::cout << player.drawPosition(15, 0).y << " "; //680
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -355,10 +362,13 @@ void playGame(sf::RenderWindow& window) {
 					player.goUp();
 					audio::playMove();
 					world.forward();
+					CGAME::score++;
+					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 					break;
 				case sf::Keyboard::Key::S:
 					player.goDown();
 					audio::playMove();
+					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 					break;
 				case sf::Keyboard::Key::A:
 					player.goLeft();
@@ -379,11 +389,12 @@ void playGame(sf::RenderWindow& window) {
 		}
 		moveWorld(window, player);
 		window.clear();
+
 		window.draw(bg);
 
 		drawBgs(window, CGAME::bgs);
 
-		world.drawWorld();
+		world.drawWorld(window);
 
 		player.drawPlayer(window);
 
@@ -395,8 +406,6 @@ void playGame(sf::RenderWindow& window) {
 		//drawObjects(window, generatedVehicles);
 
 
-		/*CGAME::current = window.getView();*/
-
 
 		window.display();
 	}
@@ -405,6 +414,9 @@ void playGame(sf::RenderWindow& window) {
 		delete generatedVehicles[i];
 }
 
+sf::Font CGAME::font;
+sf::Text CGAME::currentScore;
+int CGAME::score = 0;
 int bgPos = 0;
 sf::Texture CGAME::bgTexture;
 std::vector<sf::Sprite> CGAME::bgs;

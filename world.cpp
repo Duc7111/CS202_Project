@@ -1,4 +1,5 @@
 #include "world.h"
+#include "game.h"
 
 WORLD::WORLD() {
 	std::fill(object, object + 9, nullptr);
@@ -12,10 +13,12 @@ WORLD::~WORLD() {
 }
 
 void WORLD::createWorld(sf::RenderWindow& window) {
+
 	Road::setWindow(&window);
 	for (int i = 0; i < 7; ++i) {
 		object[i + 2] = createRoad(seed[i]);
 	}
+	window.draw(CGAME::currentScore);
 }
 
 void WORLD::loadBackground() {
@@ -34,10 +37,11 @@ void WORLD::forward() {
 }
 
 void WORLD::backward(CPEOPLE& player) {
-	
+
 }
 
-void WORLD::drawWorld() {
+void WORLD::drawWorld(sf::RenderWindow& window) {
+
 	for (int i = 0; i < 7; ++i) {
 		if (object[i]) {
 			object[i]->setPosition(forwardIndex + i - 2);
@@ -46,6 +50,7 @@ void WORLD::drawWorld() {
 			object[i]->draw();
 		}
 	}
+	window.draw(CGAME::currentScore);
 }
 
 Road* WORLD::createRoad(SEED_T seed_type) {

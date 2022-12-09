@@ -48,6 +48,11 @@ public:
 	static sf::Image truckImage;
 	static sf::Texture bgTexture;
 	static std::vector<sf::Sprite> bgs;
+
+	static int score;
+	static sf::Text currentScore;
+
+	static sf::Font font;
 };
 const float setX = -1200;
 const float speed = 40;
@@ -55,6 +60,8 @@ const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
 extern int bgPos;
 const int bgOffset = 8300;
+
+extern int YScoreText;
 
 void initializeVehicles();
 
