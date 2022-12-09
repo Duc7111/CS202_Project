@@ -155,6 +155,7 @@
     <ClCompile Include="seed.cpp" />
     <ClCompile Include="road.cpp" />
     <ClCompile Include="vehicle.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animal.h" />

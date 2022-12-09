@@ -4,6 +4,7 @@
 #include "vehicle.h"
 #include "people.h"
 #include "road.h"
+#include "world.h"
 #include <Windows.h>
 #include <iostream>
 #include <fstream>

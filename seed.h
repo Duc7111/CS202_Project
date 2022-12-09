@@ -1,5 +1,6 @@
 #pragma once
-#include <vector>
+#include <string>
+#include <array>
 #include "dice.h"
 
 enum SEED_T : unsigned char {
@@ -10,11 +11,13 @@ class SEED {
 public:
 	SEED();
 	SEED(const std::vector<SEED_T>& seed);
-	SEED_T& operator[](size_t idx);
+	void update();
 	const SEED_T& operator[](size_t idx) const;
-	void generate();
+	std::string to_string();
 private:
 	static const int boundLower = 3;
 	static const int boundUpper = 5;
-	std::vector<SEED_T> seed;
+	static void generate(std::array<SEED_T, 7>& seed);
+	std::array<SEED_T, 7> current;
+	std::array<SEED_T, 7> next;
 };

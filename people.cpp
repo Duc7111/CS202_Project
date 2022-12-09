@@ -4,7 +4,7 @@
 #include "vehicle.h"
 float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
 {
-	return (mX / 13.0f) * 1300 + 10;
+	return (mX / 13.0f) * 1300;
 }
 sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
 	float x = (mX / 13.0f) * 1300 + 10;

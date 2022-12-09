@@ -28,7 +28,7 @@ public:
 
 	virtual void run() = 0;
 	virtual void draw() = 0;
-
+	virtual void draw(sf::RenderWindow& window) = 0;
 };
 
 #define OBJ_MAX 5
@@ -121,6 +121,7 @@ public:
 
 	void run();
 	void draw();
+	void draw(sf::RenderWindow& window);
 };
 
 class AnimalRoad : public Road

@@ -19,7 +19,7 @@ void Road::setWindow(sf::RenderWindow* window)
 
 void Road::setPosition(float y)
 {
-	sprite.setPosition(sf::Vector2f(0.f, y));
+	sprite.setPosition(sf::Vector2f(0.f, ((6.0f - y) / 7.0f) * 700));
 }
 
 /////////////////////////////////////////////////////
@@ -54,8 +54,8 @@ bool VehicleRoad::loadTexture()
 void VehicleRoad::resetSprite()
 {
 	sprite.setTexture(texture[0]);
-	float scale = (float)M_CELL / sprite.getScale().y;
-	sprite.setScale(sf::Vector2f(scale, scale));
+	//float scale = (float)M_CELL / sprite.getScale().y;
+	sprite.setScale(sf::Vector2f(0.25f, 0.25f));
 	sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
 }
 
@@ -102,6 +102,14 @@ void VehicleRoad::draw()
 	for (int i = 0; i < vQueue.size(); ++i)
 		vQueue[i]->drawInWindow(WINDOW);
 	WINDOW.draw(traficLight.shape);
+}
+
+void VehicleRoad::draw(sf::RenderWindow& window)
+{
+	window.draw(sprite);
+	for (int i = 0; i < vQueue.size(); ++i)
+		vQueue[i]->drawInWindow(window);
+	window.draw(traficLight.shape);
 }
 
 ////////////////////////////////////////////////////////

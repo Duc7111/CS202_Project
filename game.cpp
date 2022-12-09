@@ -254,7 +254,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	window.clear();
 	if (!noMove) {
-		view.setCenter(sf::Vector2f(player.getRealX(6.5), player.getPositionInWorld().y));
+		view.setCenter(sf::Vector2f(view.getCenter().x, player.getPositionInWorld().y));
 	}
 	//initializeVehicles() //di chuyen len thi tao xe o tren
 	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
@@ -314,22 +314,28 @@ void playGame() {
 	explosion::loadTexture();
 	audio::loadSound();
 
-	CGAME::carTexture.loadFromFile("car.png");
-	CGAME::truckTexture.loadFromFile("truck.png");//load texture
-	CGAME::carImage = CGAME::carTexture.copyToImage();
-	CGAME::truckImage = CGAME::truckTexture.copyToImage();
-	initializeVehicles();
+	//CGAME::carTexture.loadFromFile("car.png");
+	//CGAME::truckTexture.loadFromFile("truck.png");//load texture
+	//CGAME::carImage = CGAME::carTexture.copyToImage();
+	//CGAME::truckImage = CGAME::truckTexture.copyToImage();
+
+	//initializeVehicles();
 
 	//
 	CPEOPLE player;
 	player.loadTexture();
 
+	VehicleRoad::loadTexture();
+	
+	WORLD world;
+	world.createWorld(window);
+
 	CGAME::bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(CGAME::bgTexture);
-	bg.setScale(1500, 7000);
-	bg.setPosition(-200, bgPos);
+	bg.setScale(1300, bgPos);
+	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-200, bgPos -= bgOffset);
+	bg2.setPosition(-100, bgPos -= bgOffset);
 	CGAME::bgs.push_back(bg);
 	CGAME::bgs.push_back(bg2);
 
@@ -349,6 +355,7 @@ void playGame() {
 				case sf::Keyboard::Key::W:
 					player.goUp();
 					audio::playMove();
+					world.forward();
 					break;
 				case sf::Keyboard::Key::S:
 					player.goDown();
@@ -373,17 +380,20 @@ void playGame() {
 		}
 		moveWorld(window, player);
 		window.clear();
+		window.draw(bg);
 
 		drawBgs(window, CGAME::bgs);
 
+		world.drawWorld();
+		
 		player.drawPlayer(window);
 
-		int collidedIndex = -1;
-		if (player.collidedWithEnemy(collidedIndex)) {
-			explosion::animateExplosion(window, generatedVehicles[collidedIndex]->getSprite());
-		}
+		//int collidedIndex = -1;
+		//if (player.collidedWithEnemy(collidedIndex)) {
+		//	explosion::animateExplosion(window, generatedVehicles[collidedIndex]->getSprite());
+		//}
 
-		drawObjects(window, generatedVehicles);
+		//drawObjects(window, generatedVehicles);
 
 
 		/*CGAME::current = window.getView();*/
