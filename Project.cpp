@@ -9,7 +9,9 @@ int main(int argc, char** argv[]) {
 	//them may cai event handler o day
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
-	gameMenu(0);
+	sf::RenderWindow window(sf::VideoMode(1280, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+	graphicalMenu(window);
+	/*gameMenu(0);*/
 	eventHandler();
 	return 0;
 }

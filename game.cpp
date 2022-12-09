@@ -305,8 +305,7 @@ std::vector<CVEHICLE*> generatedVehicles;
 //ROAD road1, road2, road3, road4;
 //DIRT dirt1, dirt2, dirt3, dirt4;
 
-void playGame() {
-	sf::RenderWindow window(sf::VideoMode(1280, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
+void playGame(sf::RenderWindow& window) {
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -326,7 +325,7 @@ void playGame() {
 	player.loadTexture();
 
 	VehicleRoad::loadTexture();
-	
+
 	WORLD world;
 	world.createWorld(window);
 
@@ -385,7 +384,7 @@ void playGame() {
 		drawBgs(window, CGAME::bgs);
 
 		world.drawWorld();
-		
+
 		player.drawPlayer(window);
 
 		//int collidedIndex = -1;

@@ -74,8 +74,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	}
 }
 void moveWorld(sf::RenderWindow& window, CPEOPLE& player);
-void playGame();
-void highScore();
+void playGame(sf::RenderWindow& window);
 
 //extern ROAD road1, road2, road3, road4;
 //extern DIRT dirt1, dirt2, dirt3, dirt4;

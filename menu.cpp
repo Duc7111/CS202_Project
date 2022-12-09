@@ -173,7 +173,7 @@ void keyHandler(KEY_EVENT_RECORD key) {
 			if (menu == 0) { //o menu start game
 				switch (currentIndex) {
 				case 0: { //index 0 
-					playGame();
+					/*playGame(window);*/
 					break;
 				}
 				case 1: {
@@ -190,7 +190,47 @@ void keyHandler(KEY_EVENT_RECORD key) {
 		}
 	}
 }
-
+sf::Texture play, highScore, load;
 void graphicalMenu(sf::RenderWindow& window) {
+
+	play.loadFromFile("buttons/play.png");
+	highScore.loadFromFile("buttons/highScore.png");
+	load.loadFromFile("buttons/load.png");
+
+	sf::Sprite playBtn, highScoreBtn, loadBtn;
+	playBtn = sf::Sprite(play);
+	highScoreBtn = sf::Sprite(highScore);
+	loadBtn = sf::Sprite(load);
+
+	playBtn.setPosition(550, 100);
+	highScoreBtn.setPosition(450, 400);
+	loadBtn.setPosition(650, 400);
+
+	while (window.isOpen()) {
+		window.draw(playBtn);
+		window.draw(highScoreBtn);
+		window.draw(loadBtn);
+
+		if (playBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //neu bam vao button
+				playGame(window);
+			}
+		}
+
+		if (highScoreBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+			}
+		}
+
+		if (loadBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+
+			}
+		}
+
+		window.display();
+	}
+
 
 }
