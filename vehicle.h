@@ -23,6 +23,7 @@ public:
 	virtual sf::Sprite getSprite() = 0;
 	virtual sf::Texture getTexture() = 0;
 	virtual sf::Image getImage() = 0;
+	virtual bool setTexture(std::string fileName) = 0;
 
 protected:
 	sf::Sprite sprite;
@@ -44,6 +45,7 @@ public:
 	sf::Texture getTexture();
 	sf::Image getImage();
 
+	bool setTexture(std::string fileName);
 };
 
 
@@ -59,6 +61,8 @@ public:
 	void loadTextureForeground(float x);
 	sf::Texture getTexture();
 	sf::Image getImage();
+
+	bool setTexture(std::string fileName);
 };
 
 class TRAFFICLIGHT {

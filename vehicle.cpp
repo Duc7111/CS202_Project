@@ -90,3 +90,14 @@ void TRAFFICLIGHT::switchStatus(int newStatus) {
 	sprite = sf::Sprite(texture[newStatus]);
 
 }
+
+bool CCAR::setTexture(std::string fileName) {
+	if (!CGAME::carTexture.loadFromFile(fileName))
+		return false;
+	return true;
+}
+bool CTRUCK::setTexture(std::string fileName) {
+	if (!CGAME::truckTexture.loadFromFile(fileName))
+		return false;
+	return true;
+}
