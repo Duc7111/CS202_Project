@@ -190,3 +190,7 @@ void keyHandler(KEY_EVENT_RECORD key) {
 		}
 	}
 }
+
+void graphicalMenu(sf::RenderWindow& window) {
+
+}

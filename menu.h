@@ -23,3 +23,5 @@ public:
 
 
 void gameMenu(short index);
+
+void graphicalMenu(sf::RenderWindow& window);
