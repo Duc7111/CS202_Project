@@ -1,9 +1,14 @@
 #pragma once
+#include <deque>
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 #include "seed.h"
 #include "people.h"
 #include "road.h"
+
+class TERRAIN {
+
+};
 
 class WORLD {
 public:
@@ -19,7 +24,7 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 	SEED seed;
-	Road* object[9];
+	std::deque<Road*> object;
 	int forwardIndex;
 	int backwardIndex;
 };
