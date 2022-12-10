@@ -12,7 +12,7 @@ public:
 	void createWorld(sf::RenderWindow& window);
 	void loadBackground();
 	void forward();
-	void backward(CPEOPLE& player);
+	bool backward();
 	void drawWorld(sf::RenderWindow& window);
 private:
 	static Road* createRoad(SEED_T seed_type);
@@ -21,4 +21,5 @@ private:
 	SEED seed;
 	Road* object[9];
 	int forwardIndex;
+	int backwardIndex;
 };

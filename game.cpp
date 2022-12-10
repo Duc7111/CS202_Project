@@ -366,7 +366,7 @@ void playGame(sf::RenderWindow& window) {
 					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 					break;
 				case sf::Keyboard::Key::S:
-					player.goDown();
+					if (world.backward()) player.goDown();
 					audio::playMove();
 					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 					break;

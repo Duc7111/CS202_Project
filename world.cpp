@@ -4,6 +4,7 @@
 WORLD::WORLD() {
 	std::fill(object, object + 9, nullptr);
 	forwardIndex = 0;
+	backwardIndex = 0;
 }
 
 WORLD::~WORLD() {
@@ -27,6 +28,10 @@ void WORLD::loadBackground() {
 }
 
 void WORLD::forward() {
+	if (backwardIndex < 0) {
+		++backwardIndex;
+		return;
+	}
 	++forwardIndex;
 	delete object[0];
 	for (int i = 0; i < 8; ++i) {
@@ -36,8 +41,10 @@ void WORLD::forward() {
 	object[8] = createRoad(seed[forwardIndex]);
 }
 
-void WORLD::backward(CPEOPLE& player) {
-
+bool WORLD::backward() {
+	if (backwardIndex == -2) return false;
+	--backwardIndex;
+	return true;
 }
 
 void WORLD::drawWorld(sf::RenderWindow& window) {
