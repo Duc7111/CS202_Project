@@ -54,10 +54,15 @@ bool WORLD::backward() {
 void WORLD::drawWorld(sf::RenderWindow& window) {
 	for (int i = 0; i < 7; ++i) {
 		if (object[i]) {
-			object[i]->setPosition(forwardIndex + i - 2);
+			object[i]->setPosition(forwardIndex + i - 2);;
+			object[i]->drawRoad();
+		}
+	}
+	for (int i = 0; i < 7; ++i) {
+		if (object[i]) {
 			object[i]->setVelocity(10.f);
 			object[i]->run();
-			object[i]->draw();
+			object[i]->drawObj();
 		}
 	}
 	window.draw(CGAME::currentScore);

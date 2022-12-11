@@ -8,7 +8,7 @@ sf::RenderWindow* Road::windowHandle = nullptr;
 sf::Texture Road::texture[];
 
 
-Road::Road() : status(false) {
+Road::Road() : status(true) {
 
 }
 
@@ -22,6 +22,11 @@ void Road::setPosition(float y)
 	sprite.setPosition(sf::Vector2f(0.f, ((6.0f - y) / 7.0f) * 700));
 }
 
+void Road::drawRoad()
+{
+	WINDOW.draw(sprite);
+}
+
 /////////////////////////////////////////////////////
 
 CVEHICLE* VehicleRoad::VehicleFactory()
@@ -31,8 +36,10 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	if (DICE::flip()) vehicle = new CCAR;
 	else vehicle = new CTRUCK;
 	//position
-	float x = vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x + 10.f;
-	x = DICE::random(-x * 5, -x);
+	float x;
+	if (vQueue.isEmpty()) x = 10.f;
+	else x = vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x + 10.f;
+	x = DICE::random(-x * 2, -x);
 
 	vehicle->setPosition(x, sprite.getPosition().y);
 	return vehicle;
@@ -64,7 +71,7 @@ void VehicleRoad::setPosition(float y)
 	// Road position
 	Road::setPosition(y);
 	// traficLight position
-	traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, y + (float)M_CELL / 2));
+	traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, Road::sprite.getPosition().y));
 	// Reset queue
 	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
 	vQueue.reset();
@@ -86,19 +93,18 @@ void VehicleRoad::run()
 	// Trafic light
 	traficLight.function();
 	if (!traficLight.status) return;
+	// New vehicle
+	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0))
+		vQueue.push(VehicleFactory());
 	// Vehicles
-	if (vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f)
+	if (vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x)
 		delete vQueue.pop();
 	for (int i = vQueue.size() - 1; i > -1; --i)
 		vQueue[i]->Move(v, 0);
-	// New vehicle
-	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x < 0))
-		vQueue.push(VehicleFactory());
 }
 
-void VehicleRoad::draw()
+void VehicleRoad::drawObj()
 {
-	WINDOW.draw(sprite);
 	for (int i = 0; i < vQueue.size(); ++i)
 		vQueue[i]->drawInWindow(WINDOW);
 	WINDOW.draw(traficLight.shape);
@@ -166,19 +172,18 @@ void AnimalRoad::run()
 {
 	// Check condition
 	if (!status) return;
-	// Vehicles
+	// New animal
+	if (aQueue.size() == OBJ_MAX || DICE::random(-2, 2)) return;
+	aQueue.push(AnimalFactory());
+	// Animals
 	if (aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f)
 		delete aQueue.pop();
 	for (int i = aQueue.size() - 1; i > -1; --i)
 		aQueue[i]->Move(v, 0);
-	// New animal
-	if (aQueue.size() == OBJ_MAX || DICE::random(-2, 2)) return;
-	aQueue.push(AnimalFactory());
 }
 
-void AnimalRoad::draw()
+void AnimalRoad::drawObj()
 {
-	WINDOW.draw(sprite);
 	for (int i = aQueue.size() - 1; i > -1; --i)
 		aQueue[i]->drawInWindow(WINDOW);
 }

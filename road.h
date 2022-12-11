@@ -27,7 +27,8 @@ public:
 	virtual void setVelocity(float velocity) = 0;
 
 	virtual void run() = 0;
-	virtual void draw() = 0;
+	virtual void drawRoad();
+	virtual void drawObj() = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 };
 
@@ -57,7 +58,8 @@ public:
 	{
 		if (size_v == OBJ_MAX) return;
 		++size_v;
-		front = (front - 1) % OBJ_MAX;
+		if (front == 0) front = OBJ_MAX;
+		front = front - 1;
 		arr[front] = value;
 	}
 	T& pop() //check isEmpty before calling
@@ -93,7 +95,7 @@ private:
 		void function()
 		{
 			sf::Time time = clock.getElapsedTime();
-			if (time.asSeconds() > 3.f)
+			if (time.asSeconds() >= 3.f)
 			{
 				status = !status;
 				if (status) shape.setFillColor(sf::Color::Green);
@@ -120,7 +122,7 @@ public:
 	void setVelocity(float velocity);
 
 	void run();
-	void draw();
+	void drawObj();
 	void draw(sf::RenderWindow& window);
 };
 
@@ -144,6 +146,6 @@ public:
 	void setVelocity(float velocity);
 
 	void run();
-	void draw();
+	void drawObj();
 };
 

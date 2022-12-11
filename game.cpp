@@ -312,8 +312,8 @@ void playGame(sf::RenderWindow& window) {
 	explosion::loadTexture();
 	audio::loadSound();
 
-	//CGAME::carTexture.loadFromFile("car.png");
-	//CGAME::truckTexture.loadFromFile("truck.png");//load texture
+	CGAME::carTexture.loadFromFile("car.png");
+	CGAME::truckTexture.loadFromFile("truck.png");//load texture
 	//CGAME::carImage = CGAME::carTexture.copyToImage();
 	//CGAME::truckImage = CGAME::truckTexture.copyToImage();
 
