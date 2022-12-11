@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include "game.h"
+#include "highScore.h"
 int menu, currentIndex;
 HANDLE console::input;
 HANDLE console::output;
@@ -230,7 +231,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 		if (highScoreBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
+				viewHighScore();
 			}
 		}
 

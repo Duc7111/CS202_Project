@@ -4,8 +4,10 @@
 #include <iostream>
 //#include <thread>
 #include "menu.h"
+#include "highScore.h"
 
 int main(int argc, char** argv[]) {
+	readHighScore();
 	//them may cai event handler o day
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);
