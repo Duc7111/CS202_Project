@@ -148,6 +148,7 @@
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="highScore.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="people.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="effect.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="highScore.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="objectPool.h" />
     <ClInclude Include="people.h" />
