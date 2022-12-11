@@ -24,8 +24,7 @@ void readHighScore() {
 
 void compareHighScore(int currentScore) //so sánh điểm hiện tại với top highscore
 {
-	std::multiset<int>::iterator it = highScore.end();
-	it--;
+	std::multiset<int>::iterator it = highScore.begin();
 	if (currentScore > *(it))
 	{
 		if (highScore.size() == 5)
