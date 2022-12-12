@@ -20,7 +20,7 @@ public:
 	bool backward();
 	void drawWorld(sf::RenderWindow& window);
 private:
-	static Road* createRoad(SEED_T seed_type);
+	Road* createRoad(int index);
 	sf::Texture texture;
 	sf::Sprite sprite;
 	SEED seed;

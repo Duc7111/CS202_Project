@@ -3,7 +3,7 @@
 
 WORLD::WORLD() {
 	//std::fill(object, object + 9, nullptr);
-	forwardIndex = 0;
+	forwardIndex = 6;
 	backwardIndex = 0;
 }
 
@@ -20,7 +20,7 @@ void WORLD::createWorld(sf::RenderWindow& window) {
 	object.push_front(nullptr);
 	object.push_front(nullptr);
 	for (int i = 0; i < 7; ++i) {
-		Road* tmp = createRoad(seed[i]);
+		Road* tmp = createRoad(i);
 		object.push_back(tmp);
 	}
 	window.draw(CGAME::currentScore);
@@ -41,7 +41,7 @@ void WORLD::forward() {
 	object.pop_front();
 	delete tmp;
 	if (forwardIndex % 7 == 0) seed.update();
-	tmp = createRoad(seed[forwardIndex]);
+	tmp = createRoad(forwardIndex);
 	object.push_back(tmp);
 }
 
@@ -54,32 +54,34 @@ bool WORLD::backward() {
 void WORLD::drawWorld(sf::RenderWindow& window) {
 	for (int i = 0; i < 7; ++i) {
 		if (object[i]) {
-			object[i]->setPosition(forwardIndex + i - 2);;
+			//object[i]->setPosition(forwardIndex + i - 2);
 			object[i]->drawRoad();
 		}
 	}
 	for (int i = 0; i < 7; ++i) {
 		if (object[i]) {
 			object[i]->setVelocity(10.f);
-			object[i]->run();
+			//object[i]->run();
 			object[i]->drawObj();
 		}
 	}
 	window.draw(CGAME::currentScore);
 }
 
-Road* WORLD::createRoad(SEED_T seed_type) {
+Road* WORLD::createRoad(int index) {
 	Road* tmp = nullptr;
-	switch (seed_type) {
+	switch (seed[index]) {
 	case base:
 		return nullptr;
 	case vehicle:
 		tmp = new VehicleRoad;
 		tmp->resetSprite();
+		tmp->setPosition(index);
 		return tmp;
 	case animal:
 		tmp = new VehicleRoad;
 		tmp->resetSprite();
+		tmp->setPosition(index);
 		return tmp;
 	default:
 		break;
