@@ -3,11 +3,13 @@
 SEED::SEED() {
 	generate(current);
 	generate(next);
+	antiSpawnCamping(current);
 }
 
 SEED::SEED(const std::vector<SEED_T>& seed) {
 	std::copy(seed.begin(), seed.begin() + 7, current.begin());
 	generate(next);
+	antiSpawnCamping(current);
 }
 
 const SEED_T& SEED::operator[](size_t idx) const {
@@ -17,6 +19,15 @@ const SEED_T& SEED::operator[](size_t idx) const {
 void SEED::update() {
 	std::swap(current, next);
 	generate(next);
+}
+
+void SEED::antiSpawnCamping(std::array<SEED_T, 7>& seed) {
+	seed[0] = base;
+	int road;
+	do {
+		road = DICE::random(1, 6);
+	} while (seed[road] != base);
+	seed[road] = DICE::flip() ? vehicle : animal;
 }
 
 void SEED::generate(std::array<SEED_T, 7>& seed) {
