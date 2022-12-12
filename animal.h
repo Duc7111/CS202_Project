@@ -16,6 +16,8 @@ public:
 	void setPosition(float x, float y);
 
 	virtual void drawInWindow(sf::RenderWindow& window) = 0;
+
+	friend void scale(CANIMAL*, float, float);
 };
 
 class CDINAUSOR : public CANIMAL {

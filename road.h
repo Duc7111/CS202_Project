@@ -14,10 +14,10 @@ protected:
 	static sf::Texture texture[2];
 
 	sf::Sprite sprite;
+	bool side; //left: false,  right: true
 public:
 	Road();
 
-	bool status;
 
 	static void setWindow(sf::RenderWindow* windowHandle);
 
@@ -27,9 +27,9 @@ public:
 	virtual void setVelocity(float velocity) = 0;
 
 	virtual void run() = 0;
-	virtual void drawRoad();
+	
+	void drawRoad();
 	virtual void drawObj() = 0;
-	virtual void draw(sf::RenderWindow& window) = 0;
 };
 
 #define OBJ_MAX 5
@@ -64,12 +64,13 @@ public:
 	}
 	T& pop() //check isEmpty before calling
 	{
-		return arr[(front + size_v--) % OBJ_MAX];
+		return arr[(front + --size_v) % OBJ_MAX];
 	}
 
 	void reset()
 	{
-		front = size_v = 0;
+		front = OBJ_MAX;
+		size_v = 0;
 	}
 
 	T& operator[](int i)
@@ -123,7 +124,6 @@ public:
 
 	void run();
 	void drawObj();
-	void draw(sf::RenderWindow& window);
 };
 
 class AnimalRoad : public Road

@@ -7,10 +7,17 @@
 sf::RenderWindow* Road::windowHandle = nullptr;
 sf::Texture Road::texture[];
 
-
-Road::Road() : status(true) {
-
+void scale(CVEHICLE* v, float x, float y)
+{
+	v->sprite.scale(x, y);
 }
+
+void scale(CANIMAL* a, float x, float y)
+{
+	a->sprite.scale(x, y);
+}
+
+Road::Road() : side(DICE::flip()) {}
 
 void Road::setWindow(sf::RenderWindow* window)
 {
@@ -35,11 +42,17 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	// Type
 	if (DICE::flip()) vehicle = new CCAR;
 	else vehicle = new CTRUCK;
+	//side
+	if (side) scale(vehicle, -1.f, 1.f);
 	//position
 	float x;
 	if (vQueue.isEmpty()) x = 10.f;
-	else x = vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x + 10.f;
-	x = DICE::random(-x * 2, -x);
+	else x = abs(vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x) + 20.f;
+	
+	if (side) 
+		x = DICE::random(WINDOW.getSize().x + x, WINDOW.getSize().x + 5*x);
+	else 
+		x = DICE::random(-x * 5, -x);
 
 	vehicle->setPosition(x, sprite.getPosition().y);
 	return vehicle;
@@ -61,8 +74,8 @@ bool VehicleRoad::loadTexture()
 void VehicleRoad::resetSprite()
 {
 	sprite.setTexture(texture[0]);
-	//float scale = (float)M_CELL / sprite.getScale().y;
-	sprite.setScale(sf::Vector2f(0.25f, 0.25f));
+	float scale = (float)M_CELL / (sprite.getTexture()->getSize().y);
+	sprite.setScale(sf::Vector2f(scale, scale));
 	sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
 }
 
@@ -71,7 +84,8 @@ void VehicleRoad::setPosition(float y)
 	// Road position
 	Road::setPosition(y);
 	// traficLight position
-	traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, Road::sprite.getPosition().y));
+	if(side) traficLight.shape.setPosition(sf::Vector2f(20.f, Road::sprite.getPosition().y));
+	else traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, Road::sprite.getPosition().y));
 	// Reset queue
 	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
 	vQueue.reset();
@@ -79,26 +93,23 @@ void VehicleRoad::setPosition(float y)
 
 void VehicleRoad::setVelocity(float velocity)
 {
-	if(velocity > 0) v = velocity;
+	if (!side) v = velocity;
+	else v = -velocity;
 }
 
 void VehicleRoad::run()
 {
-	// Check condition
-	if (!status)
-	{
-		traficLight.clock.restart();
-		return;
-	}
 	// Trafic light
 	traficLight.function();
 	if (!traficLight.status) return;
 	// New vehicle
-	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0))
+	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
 		vQueue.push(VehicleFactory());
 	// Vehicles
-	if (vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x)
+	if ((side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x < -50.f)
+	|| (!side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete vQueue.pop();
+
 	for (int i = vQueue.size() - 1; i > -1; --i)
 		vQueue[i]->Move(v, 0);
 }
@@ -110,14 +121,6 @@ void VehicleRoad::drawObj()
 	WINDOW.draw(traficLight.shape);
 }
 
-void VehicleRoad::draw(sf::RenderWindow& window)
-{
-	window.draw(sprite);
-	for (int i = 0; i < vQueue.size(); ++i)
-		vQueue[i]->drawInWindow(window);
-	window.draw(traficLight.shape);
-}
-
 ////////////////////////////////////////////////////////
 
 CANIMAL* AnimalRoad::AnimalFactory()
@@ -126,9 +129,17 @@ CANIMAL* AnimalRoad::AnimalFactory()
 	// Type
 	if (DICE::flip()) animal = new CDINAUSOR;
 	else animal = new CBIRD;
+	//side
+	if (side) scale(animal, -1.f, 1.f);
 	//position
-	float x = aQueue[0]->getTexture().getSize().x * aQueue[0]->getSprite().getScale().x + 10.f;
-	x = DICE::random(-x * 5, -x);
+	float x;
+	if (aQueue.isEmpty()) x = 10.f;
+	else x = abs(aQueue[0]->getTexture().getSize().x * aQueue[0]->getSprite().getScale().x) + 20.f;
+
+	if (side)
+		x = DICE::random(WINDOW.getSize().x + x, WINDOW.getSize().x + 5 * x);
+	else
+		x = DICE::random(-x * 5, -x);
 
 	animal->setPosition(x, sprite.getPosition().y);
 	return animal;
@@ -149,7 +160,7 @@ bool AnimalRoad::loadTexture()
 void AnimalRoad::resetSprite()
 {
 	sprite.setTexture(texture[1]);
-	float scale = (float)M_CELL / sprite.getScale().y;
+	float scale = (float)M_CELL / (sprite.getTexture()->getSize().y);
 	sprite.setScale(sf::Vector2f(scale, scale));
 	sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
 }
@@ -165,19 +176,20 @@ void AnimalRoad::setPosition(float y)
 
 void AnimalRoad::setVelocity(float velocity)
 {
-	if (velocity > 0) v = velocity;
+	if (!side) v = velocity;
+	else v = -velocity;
 }
 
 void AnimalRoad::run()
 {
-	// Check condition
-	if (!status) return;
 	// New animal
 	if (aQueue.size() == OBJ_MAX || DICE::random(-2, 2)) return;
 	aQueue.push(AnimalFactory());
 	// Animals
-	if (aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f)
+	if ((side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x < -50.f)
+		|| (!side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete aQueue.pop();
+
 	for (int i = aQueue.size() - 1; i > -1; --i)
 		aQueue[i]->Move(v, 0);
 }

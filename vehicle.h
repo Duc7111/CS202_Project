@@ -25,6 +25,8 @@ public:
 	virtual sf::Image getImage() = 0;
 	virtual bool setTexture(std::string fileName) = 0;
 
+	friend void scale(CVEHICLE*, float, float);
+
 protected:
 	sf::Sprite sprite;
 	//sf::Texture texture;

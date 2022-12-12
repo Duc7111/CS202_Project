@@ -58,10 +58,10 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 			object[i]->drawRoad();
 		}
 	}
-	for (int i = 0; i < 7; ++i) {
+	for (int i = 6; i >= 0; --i) {
 		if (object[i]) {
-			object[i]->setVelocity(10.f);
-			//object[i]->run();
+			object[i]->setVelocity(5.f);
+			object[i]->run();
 			object[i]->drawObj();
 		}
 	}
