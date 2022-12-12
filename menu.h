@@ -26,4 +26,5 @@ void gameMenu(short index);
 
 void graphicalMenu(sf::RenderWindow& window);
 
+extern sf::Texture menuBg;
 extern sf::Texture play, highScore, load;

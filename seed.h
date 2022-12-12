@@ -17,6 +17,7 @@ public:
 private:
 	static const int boundLower = 3;
 	static const int boundUpper = 5;
+	static void antiSpawnCamping(std::array<SEED_T, 7>& seed);
 	static void generate(std::array<SEED_T, 7>& seed);
 	std::array<SEED_T, 7> current;
 	std::array<SEED_T, 7> next;
