@@ -362,13 +362,11 @@ void playGame(sf::RenderWindow& window) {
 					player.goUp();
 					audio::playMove();
 					world.forward();
-					CGAME::score++;
-					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
+
 					break;
 				case sf::Keyboard::Key::S:
 					if (world.backward()) player.goDown();
 					audio::playMove();
-					CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 					break;
 				case sf::Keyboard::Key::A:
 					player.goLeft();
@@ -387,6 +385,7 @@ void playGame(sf::RenderWindow& window) {
 				}
 			}
 		}
+		CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 		moveWorld(window, player);
 		window.clear();
 

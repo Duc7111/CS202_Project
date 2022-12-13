@@ -52,7 +52,9 @@ void CPEOPLE::goUp() {
 	}
 	mPrevY = mY;
 	++mY;
-
+	if (!visitedY[mY])
+		CGAME::score++;
+	visitedY[mY] = true;
 }
 
 void CPEOPLE::goDown() {

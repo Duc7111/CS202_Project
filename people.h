@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 
 #include "collider.h"
+#include <map>
 
 class CVEHICLE;
 class CANIMAL;
@@ -45,4 +46,5 @@ public:
 
 	float getRealX(float mX); //cai nay chi dung cho cai camera
 
+	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 };
