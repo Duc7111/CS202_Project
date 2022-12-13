@@ -19,6 +19,7 @@ class CPEOPLE {
 	sf::Image img;
 
 
+	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 public:
 	CPEOPLE();
 	void loadTexture(); // load texture
@@ -46,5 +47,4 @@ public:
 
 	float getRealX(float mX); //cai nay chi dung cho cai camera
 
-	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 };
