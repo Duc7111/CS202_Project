@@ -5,7 +5,6 @@
 #include "game.h"
 #include "highScore.h"
 
-
 sf::Texture menuBg;
 
 void graphicalMenu(sf::RenderWindow& window) {
@@ -15,7 +14,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 
 	sf::Sprite bg(menuBg);
-	bg.setScale(2.f, 2.f);
+	bg.setScale(1.f, 1.f);
 
 
 	sf::Font font;
@@ -24,26 +23,32 @@ void graphicalMenu(sf::RenderWindow& window) {
 	sf::Text title;
 	title.setFont(font);
 	title.setString("Crossing Road");
-	title.setCharacterSize(65);
+	title.setCharacterSize(75);
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(350, 50);
+	title.setPosition(sf::Vector2f(window.getSize().x / 2 - 100, 50));
+
+	auto rectangle = sf::RectangleShape{ {title.getLocalBounds().width + 20,title.getLocalBounds().height + 30} };
+	rectangle.setOutlineThickness(5.f);
+	rectangle.setPosition(title.getPosition());
+	rectangle.setFillColor(sf::Color::Transparent);
+
+	sf::Font font2;
+	font2.loadFromFile("SecularOne-Regular.ttf");
 
 	sf::Text option1(title);
+	option1.setFont(font2);
 	option1.setString("Play game");
 	option1.setCharacterSize(50);
-	option1.setPosition(350, 150);
+	option1.setPosition(50, 150);
 
-	sf::Text option2(title), option3(title), option4(title);
+	sf::Text option2(option1), option3(option1), option4(option1);
 	option2.setString("Settings");
-	option2.setCharacterSize(50);
-	option2.setPosition(350, 250);
+	option2.setPosition(50, 250);
 	option3.setString("Reload");
-	option3.setCharacterSize(50);
-	option3.setPosition(350, 350);
+	option3.setPosition(50, 350);
 	option4.setString("High score");
-	option4.setCharacterSize(50);
-	option4.setPosition(350, 450);
+	option4.setPosition(50, 450);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -109,6 +114,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 		}
 		window.draw(bg);
 
+		window.draw(rectangle);
 		window.draw(title);
 
 		window.draw(option1);
