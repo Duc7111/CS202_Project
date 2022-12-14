@@ -8,7 +8,7 @@
 sf::Texture menuBg;
 
 void graphicalMenu(sf::RenderWindow& window) {
-	int index = 0;
+
 
 	menuBg.loadFromFile("menu bg.png");
 
@@ -36,19 +36,33 @@ void graphicalMenu(sf::RenderWindow& window) {
 	sf::Font font2;
 	font2.loadFromFile("SecularOne-Regular.ttf");
 
-	sf::Text option1(title);
-	option1.setFont(font2);
-	option1.setString("Play game");
-	option1.setCharacterSize(50);
-	option1.setPosition(50, 150);
+	sf::Text options[4];
+	for (int i = 0; i < 4; i++) {
+		switch (i) {
+		case 0:
+			options[i].setString("Play game");
+			break;
+		case 1:
+			options[i].setString("Settings");
+			break;
+		case 2:
+			options[i].setString("Reload");
+			break;
+		case 3:
+			options[i].setString("High score");
+			break;
+		}
+		options[i].setFont(font2);
+		options[i].setCharacterSize(50);
+		options[i].setPosition(150, 150 + i * 100);
+	}
 
-	sf::Text option2(option1), option3(option1), option4(option1);
-	option2.setString("Settings");
-	option2.setPosition(50, 250);
-	option3.setString("Reload");
-	option3.setPosition(50, 350);
-	option4.setString("High score");
-	option4.setPosition(50, 450);
+	sf::Text arrow(options[0]);
+	arrow.setString("-");
+	arrow.setFillColor(sf::Color::Yellow);
+	arrow.setPosition(50, 150);
+
+	int index = 0;
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -94,33 +108,21 @@ void graphicalMenu(sf::RenderWindow& window) {
 			}
 		}
 
-		option1.setFillColor(sf::Color::White);
-		option2.setFillColor(sf::Color::White);
-		option3.setFillColor(sf::Color::White);
-		option4.setFillColor(sf::Color::White);
-		switch (index) {
-		case 0:
-			option1.setFillColor(sf::Color::Yellow);
-			break;
-		case 1:
-			option2.setFillColor(sf::Color::Yellow);
-			break;
-		case 2:
-			option3.setFillColor(sf::Color::Yellow);
-			break;
-		case 3:
-			option4.setFillColor(sf::Color::Yellow);
-			break;
+		for (int i = 0; i < 4; i++) {
+			options[i].setFillColor(sf::Color::White);
 		}
+		options[index].setFillColor(sf::Color::Yellow);
+		arrow.setPosition(50, 150 + 100 * index);
+
 		window.draw(bg);
 
 		window.draw(rectangle);
 		window.draw(title);
 
-		window.draw(option1);
-		window.draw(option2);
-		window.draw(option3);
-		window.draw(option4);
+		window.draw(arrow);
+		for (sf::Text option : options) {
+			window.draw(option);
+		}
 
 		window.display();
 
