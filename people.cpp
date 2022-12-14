@@ -117,3 +117,11 @@ bool CPEOPLE::collidedWithEnemy(int& collidedIndex) {
 	}
 	return false;
 }
+bool IsNearby(const CPEOPLE& player, const sf::Sprite& otherSprite, float distance) {
+	sf::Vector2f playerBound = sf::Vector2f(player.sprite.getLocalBounds().left, player.sprite.getLocalBounds().top);
+	sf::Vector2f otherBound = sf::Vector2f(otherSprite.getLocalBounds().left, otherSprite.getLocalBounds().top);
+
+	if (abs(playerBound.x - otherBound.x) <= distance && abs(playerBound.y - otherBound.y) <= distance)
+		return true;
+	return false;
+}

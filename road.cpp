@@ -62,10 +62,11 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 	//sẽ tối ưu hơn bằng cách chỉ check những xe nào trong phạm vi của người chơi
 	for (int i = 0; i < vQueue.size(); i++) {
-		if (vQueue[i]->CollidedWithPlayer(player)) {
-			explosion::animateExplosion(window, vQueue[i]->getSprite().getPosition());
-			return true;
-		}
+		if (IsNearby(player, vQueue[i]->getSprite(), 5))
+			if (vQueue[i]->CollidedWithPlayer(player)) {
+				explosion::animateExplosion(window, vQueue[i]->getSprite().getPosition());
+				return true;
+			}
 	}
 	return false;
 }

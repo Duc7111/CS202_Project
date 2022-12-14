@@ -47,4 +47,5 @@ public:
 
 	float getRealX(float mX); //cai nay chi dung cho cai camera
 
+	friend bool IsNearby(const CPEOPLE& player, const sf::Sprite& otherSprite, float distance);
 };

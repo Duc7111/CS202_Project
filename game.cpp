@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 #include "effect.h"
 #include "audio.h"
 
@@ -386,14 +386,7 @@ void playGame(sf::RenderWindow& window) {
 
 		player.drawPlayer(window);
 
-		//int collidedIndex = -1;
-		//if (player.collidedWithEnemy(collidedIndex)) {
-		//	explosion::animateExplosion(window, generatedVehicles[collidedIndex]->getSprite());
-		//}
-
-		//drawObjects(window, generatedVehicles);
-
-		world.checkCollide(window, player);
+		world.checkCollide(window, player); //ktra va chạm
 
 		window.display();
 	}

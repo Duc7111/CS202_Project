@@ -15,11 +15,11 @@ protected:
 	static sf::RenderWindow* windowHandle;
 	static sf::Texture texture[2];
 
-	sf::Sprite sprite;
+
 	bool side; //left: false,  right: true
 public:
 	Road();
-
+	sf::Sprite sprite;
 
 	static void setWindow(sf::RenderWindow* windowHandle);
 

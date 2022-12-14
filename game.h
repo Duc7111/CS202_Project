@@ -90,3 +90,4 @@ void addBg(const CPEOPLE& player, std::vector<sf::Sprite>& bgs); //dung khi di c
 void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs);
 
 const float moveOffset = 950;
+
