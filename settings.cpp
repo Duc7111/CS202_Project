@@ -16,7 +16,7 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 
 	sf::Font font;
 	font.loadFromFile("ZenDots-Regular.ttf");
-	sf::Text title, note;
+	sf::Text title;
 	title.setFont(font);
 	title.setString("Settings");
 	title.setCharacterSize(65);
@@ -24,10 +24,9 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 	title.setStyle(sf::Text::Bold);
 	title.setPosition(450, 50);
 
-	note.setFont(font);
-	note.setString("Press Enter to Mute / Unmute.\n Press Esc to go back to menu");
+	sf::Text note(title);
+	note.setString("Press Enter to Mute / Unmute.");
 	note.setCharacterSize(35);
-	note.setFillColor(sf::Color::White);
 	note.setPosition(300, 350);
 
 
@@ -58,9 +57,6 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 						sound.setTexture(unmuteTex, true);
 						isMuted = false;
 					}
-				}
-				else if (sf::Keyboard::Key::Escape) {
-					graphicalMenu(window);
 				}
 			}
 		}

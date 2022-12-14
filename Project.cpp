@@ -16,6 +16,6 @@ int main(int argc, char** argv[]) {
 	sf::RenderWindow window(sf::VideoMode(1280, 700), "PROJECT CS202", sf::Style::Titlebar | sf::Style::Close);
 	graphicalMenu(window);
 	/*gameMenu(0);*/
-	eventHandler();
+
 	return 0;
 }
