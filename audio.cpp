@@ -17,9 +17,11 @@ void audio::loadSound() {
 }
 
 void audio::playLose() {
-	lose.play();
+	if (!Settings::isMuted)
+		lose.play();
 }
 
 void audio::playMove() {
-	move.play();
+	if (!Settings::isMuted)
+		move.play();
 }

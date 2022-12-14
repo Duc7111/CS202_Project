@@ -1,4 +1,5 @@
 #include <SFML/Audio.hpp>
+#include "settings.h"
 
 const std::string soundFolder = "sound/";
 extern sf::Sound lose;

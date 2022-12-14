@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <stdio.h>
 #include <string>
+#include "settings.h"
 #include "game.h"
 #include "highScore.h"
 int menu, currentIndex;
@@ -243,7 +244,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 		if (loadBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-
+				/*Settings::settingsSound(window);*/
 			}
 		}
 
