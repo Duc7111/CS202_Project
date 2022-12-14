@@ -1,8 +1,9 @@
 #include "settings.h"
+#include "menu.h"
 
 
 sf::Texture muteTex, unmuteTex;
-sf::Sprite sound;
+
 
 bool Settings::isMuted = false;
 
@@ -12,22 +13,65 @@ void loadTextureOfSettings() {
 }
 
 void Settings::settingsSound(sf::RenderWindow& window) {
-	window.clear();
-	sf::Text question;
-	question.setString("Change sound setting:");
-	if (isMuted)
-		sound = sf::Sprite(muteTex);
-	else
-		sound = sf::Sprite(unmuteTex);
-	question.setPosition(350, 50);
-	sound.setPosition(700, 50);
-	window.draw(sound);
-	window.draw(question);
 
-	if (sound.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //neu bam vao button
-			isMuted = !isMuted;
-			settingsSound(window);
+	sf::Font font;
+	font.loadFromFile("ZenDots-Regular.ttf");
+	sf::Text title, note;
+	title.setFont(font);
+	title.setString("Settings");
+	title.setCharacterSize(65);
+	title.setFillColor(sf::Color::White);
+	title.setStyle(sf::Text::Bold);
+	title.setPosition(450, 50);
+
+	note.setFont(font);
+	note.setString("Press Enter to Mute / Unmute.\n Press Esc to go back to menu");
+	note.setCharacterSize(35);
+	note.setFillColor(sf::Color::White);
+	note.setPosition(300, 350);
+
+
+	sf::Sprite sound;
+	if (isMuted) {
+		sound.setTexture(muteTex);
+	}
+	else {
+		sound.setTexture(unmuteTex);
+	}
+	sound.setScale(0.5f, 0.5f);
+	sound.setPosition(550, 200);
+
+
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				graphicalMenu(window);
+			}
+			if (event.type == sf::Event::KeyPressed) {
+				if (sf::Keyboard::Key::Enter) {
+					if (!isMuted) {
+						sound.setTexture(muteTex, true);
+						isMuted = true;
+					}
+					else {
+						sound.setTexture(unmuteTex, true);
+						isMuted = false;
+					}
+				}
+				else if (sf::Keyboard::Key::Escape) {
+					graphicalMenu(window);
+				}
+			}
 		}
+
+		window.clear();
+
+		window.draw(note);
+		window.draw(title);
+
+		window.draw(sound);
+
+		window.display();
 	}
 }

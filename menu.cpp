@@ -193,24 +193,27 @@ void keyHandler(KEY_EVENT_RECORD key) {
 	}
 }
 sf::Texture menuBg;
-sf::Texture play, highScore, load;
+sf::Texture play, highScore, load, settings;
 void graphicalMenu(sf::RenderWindow& window) {
 	menuBg.loadFromFile("menu bg.png");
 	play.loadFromFile("buttons/play.png");
 	highScore.loadFromFile("buttons/highScore.png");
 	load.loadFromFile("buttons/load.png");
+	settings.loadFromFile("buttons/settings.png");
 
 	sf::Sprite bg(menuBg);
 	bg.setScale(2.f, 2.f);
 
-	sf::Sprite playBtn, highScoreBtn, loadBtn;
+	sf::Sprite playBtn, highScoreBtn, loadBtn, settingsBtn;
 	playBtn = sf::Sprite(play);
 	highScoreBtn = sf::Sprite(highScore);
 	loadBtn = sf::Sprite(load);
+	settingsBtn = sf::Sprite(settings);
 
 	playBtn.setPosition(550, 300);
 	highScoreBtn.setPosition(450, 400);
 	loadBtn.setPosition(650, 400);
+	settingsBtn.setPosition(550, 500);
 
 	sf::Font font;
 	font.loadFromFile("ZenDots-Regular.ttf");
@@ -223,12 +226,21 @@ void graphicalMenu(sf::RenderWindow& window) {
 	title.setPosition(350, 50);
 
 	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
 		window.draw(bg);
 
 		window.draw(playBtn);
 		window.draw(highScoreBtn);
 		window.draw(loadBtn);
+		window.draw(settingsBtn);
 		window.draw(title);
+
+
 
 		if (playBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) { //neu bam vao button
@@ -242,13 +254,20 @@ void graphicalMenu(sf::RenderWindow& window) {
 			}
 		}
 
+		if (settingsBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				Settings::settingsSound(window);
+			}
+		}
+
 		if (loadBtn.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-				/*Settings::settingsSound(window);*/
+
 			}
 		}
 
 		window.display();
+
 	}
 
 

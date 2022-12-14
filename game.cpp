@@ -318,7 +318,7 @@ void playGame(sf::RenderWindow& window) {
 	CGAME::currentScore.setCharacterSize(45);
 	CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 
-	loadTextureOfSettings();
+
 
 	VehicleRoad::loadTexture();
 
@@ -375,6 +375,7 @@ void playGame(sf::RenderWindow& window) {
 		}
 		CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 		moveWorld(window, player);
+
 		window.clear();
 
 		window.draw(bg);
@@ -391,7 +392,6 @@ void playGame(sf::RenderWindow& window) {
 		//}
 
 		//drawObjects(window, generatedVehicles);
-
 
 
 		window.display();
