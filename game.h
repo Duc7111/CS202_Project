@@ -55,7 +55,7 @@ public:
 	static sf::Font font;
 };
 const float setX = -1200;
-const float speed = 40;
+const float speed = 100;
 const float timeStep = 1.f / 30.f; //de nhan voi so khung hinh cua may
 
 extern int bgPos;

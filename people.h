@@ -39,7 +39,7 @@ public:
 
 	sf::Sprite getSprite() { return sprite; }
 	sf::Texture getTexture() { return texture[0]; }
-
+	sf::Image getImage() { return img; }
 
 	bool reinitializedVehicle = false;
 

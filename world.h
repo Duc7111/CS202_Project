@@ -19,6 +19,7 @@ public:
 	void forward();
 	bool backward();
 	void drawWorld(sf::RenderWindow& window);
+	void checkCollide(sf::RenderWindow& window, CPEOPLE player);
 private:
 	Road* createRoad(int index);
 	sf::Texture texture;

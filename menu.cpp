@@ -110,8 +110,10 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 		for (int i = 0; i < 4; i++) {
 			options[i].setFillColor(sf::Color::White);
+			options[i].setStyle(sf::Text::Regular);
 		}
 		options[index].setFillColor(sf::Color::Yellow);
+		options[index].setStyle(sf::Text::Underlined);
 		arrow.setPosition(50, 150 + 100 * index);
 
 		window.draw(bg);

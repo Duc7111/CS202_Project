@@ -8,6 +8,8 @@
 #include <time.h>
 #include <string>
 
+class CPEOPLE;
+
 class Road {
 protected:
 	static sf::RenderWindow* windowHandle;
@@ -27,7 +29,9 @@ public:
 	virtual void setVelocity(float velocity) = 0;
 
 	virtual void run() = 0;
-	
+
+	virtual bool checkCollide(sf::RenderWindow& window, CPEOPLE player) = 0;
+
 	void drawRoad();
 	virtual void drawObj() = 0;
 };
@@ -124,6 +128,7 @@ public:
 
 	void run();
 	void drawObj();
+	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
 
 class AnimalRoad : public Road
@@ -147,5 +152,6 @@ public:
 
 	void run();
 	void drawObj();
+	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
 

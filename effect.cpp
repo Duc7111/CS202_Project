@@ -16,3 +16,10 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite targetSpri
 	explodeSprite.setPosition(explodePos - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
 }
+
+void explosion::animateExplosion(sf::RenderWindow& window, sf::Vector2f position) {
+	sf::Sprite explodeSprite(explosionTexture);
+	explodeSprite.setScale(3, 3);
+	explodeSprite.setPosition(position - sf::Vector2f(0, 100));
+	window.draw(explodeSprite);
+}

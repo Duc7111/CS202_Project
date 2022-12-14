@@ -1,6 +1,7 @@
 
 #include "vehicle.h"
 #include "game.h"
+#include "people.h"
 
 float YCar = 150.f;
 float YTruck = 400.f;
@@ -100,4 +101,10 @@ bool CTRUCK::setTexture(std::string fileName) {
 	if (!CGAME::truckTexture.loadFromFile(fileName))
 		return false;
 	return true;
+}
+bool CCAR::CollidedWithPlayer(CPEOPLE player) {
+	return PixelPerfectCollision(sprite, player.getSprite(), CGAME::carImage, player.getImage());
+}
+bool CTRUCK::CollidedWithPlayer(CPEOPLE player) {
+	return PixelPerfectCollision(sprite, player.getSprite(), CGAME::truckImage, player.getImage());
 }

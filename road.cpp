@@ -1,6 +1,7 @@
-#include "road.h"
-
+﻿#include "road.h"
+#include "people.h"
 #include <iostream>
+#include "effect.h"
 
 #define WINDOW (*windowHandle)
 
@@ -48,14 +49,25 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	float x;
 	if (vQueue.isEmpty()) x = 10.f;
 	else x = abs(vQueue[0]->getTexture().getSize().x * vQueue[0]->getSprite().getScale().x) + 20.f;
-	
-	if (side) 
-		x = DICE::random(WINDOW.getSize().x + x, WINDOW.getSize().x + 5*x);
-	else 
+
+	if (side)
+		x = DICE::random(WINDOW.getSize().x + x, WINDOW.getSize().x + 5 * x);
+	else
 		x = DICE::random(-x * 5, -x);
 
 	vehicle->setPosition(x, sprite.getPosition().y);
 	return vehicle;
+}
+
+bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
+	//sẽ tối ưu hơn bằng cách chỉ check những xe nào trong phạm vi của người chơi
+	for (int i = 0; i < vQueue.size(); i++) {
+		if (vQueue[i]->CollidedWithPlayer(player)) {
+			explosion::animateExplosion(window, vQueue[i]->getSprite().getPosition());
+			return true;
+		}
+	}
+	return false;
 }
 
 VehicleRoad::VehicleRoad() : v(0) {}
@@ -84,7 +96,7 @@ void VehicleRoad::setPosition(float y)
 	// Road position
 	Road::setPosition(y);
 	// traficLight position
-	if(side) traficLight.shape.setPosition(sf::Vector2f(20.f, Road::sprite.getPosition().y));
+	if (side) traficLight.shape.setPosition(sf::Vector2f(20.f, Road::sprite.getPosition().y));
 	else traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, Road::sprite.getPosition().y));
 	// Reset queue
 	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
@@ -107,7 +119,7 @@ void VehicleRoad::run()
 		vQueue.push(VehicleFactory());
 	// Vehicles
 	if ((side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x < -50.f)
-	|| (!side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
+		|| (!side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete vQueue.pop();
 
 	for (int i = vQueue.size() - 1; i > -1; --i)
@@ -122,6 +134,10 @@ void VehicleRoad::drawObj()
 }
 
 ////////////////////////////////////////////////////////
+
+bool AnimalRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
+	return true;
+}
 
 CANIMAL* AnimalRoad::AnimalFactory()
 {

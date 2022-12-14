@@ -2,12 +2,11 @@
 #pragma once
 #include "graphics.h"
 
-
 extern float YCar;
 extern float YTruck;
 
 class CGAME;
-
+class CPEOPLE;
 
 class CVEHICLE {
 private:
@@ -26,6 +25,8 @@ public:
 	virtual bool setTexture(std::string fileName) = 0;
 
 	friend void scale(CVEHICLE*, float, float);
+
+	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
 
 protected:
 	sf::Sprite sprite;
@@ -48,6 +49,8 @@ public:
 	sf::Image getImage();
 
 	bool setTexture(std::string fileName);
+
+	bool CollidedWithPlayer(CPEOPLE player);
 };
 
 
@@ -65,6 +68,8 @@ public:
 	sf::Image getImage();
 
 	bool setTexture(std::string fileName);
+
+	bool CollidedWithPlayer(CPEOPLE player);
 };
 
 class TRAFFICLIGHT {

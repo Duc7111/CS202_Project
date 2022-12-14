@@ -1,7 +1,6 @@
 #include "people.h"
 #include "game.h"
-#include "animal.h"
-#include "vehicle.h"
+
 float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
 {
 	return (mX / 13.0f) * 1300;

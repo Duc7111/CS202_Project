@@ -88,3 +88,9 @@ Road* WORLD::createRoad(int index) {
 	}
 	return nullptr;
 }
+
+void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
+	for (int i = 0; i < object.size(); i++)
+		if (object[i] && object[i]->checkCollide(window, player))
+			return;
+}

@@ -304,8 +304,8 @@ void playGame(sf::RenderWindow& window) {
 
 	CGAME::carTexture.loadFromFile("car.png");
 	CGAME::truckTexture.loadFromFile("truck.png");//load texture
-	//CGAME::carImage = CGAME::carTexture.copyToImage();
-	//CGAME::truckImage = CGAME::truckTexture.copyToImage();
+	CGAME::carImage = CGAME::carTexture.copyToImage();
+	CGAME::truckImage = CGAME::truckTexture.copyToImage();
 
 	//initializeVehicles();
 
@@ -393,6 +393,7 @@ void playGame(sf::RenderWindow& window) {
 
 		//drawObjects(window, generatedVehicles);
 
+		world.checkCollide(window, player);
 
 		window.display();
 	}
