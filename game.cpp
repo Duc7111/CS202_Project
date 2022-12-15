@@ -337,7 +337,6 @@ void playGame(sf::RenderWindow& window) {
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
-
 	while (window.isOpen()) {
 		CGAME::currentScore.setString(std::to_string(CGAME::score)); //hien thi diem
 		//std::cout << player.drawPosition(15, 0).y << " "; //680
@@ -349,20 +348,22 @@ void playGame(sf::RenderWindow& window) {
 			if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
 				case sf::Keyboard::Key::W:
-					player.goUp();
+					if (player.goUp()) break;
 					audio::playMove();
 					world.forward();
 					break;
 				case sf::Keyboard::Key::S:
-					if (world.backward()) player.goDown();
+					if (world.backward()) {
+						if (player.goDown()) break;
+					}
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::A:
-					player.goLeft();
+					if (player.goLeft()) break;
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::D:
-					player.goRight();
+					if (player.goRight()) break;
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::Escape:

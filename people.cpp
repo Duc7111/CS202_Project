@@ -5,29 +5,27 @@ float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
 {
 	return (mX / 13.0f) * 1300;
 }
-sf::Vector2f CPEOPLE::drawPosition(int mX, int mY) {
-	float x = (mX / 13.0f) * 1300 + 10;
-	float y = ((6.0f - mY) / 7.0f) * 700 + 10;
-	//cout << x << " " << y << "\n";
-	return sf::Vector2f(x, y);
-}
 
-CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1) {
+CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
 	texture[0].loadFromFile("player_back.png");
 	texture[1].loadFromFile("player_front.png");
 	texture[2].loadFromFile("player_right.png");
 	texture[3].loadFromFile("player_left.png");
 	img = texture[0].copyToImage();
+	drawX = (mX / 13.0f) * 1300 + 10;
+	drawY = ((6.0f - mY) / 7.0f) * 700 + 10;
+	drawVar = 0;
 }
 
 void CPEOPLE::loadTexture() {
 
 	sprite.setTexture(texture[0]);
-	sprite.setPosition(drawPosition(mX, mY));
+	sprite.setPosition(drawX, drawY);
 }
 
 void CPEOPLE::drawPlayer(sf::RenderWindow& window) {
-	sprite.setPosition(drawPosition(mX, mY));
+	animate();
+	sprite.setPosition(drawX, drawY);
 	window.draw(sprite);
 }
 
@@ -43,8 +41,9 @@ unsigned int CPEOPLE::getDirection() const {
 	return mDirection;
 }
 
-void CPEOPLE::goUp() {
+int CPEOPLE::goUp() {
 	//if (mY == 18) return;
+	if (animation) return 1;
 	if (mDirection != 1) {
 		mDirection = 1;
 		sprite.setTexture(texture[0]);
@@ -54,34 +53,49 @@ void CPEOPLE::goUp() {
 	if (!visitedY[mY])
 		CGAME::score++;
 	visitedY[mY] = true;
+	drawVar = ((6.0f - mY) / 7.0f) * 700 + 10;
+	animation = true;
+	return 0;
 }
 
-void CPEOPLE::goDown() {
-	if (mY == 0) return;
+int CPEOPLE::goDown() {
+	if (animation) return 1;
+	if (mY == 0) return 2;
 	if (mDirection != 2) {
 		mDirection = 2;
 		sprite.setTexture(texture[1]);
 	}
 	mPrevY = mY;
 	--mY;
+	drawVar = ((6.0f - mY) / 7.0f) * 700 + 10;
+	animation = true;
+	return 0;
 }
 
-void CPEOPLE::goRight() {
-	if (mX == 12) return;
+int CPEOPLE::goRight() {
+	if (animation) return 1;
+	if (mX == 12) return 2;
 	if (mDirection != 3) {
 		mDirection = 3;
 		sprite.setTexture(texture[2]);
 	}
 	++mX;
+	drawVar = (mX / 13.0f) * 1300 + 10;
+	animation = true;
+	return 0;
 }
 
-void CPEOPLE::goLeft() {
-	if (mX == 0) return;
+int CPEOPLE::goLeft() {
+	if (animation) return 1;
+	if (mX == 0) return 2;
 	if (mDirection != 4) {
 		mDirection = 4;
 		sprite.setTexture(texture[3]);
 	}
 	--mX;
+	drawVar = (mX / 13.0f) * 1300 + 10;
+	animation = true;
+	return 0;
 }
 
 bool CPEOPLE::isImpact(const CVEHICLE*&)
@@ -106,6 +120,32 @@ bool CPEOPLE::isDead()
 
 int CPEOPLE::getPrevY() const {
 	return mPrevY;
+}
+
+void CPEOPLE::animate() {
+	if (animation) {
+		// nested if, same execution time for all cases (branch prediction)
+		if (mDirection % 2 == 1) {
+			if (mDirection == 1) {
+				if (drawY > drawVar) drawY -= velocity;
+				else animation = false;
+			}
+			else {
+				if (drawX < drawVar) drawX += velocity;
+				else animation = false;
+			}
+		}
+		else {
+			if (mDirection == 2) {
+				if (drawY < drawVar) drawY += velocity;
+				else animation = false;
+			}
+			else {
+				if (drawX > drawVar) drawX -= velocity;
+				else animation = false;
+			}
+		}
+	}
 }
 
 bool CPEOPLE::collidedWithEnemy(int& collidedIndex) {

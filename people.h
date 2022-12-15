@@ -13,13 +13,16 @@ class CPEOPLE {
 	int mPrevY = 0; //y truoc do
 	bool mState; // state of living (mState = true if player is alive)
 	sf::Texture texture[4];
-	static sf::Vector2f drawPosition(int mX, int mY);
 	sf::Sprite sprite;
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
 	sf::Image img;
-
-
+	int animation;
+	float drawX;
+	float drawY;
+	float drawVar;
+	static constexpr float velocity = 10.f;
 	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
+	void animate();
 public:
 	CPEOPLE();
 	void loadTexture(); // load texture
@@ -28,15 +31,15 @@ public:
 	int getPrevY() const;
 	sf::Vector2f getPositionInWorld() const;
 	unsigned int getDirection() const;
-	void goUp(); // go up
-	void goDown(); // go down
-	void goRight(); // go right
-	void goLeft(); // go left
+	// signal: 0 = move executed, 1 = animation is currently playing, 2 = hitting border
+	int goUp(); // go up
+	int goDown(); // go down
+	int goRight(); // go right
+	int goLeft(); // go left
 	bool isImpact(const CVEHICLE*&);
 	bool isImpact(const CANIMAL*&);
 	bool isFinish();
 	bool isDead();
-
 	sf::Sprite getSprite() { return sprite; }
 	sf::Texture getTexture() { return texture[0]; }
 	sf::Image getImage() { return img; }
