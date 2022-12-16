@@ -336,6 +336,8 @@ void playGame(sf::RenderWindow& window) {
 	CGAME::bgs.push_back(bg2);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
+	
+	//window.setFramerateLimit(60);
 
 	while (window.isOpen()) {
 		CGAME::currentScore.setString(std::to_string(CGAME::score)); //hien thi diem

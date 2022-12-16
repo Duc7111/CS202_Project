@@ -12,20 +12,17 @@ CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
 	texture[2].loadFromFile("player_right.png");
 	texture[3].loadFromFile("player_left.png");
 	img = texture[0].copyToImage();
-	drawX = (mX / 13.0f) * 1300 + 10;
-	drawY = ((6.0f - mY) / 7.0f) * 700 + 10;
 	drawVar = 0;
 }
 
 void CPEOPLE::loadTexture() {
 
 	sprite.setTexture(texture[0]);
-	sprite.setPosition(drawX, drawY);
+	sprite.setPosition(calcX(mX), calcY(mY));
 }
 
 void CPEOPLE::drawPlayer(sf::RenderWindow& window) {
 	animate();
-	sprite.setPosition(drawX, drawY);
 	window.draw(sprite);
 }
 
@@ -53,7 +50,7 @@ int CPEOPLE::goUp() {
 	if (!visitedY[mY])
 		CGAME::score++;
 	visitedY[mY] = true;
-	drawVar = ((6.0f - mY) / 7.0f) * 700 + 10;
+	drawVar = calcY(mY);
 	animation = true;
 	return 0;
 }
@@ -67,7 +64,7 @@ int CPEOPLE::goDown() {
 	}
 	mPrevY = mY;
 	--mY;
-	drawVar = ((6.0f - mY) / 7.0f) * 700 + 10;
+	drawVar = calcY(mY);
 	animation = true;
 	return 0;
 }
@@ -80,7 +77,7 @@ int CPEOPLE::goRight() {
 		sprite.setTexture(texture[2]);
 	}
 	++mX;
-	drawVar = (mX / 13.0f) * 1300 + 10;
+	drawVar = calcX(mX);
 	animation = true;
 	return 0;
 }
@@ -93,19 +90,17 @@ int CPEOPLE::goLeft() {
 		sprite.setTexture(texture[3]);
 	}
 	--mX;
-	drawVar = (mX / 13.0f) * 1300 + 10;
+	drawVar = calcX(mX);
 	animation = true;
 	return 0;
 }
 
-bool CPEOPLE::isImpact(const CVEHICLE*&)
-{
-	return false;
+float CPEOPLE::calcX(int X) {
+	return (X / 13.0f) * 1300 + 10;
 }
 
-bool CPEOPLE::isImpact(const CANIMAL*&)
-{
-	return false;
+float CPEOPLE::calcY(int Y) {
+	return ((6.0f - Y) / 7.0f) * 700 + 10;
 }
 
 bool CPEOPLE::isFinish()
@@ -124,24 +119,25 @@ int CPEOPLE::getPrevY() const {
 
 void CPEOPLE::animate() {
 	if (animation) {
+		sf::Vector2f position = sprite.getPosition();
 		// nested if, same execution time for all cases (branch prediction)
 		if (mDirection % 2 == 1) {
 			if (mDirection == 1) {
-				if (drawY > drawVar) drawY -= velocity;
+				if (position.y > drawVar) sprite.move(0, -velocity);
 				else animation = false;
 			}
 			else {
-				if (drawX < drawVar) drawX += velocity;
+				if (position.x < drawVar) sprite.move(velocity, 0);
 				else animation = false;
 			}
 		}
 		else {
 			if (mDirection == 2) {
-				if (drawY < drawVar) drawY += velocity;
+				if (position.y < drawVar) sprite.move(0, velocity);
 				else animation = false;
 			}
 			else {
-				if (drawX > drawVar) drawX -= velocity;
+				if (position.x > drawVar) sprite.move(-velocity, 0);
 				else animation = false;
 			}
 		}

@@ -17,12 +17,12 @@ class CPEOPLE {
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
 	sf::Image img;
 	int animation;
-	float drawX;
-	float drawY;
 	float drawVar;
-	static constexpr float velocity = 10.f;
+	static constexpr float velocity = 5.0f;
 	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 	void animate();
+	static float calcX(int X);
+	static float calcY(int Y);
 public:
 	CPEOPLE();
 	void loadTexture(); // load texture
@@ -36,13 +36,12 @@ public:
 	int goDown(); // go down
 	int goRight(); // go right
 	int goLeft(); // go left
-	bool isImpact(const CVEHICLE*&);
-	bool isImpact(const CANIMAL*&);
 	bool isFinish();
 	bool isDead();
 	sf::Sprite getSprite() { return sprite; }
 	sf::Texture getTexture() { return texture[0]; }
 	sf::Image getImage() { return img; }
+
 
 	bool reinitializedVehicle = false;
 
