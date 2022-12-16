@@ -1,7 +1,8 @@
 #include "animal.h"
 
-void CANIMAL::Move(float,float)
+void CANIMAL::Move(float x ,float y)
 {
+	sprite.move(x,y) ;
 }
 
 void CANIMAL::Tell()
@@ -19,6 +20,8 @@ sf::Texture CANIMAL::getTexture()
 
 void CANIMAL::setPosition(float x, float y)
 {
+        this -> mX = x ;
+	this-> mY = y ;
 }
 
 void CANIMAL::drawInWindow(sf::RenderWindow& window)
