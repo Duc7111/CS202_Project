@@ -4,6 +4,7 @@
 
 class CANIMAL {
 	int mX, mY;
+	float speed ;
 protected:
 	sf::Sprite sprite;
 public:
@@ -12,7 +13,9 @@ public:
 
 	virtual sf::Texture getTexture() = 0;
 	virtual sf::Sprite getSprite() = 0;
-
+	virtual sf::Vector2f getPosition() = 0;
+	virtual void setSpeed(float speed) = 0;
+           
 	void setPosition(float x, float y);
 
 	virtual void drawInWindow(sf::RenderWindow& window) = 0;
@@ -23,19 +26,23 @@ public:
 class CDINAUSOR : public CANIMAL {
 public:
 	void Tell();
+	sf::Vector2f getPosition();
 
 	sf::Texture getTexture();
 	sf::Sprite getSprite();
-
+	
+	void setSpeed(float speed);
 	void drawInWindow(sf::RenderWindow& window);
+	
 };
 
 class CBIRD : public CANIMAL {
 public:
 	void Tell();
-
+	sf::Vector2f getPosition();
 	sf::Texture getTexture();
 	sf::Sprite getSprite();
 
 	void drawInWindow(sf::RenderWindow& window);
+	void setSpeed(float speed);
 };
