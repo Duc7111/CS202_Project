@@ -32,6 +32,13 @@ void CBIRD::Tell()
 {
 }
 
+void CBIRD::setSpeed(float speed) {
+	this->speed = speed;
+}
+sf::Vector2f CBIRD::getPosition() {
+	sf::Vector2f position(this->mX, this->mY);
+	return position;
+}
 sf::Texture CBIRD::getTexture()
 {
 	return sf::Texture();
@@ -50,6 +57,13 @@ void CDINAUSOR::Tell()
 {
 }
 
+void CDINOSAUR::setSpeed(float speed) {
+	this->speed = speed;
+}
+sf::Vector2f CDINOSAUR::getPosition() {
+	sf::Vector2f position(this->mX, this->mY);
+	return position;
+}
 sf::Texture CDINAUSOR::getTexture()
 {
 	return sf::Texture();
