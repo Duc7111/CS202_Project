@@ -55,7 +55,7 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	else
 		x = DICE::random(-x * 5, -x);
 
-	vehicle->setPosition(x, sprite.getPosition().y + 30);
+	vehicle->setPosition(x, sprite.getPosition().y + 20);
 	return vehicle;
 }
 

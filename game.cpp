@@ -293,6 +293,10 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 
 std::vector<CVEHICLE*> generatedVehicles;
 int YScoreText = 300;
+sf::Texture CGAME::catTexture;
+sf::Texture CGAME::elephantTexture;
+sf::Image CGAME::catImage;
+sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window) {
 
@@ -306,6 +310,11 @@ void playGame(sf::RenderWindow& window) {
 	CGAME::truckTexture.loadFromFile("truck.png");//load texture
 	CGAME::carImage = CGAME::carTexture.copyToImage();
 	CGAME::truckImage = CGAME::truckTexture.copyToImage();
+
+	CGAME::catTexture.loadFromFile("cat.png");
+	CGAME::elephantTexture.loadFromFile("elephant.png");//load texture
+	CGAME::catImage = CGAME::catTexture.copyToImage();
+	CGAME::elephantImage = CGAME::elephantTexture.copyToImage();
 
 	//initializeVehicles();
 
@@ -336,7 +345,7 @@ void playGame(sf::RenderWindow& window) {
 	CGAME::bgs.push_back(bg2);
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
-	
+
 	//window.setFramerateLimit(60);
 
 	while (window.isOpen()) {

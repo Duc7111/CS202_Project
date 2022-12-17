@@ -46,6 +46,12 @@ public:
 	static sf::Texture truckTexture;
 	static sf::Image carImage;
 	static sf::Image truckImage;
+
+	static sf::Texture catTexture;
+	static sf::Texture elephantTexture;
+	static sf::Image catImage;
+	static sf::Image elephantImage;
+
 	static sf::Texture bgTexture;
 	static std::vector<sf::Sprite> bgs;
 
