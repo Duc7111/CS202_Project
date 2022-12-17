@@ -337,7 +337,7 @@ void playGame(sf::RenderWindow& window) {
 
 	CGAME::bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(CGAME::bgTexture);
-	bg.setScale(1300, bgPos);
+	bg.setScale(1300, 1300);
 	bg.setPosition(-100, 0);
 	sf::Sprite bg2(bg); //de keo len trong moveWorld
 	bg2.setPosition(-100, bgPos -= bgOffset);
