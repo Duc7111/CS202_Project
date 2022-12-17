@@ -11,7 +11,7 @@ protected:
 	float speed;
 	sf::Sprite sprite;
 public:
-	void Move(float, float);
+	void Move(float x, float y);
 	virtual void Tell() = 0;
 
 	virtual sf::Texture getTexture() = 0;

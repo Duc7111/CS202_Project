@@ -3,7 +3,7 @@
 
 void CANIMAL::Move(float x, float y)
 {
-	sprite.move(x, y);
+	this->sprite.move(x, y);
 }
 
 void CANIMAL::Tell()
