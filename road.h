@@ -155,3 +155,6 @@ public:
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
 
+class TREE {
+
+};
