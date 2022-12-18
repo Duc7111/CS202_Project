@@ -80,8 +80,7 @@ VehicleRoad::~VehicleRoad()
 
 bool VehicleRoad::loadTexture()
 {
-	if (!texture[0].loadFromFile("road1.png")) return false;
-	return true;
+	return texture[0].loadFromFile("road1.png");
 }
 
 void VehicleRoad::resetSprite()
@@ -151,8 +150,8 @@ CANIMAL* AnimalRoad::AnimalFactory()
 {
 	CANIMAL* animal;
 	// Type
-	if (DICE::flip()) animal = new CELEPHANT;
-	else animal = new CCAT;
+	if (DICE::flip()) animal = new CCAT;
+	else animal = new CELEPHANT;
 	//side
 	if (side) scale(animal, -1.f, 1.f);
 	//position
@@ -165,7 +164,7 @@ CANIMAL* AnimalRoad::AnimalFactory()
 	else
 		x = DICE::random(-x * 5, -x);
 
-	animal->setPosition(x, sprite.getPosition().y);
+	animal->setPosition(x, sprite.getPosition().y + 20);
 	return animal;
 }
 
