@@ -137,7 +137,7 @@ void VehicleRoad::drawObj()
 ////////////////////////////////////////////////////////
 
 bool AnimalRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
-	return true;
+	return false;
 }
 
 CANIMAL* AnimalRoad::AnimalFactory()
@@ -200,8 +200,8 @@ void AnimalRoad::setVelocity(float velocity)
 void AnimalRoad::run()
 {
 	// New animal
-	if (aQueue.size() == OBJ_MAX || DICE::random(-2, 2)) return;
-	aQueue.push(AnimalFactory());
+	if (aQueue.size() == 0 || (aQueue.size() < OBJ_MAX && aQueue[0]->getSprite().getPosition().x > 0 && aQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
+		aQueue.push(AnimalFactory());
 	// Animals
 	if ((side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x < -50.f)
 		|| (!side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
