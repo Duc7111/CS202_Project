@@ -12,7 +12,7 @@ void CANIMAL::Tell()
 
 sf::Sprite CANIMAL::getSprite()
 {
-	return sf::Sprite();
+	return this->sprite;
 }
 sf::Texture CANIMAL::getTexture()
 {
@@ -49,12 +49,12 @@ sf::Vector2f CBIRD::getPosition() {
 }
 sf::Texture CBIRD::getTexture()
 {
-	return sf::Texture();
+	return CGAME::catTexture;
 }
 
 sf::Sprite CBIRD::getSprite()
 {
-	return sf::Sprite();
+	return this->sprite;
 }
 
 void CBIRD::drawInWindow(sf::RenderWindow& window)
@@ -86,12 +86,12 @@ sf::Vector2f CDINAUSOR::getPosition() {
 }
 sf::Texture CDINAUSOR::getTexture()
 {
-	return sf::Texture();
+	return CGAME::elephantTexture;
 }
 
 sf::Sprite CDINAUSOR::getSprite()
 {
-	return sf::Sprite();
+	return this->sprite;
 }
 
 void CDINAUSOR::drawInWindow(sf::RenderWindow& window)
