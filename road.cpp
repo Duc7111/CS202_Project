@@ -137,7 +137,7 @@ void VehicleRoad::drawObj()
 ////////////////////////////////////////////////////////
 
 bool AnimalRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
-	return false;
+	return true;
 }
 
 CANIMAL* AnimalRoad::AnimalFactory()
