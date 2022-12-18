@@ -330,6 +330,7 @@ void playGame(sf::RenderWindow& window) {
 
 
 	VehicleRoad::loadTexture();
+	AnimalRoad::loadTexture();
 
 
 	WORLD world;
