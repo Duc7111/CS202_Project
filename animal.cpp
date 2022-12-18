@@ -28,7 +28,7 @@ CCAT::CCAT() {
 	CANIMAL::sprite = sf::Sprite(CGAME::catTexture);
 	sf::Vector2u size = CGAME::catTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
-	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.scale(sf::Vector2f(0.15f, 0.15f));
 }
 
 void CCAT::Tell()
@@ -67,7 +67,7 @@ CELEPHANT::CELEPHANT() {
 	CANIMAL::sprite = sf::Sprite(CGAME::elephantTexture);
 	sf::Vector2u size = CGAME::elephantTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
-	sprite.scale(sf::Vector2f(0.25f, 0.25f));
+	sprite.scale(sf::Vector2f(0.15f, 0.15f));
 }
 
 void CELEPHANT::Tell()
