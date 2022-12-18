@@ -17,8 +17,7 @@ sf::Sprite CANIMAL::getSprite()
 
 void CANIMAL::setPosition(float x, float y)
 {
-	this->mX = x;
-	this->mY = y;
+	this->sprite.setPosition({ x,y });
 }
 
 void CANIMAL::drawInWindow(sf::RenderWindow& window)

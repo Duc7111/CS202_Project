@@ -20,12 +20,13 @@ public:
 	bool backward();
 	void drawWorld(sf::RenderWindow& window);
 	void checkCollide(sf::RenderWindow& window, CPEOPLE player);
+	std::deque<Road*> object;
 private:
 	Road* createRoad(int index);
 	sf::Texture texture;
 	sf::Sprite sprite;
 	SEED seed;
-	std::deque<Road*> object;
+
 	int forwardIndex;
 	int backwardIndex;
 };

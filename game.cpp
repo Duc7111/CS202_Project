@@ -428,30 +428,41 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 
 }
 
-void saveGame(const CPEOPLE& player) {
+void saveGame(const CPEOPLE& player, const WORLD& world) {
 	std::ofstream ofs("game.bin", std::ios::binary);
 
 	if (!ofs)
 		return;
 
 	ofs.write((char*)&CGAME::currentScore, sizeof(CGAME::currentScore));
-	int posX = player.getPositionInWorld().x;
+	float posX = player.getPositionInWorld().x;
 	ofs.write((char*)&posX, sizeof(posX));
-	int posY = player.getPositionInWorld().y;
+	float posY = player.getPositionInWorld().y;
 	ofs.write((char*)&posY, sizeof(posY));
 
 	//save mấy cái của road ngay trước mặt nữa
+	for (int i = 0; i < 7; i++) {
+		sf::Vector2f roadPos = world.object[i]->sprite.getPosition();
+		ofs.write((char*)&roadPos.x, sizeof(roadPos.x));
+		ofs.write((char*)&roadPos.y, sizeof(roadPos.y));
+	}
 }
-void loadGame(CPEOPLE& player) {
+void loadGame(CPEOPLE& player, WORLD& world) {
 	std::ifstream ifs("game.bin", std::ios::binary);
 
 	if (!ifs)
 		return;
 
 	ifs.read((char*)&CGAME::currentScore, sizeof(int));
-	int posX, posY;
-	ifs.read((char*)&posX, sizeof(posX));
-	ifs.read((char*)&posY, sizeof(posY));
+	float posX, posY;
+	ifs.read((char*)&posX, sizeof(float));
+	ifs.read((char*)&posY, sizeof(float));
 	player.getSprite().setPosition(sf::Vector2f(posX, posY));
 
+	for (int i = 0; i < 7; i++) {
+		float x, y;
+		ifs.read((char*)&x, sizeof(float));
+		ifs.read((char*)&y, sizeof(float));
+		world.object[i]->sprite.setPosition({ x,y });
+	}
 }
