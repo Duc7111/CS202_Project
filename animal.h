@@ -15,7 +15,7 @@ public:
 	virtual void Tell() = 0;
 
 	virtual sf::Texture getTexture() = 0;
-	virtual sf::Sprite getSprite() = 0;
+	 sf::Sprite getSprite() = 0;
 	virtual sf::Vector2f getPosition() = 0;
 	virtual void setSpeed(float speed) = 0;
 
