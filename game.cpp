@@ -57,8 +57,8 @@ CVEHICLE* makeVehicle(bool b)
 
 CANIMAL* makeAnimal(bool b)
 {
-	if (b) return new CDINAUSOR;
-	else return new CBIRD;
+	if (b) return new CELEPHANT;
+	else return new CCAT;
 }
 
 void CGAME::startGame()
@@ -120,10 +120,10 @@ void CGAME::saveGame(ofstream& fout)
 	}
 	for (CANIMAL* p : arrAnimal)
 	{
-		bool b = typeid(*p) == typeid(CDINAUSOR);
+		bool b = typeid(*p) == typeid(CELEPHANT);
 		fout.write((char*)&b, sizeof(b));
-		if (b) fout.write((char*)p, sizeof(CDINAUSOR));
-		else fout.write((char*)p, sizeof(CBIRD));
+		if (b) fout.write((char*)p, sizeof(CELEPHANT));
+		else fout.write((char*)p, sizeof(CCAT));
 	}
 	//People
 	fout.write((char*)&cn, sizeof(cn));
@@ -425,5 +425,33 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 	for (int i = 0; i < bgs.size(); i++) {
 		window.draw(bgs[i]);
 	}
+
+}
+
+void saveGame(const CPEOPLE& player) {
+	std::ofstream ofs("game.bin", std::ios::binary);
+
+	if (!ofs)
+		return;
+
+	ofs.write((char*)&CGAME::currentScore, sizeof(CGAME::currentScore));
+	int posX = player.getPositionInWorld().x;
+	ofs.write((char*)&posX, sizeof(posX));
+	int posY = player.getPositionInWorld().y;
+	ofs.write((char*)&posY, sizeof(posY));
+
+	//save mấy cái của road ngay trước mặt nữa
+}
+void loadGame(CPEOPLE& player) {
+	std::ifstream ifs("game.bin", std::ios::binary);
+
+	if (!ifs)
+		return;
+
+	ifs.read((char*)&CGAME::currentScore, sizeof(int));
+	int posX, posY;
+	ifs.read((char*)&posX, sizeof(posX));
+	ifs.read((char*)&posY, sizeof(posY));
+	player.getSprite().setPosition(sf::Vector2f(posX, posY));
 
 }

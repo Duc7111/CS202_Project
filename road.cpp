@@ -137,15 +137,22 @@ void VehicleRoad::drawObj()
 ////////////////////////////////////////////////////////
 
 bool AnimalRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
-	return true;
+	for (int i = 0; i < aQueue.size(); i++) {
+		if (IsNearby(player, aQueue[i]->getSprite(), 5))
+			if (aQueue[i]->CollidedWithPlayer(player)) {
+				explosion::animateExplosion(window, aQueue[i]->getSprite().getPosition());
+				return true;
+			}
+	}
+	return false;
 }
 
 CANIMAL* AnimalRoad::AnimalFactory()
 {
 	CANIMAL* animal;
 	// Type
-	if (DICE::flip()) animal = new CDINAUSOR;
-	else animal = new CBIRD;
+	if (DICE::flip()) animal = new CELEPHANT;
+	else animal = new CCAT;
 	//side
 	if (side) scale(animal, -1.f, 1.f);
 	//position

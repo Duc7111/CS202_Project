@@ -97,3 +97,5 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs);
 
 const float moveOffset = 950;
 
+void saveGame(const CPEOPLE& player);
+void loadGame(CPEOPLE& player);

@@ -1,10 +1,9 @@
 #pragma once
 
 #include<SFML/Graphics.hpp>
+#include "people.h"
 
 class CANIMAL {
-
-
 
 protected:
 	int mX, mY;
@@ -15,7 +14,7 @@ public:
 	virtual void Tell() = 0;
 
 	virtual sf::Texture getTexture() = 0;
-	 sf::Sprite getSprite() = 0;
+	sf::Sprite getSprite();
 	virtual sf::Vector2f getPosition() = 0;
 	virtual void setSpeed(float speed) = 0;
 
@@ -24,11 +23,13 @@ public:
 	virtual void drawInWindow(sf::RenderWindow& window) = 0;
 
 	friend void scale(CANIMAL*, float, float);
+
+	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
 };
 
-class CDINAUSOR : public CANIMAL {
+class CELEPHANT : public CANIMAL {
 public:
-	CDINAUSOR();
+	CELEPHANT();
 	void Tell();
 	sf::Vector2f getPosition();
 
@@ -37,12 +38,12 @@ public:
 
 	void setSpeed(float speed);
 	void drawInWindow(sf::RenderWindow& window);
-
+	bool CollidedWithPlayer(CPEOPLE player);
 };
 
-class CBIRD : public CANIMAL {
+class CCAT : public CANIMAL {
 public:
-	CBIRD();
+	CCAT();
 	void Tell();
 	sf::Vector2f getPosition();
 	sf::Texture getTexture();
@@ -50,4 +51,5 @@ public:
 
 	void drawInWindow(sf::RenderWindow& window);
 	void setSpeed(float speed);
+	bool CollidedWithPlayer(CPEOPLE player);
 };

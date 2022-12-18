@@ -79,7 +79,7 @@ Road* WORLD::createRoad(int index) {
 		tmp->setPosition(index);
 		return tmp;
 	case animal:
-		tmp = new AnimalRoad;
+		tmp = new VehicleRoad;
 		tmp->resetSprite();
 		tmp->setPosition(index);
 		return tmp;
