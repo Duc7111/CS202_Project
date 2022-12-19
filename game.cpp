@@ -80,72 +80,72 @@ void CGAME::startGame()
 	}
 }
 
-void CGAME::loadGame()
-{
-	std::cout << "Please input the path to load game file: ";
-	std::string path;
-	std::cin >> path;
-	std::ifstream fin;
-	fin.open(path);
-	resetGame();
-	//level
-	fin.read((char*)&level, sizeof(level));
-	//Obtacles (vehicle & animal)
-	int n;
-	fin.read((char*)&n, sizeof(int));
-	arrVehicle.resize(n);
-	for (CVEHICLE* p : arrVehicle)
-	{
-		bool t;
-		fin.read((char*)&t, sizeof(bool));
-		p = makeVehicle(t);
-	}
-
-	fin.read((char*)&n, sizeof(int));
-	arrVehicle.resize(n);
-	for (CVEHICLE* p : arrVehicle)
-	{
-		bool t;
-		fin.read((char*)&t, sizeof(bool));
-		p = makeVehicle(t);
-	}
-	//People
-	fin.read((char*)&cn, sizeof(cn));
-
-	fin.close();
-}
-
-void CGAME::saveGame() {
-	std::cout << "Please input the path to save game file: ";
-	std::string path;
-	std::cin >> path;
-	std::ofstream fout;
-	fout.open(path);
-
-	//Level
-	fout.write((char*)&level, sizeof(level));
-	//Obstacle
-	int n = arrVehicle.size();
-	fout.write((char*)&n, sizeof(int));
-	for (CVEHICLE* p : arrVehicle)
-	{
-		bool b = typeid(*p) == typeid(CTRUCK);
-		fout.write((char*)&b, sizeof(b));
-		if (b) fout.write((char*)p, sizeof(CTRUCK));
-		else fout.write((char*)p, sizeof(CVEHICLE));
-	}
-	for (CANIMAL* p : arrAnimal)
-	{
-		bool b = typeid(*p) == typeid(CELEPHANT);
-		fout.write((char*)&b, sizeof(b));
-		if (b) fout.write((char*)p, sizeof(CELEPHANT));
-		else fout.write((char*)p, sizeof(CCAT));
-	}
-	//People
-	fout.write((char*)&cn, sizeof(cn));
-
-	fout.close();
-}
+//void CGAME::loadGame()
+//{
+//	std::cout << "Please input the path to load game file: ";
+//	std::string path;
+//	std::cin >> path;
+//	std::ifstream fin;
+//	fin.open(path);
+//	resetGame();
+//	//level
+//	fin.read((char*)&level, sizeof(level));
+//	//Obtacles (vehicle & animal)
+//	int n;
+//	fin.read((char*)&n, sizeof(int));
+//	arrVehicle.resize(n);
+//	for (CVEHICLE* p : arrVehicle)
+//	{
+//		bool t;
+//		fin.read((char*)&t, sizeof(bool));
+//		p = makeVehicle(t);
+//	}
+//
+//	fin.read((char*)&n, sizeof(int));
+//	arrVehicle.resize(n);
+//	for (CVEHICLE* p : arrVehicle)
+//	{
+//		bool t;
+//		fin.read((char*)&t, sizeof(bool));
+//		p = makeVehicle(t);
+//	}
+//	//People
+//	fin.read((char*)&cn, sizeof(cn));
+//
+//	fin.close();
+//}
+//
+//void CGAME::saveGame() {
+//	std::cout << "Please input the path to save game file: ";
+//	std::string path;
+//	std::cin >> path;
+//	std::ofstream fout;
+//	fout.open(path);
+//
+//	//Level
+//	fout.write((char*)&level, sizeof(level));
+//	//Obstacle
+//	int n = arrVehicle.size();
+//	fout.write((char*)&n, sizeof(int));
+//	for (CVEHICLE* p : arrVehicle)
+//	{
+//		bool b = typeid(*p) == typeid(CTRUCK);
+//		fout.write((char*)&b, sizeof(b));
+//		if (b) fout.write((char*)p, sizeof(CTRUCK));
+//		else fout.write((char*)p, sizeof(CVEHICLE));
+//	}
+//	for (CANIMAL* p : arrAnimal)
+//	{
+//		bool b = typeid(*p) == typeid(CELEPHANT);
+//		fout.write((char*)&b, sizeof(b));
+//		if (b) fout.write((char*)p, sizeof(CELEPHANT));
+//		else fout.write((char*)p, sizeof(CCAT));
+//	}
+//	//People
+//	fout.write((char*)&cn, sizeof(cn));
+//
+//	fout.close();
+//}
 void CGAME::gameLose(sf::RenderWindow& window) {
 	window.clear();
 	compareHighScore(CGAME::score);
@@ -204,7 +204,7 @@ void CGAME::gameLose(sf::RenderWindow& window) {
 	}
 }
 //Continnue when game is good designed
-void pauseGame()
+void CGAME::pauseGame(const CPEOPLE& player, const WORLD& world)
 {
 	sf::RenderWindow window(sf::VideoMode(400, 200), "Pause screen", sf::Style::None);
 	bool moveInput[2] = { 1,1 };
@@ -281,13 +281,14 @@ void pauseGame()
 				window.close();
 				break;
 			case 1: {
-				CGAME::singleton().saveGame();
+				/*CGAME::singleton().saveGame();*/
+				saveGame(player, world);
 				window.close();
 				break;
 			}
 
 			case 2:
-				//return something, modify later
+				//cho nay quay ve menu
 				window.close();
 				break;
 			}
@@ -375,7 +376,7 @@ sf::Texture CGAME::elephantTexture;
 sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
-void playGame(sf::RenderWindow& window) {
+void playGame(sf::RenderWindow& window, bool reload) {
 
 	sf::Clock clock;
 	sf::Time elapsed;
@@ -404,14 +405,14 @@ void playGame(sf::RenderWindow& window) {
 	CGAME::currentScore.setCharacterSize(45);
 	CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 
-
-
 	VehicleRoad::loadTexture();
 	AnimalRoad::loadTexture();
 
-
 	WORLD world;
-	world.createWorld(window);
+	if (reload)
+		CGAME::singleton().loadGame(window, player, world);
+	else if (!reload)
+		world.createWorld(window);
 
 	CGAME::bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(CGAME::bgTexture);
@@ -456,7 +457,7 @@ void playGame(sf::RenderWindow& window) {
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::Escape:
-					pauseGame();
+					CGAME::singleton().pauseGame(player, world);
 					break;
 				default:
 					break;
@@ -506,41 +507,62 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 
 }
 
-//void saveGame(const CPEOPLE& player, const WORLD& world) {
-//	std::ofstream ofs("game.bin", std::ios::binary);
-//
-//	if (!ofs)
-//		return;
-//
-//	ofs.write((char*)&CGAME::currentScore, sizeof(CGAME::currentScore));
-//	float posX = player.getPositionInWorld().x;
-//	ofs.write((char*)&posX, sizeof(posX));
-//	float posY = player.getPositionInWorld().y;
-//	ofs.write((char*)&posY, sizeof(posY));
-//
-//	//save mấy cái của road ngay trước mặt nữa
-//	for (int i = 0; i < 7; i++) {
-//		sf::Vector2f roadPos = world.object[i]->sprite.getPosition();
-//		ofs.write((char*)&roadPos.x, sizeof(roadPos.x));
-//		ofs.write((char*)&roadPos.y, sizeof(roadPos.y));
-//	}
-//}
-//void loadGame(CPEOPLE& player, WORLD& world) {
-//	std::ifstream ifs("game.bin", std::ios::binary);
-//
-//	if (!ifs)
-//		return;
-//
-//	ifs.read((char*)&CGAME::currentScore, sizeof(int));
-//	float posX, posY;
-//	ifs.read((char*)&posX, sizeof(float));
-//	ifs.read((char*)&posY, sizeof(float));
-//	player.getSprite().setPosition(sf::Vector2f(posX, posY));
-//
-//	for (int i = 0; i < 7; i++) {
-//		float x, y;
-//		ifs.read((char*)&x, sizeof(float));
-//		ifs.read((char*)&y, sizeof(float));
-//		world.object[i]->sprite.setPosition({ x,y });
-//	}
-//}
+void CGAME::saveGame(const CPEOPLE& player, const WORLD& world) {
+	std::ofstream ofs("game.bin", std::ios::binary);
+
+	if (!ofs)
+		return;
+
+	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
+	float posX = player.getPositionInWorld().x;
+	ofs.write((char*)&posX, sizeof(posX));
+	float posY = player.getPositionInWorld().y;
+	ofs.write((char*)&posY, sizeof(posY));
+
+	//save mấy cái của road ngay trước mặt nữa
+	for (int i = 0; i < 7; i++) {
+		bool isRoad = world.object[i];
+		ofs.write((char*)&isRoad, sizeof(isRoad));
+		if (!isRoad)
+			continue;
+		bool isVehicleRoad = world.object[i]->isVehicleRoad;
+		ofs.write((char*)&isVehicleRoad, sizeof(isVehicleRoad));
+	}
+
+	ofs.close();
+}
+void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
+	std::ifstream ifs("game.bin", std::ios::binary);
+
+	if (!ifs)
+		return;
+
+	ifs.read((char*)&CGAME::score, sizeof(int));
+	float posX, posY;
+	ifs.read((char*)&posX, sizeof(float));
+	ifs.read((char*)&posY, sizeof(float));
+	player.getSprite().setPosition(sf::Vector2f(posX, posY));
+
+	for (int i = 0; i < 7; ++i) {
+		bool isRoad;
+		ifs.read((char*)&isRoad, sizeof(bool));
+		if (!isRoad)
+		{
+			world.object.push_back(nullptr);
+			continue;
+		}
+		bool isVehicleRoad;
+		ifs.read((char*)&isVehicleRoad, sizeof(bool));
+		Road* temp;
+		if (isVehicleRoad)
+			temp = new VehicleRoad;
+		else
+			temp = new AnimalRoad;
+		temp->setWindow(&window);
+		temp->resetSprite();
+		temp->setPosition(i);
+		world.object.push_back(temp);
+	}
+
+	ifs.close();
+}

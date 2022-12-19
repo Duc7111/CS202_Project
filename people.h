@@ -18,7 +18,7 @@ class CPEOPLE {
 	sf::Image img;
 	int animation;
 	float drawVar;
-	static constexpr float velocity = 5.0f;
+	static constexpr float velocity = 10.0f;
 	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 	void animate();
 	static float calcX(int X);

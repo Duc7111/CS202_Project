@@ -93,7 +93,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 						Settings::settingsSound(window);
 						break;
 					case 2:
-
+						playGame(window, true);
 						break;
 					case 3:
 						viewHighScore();

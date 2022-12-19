@@ -60,7 +60,7 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 	}
 	for (int i = 6; i >= 0; --i) {
 		if (object[i]) {
-			object[i]->setVelocity(10.f);
+			object[i]->setVelocity(7.f);
 			object[i]->run();
 			object[i]->drawObj();
 		}

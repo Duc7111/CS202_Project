@@ -73,7 +73,9 @@ bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 	return false;
 }
 
-VehicleRoad::VehicleRoad() : v(0) {}
+VehicleRoad::VehicleRoad() : v(0) {
+	Road::isVehicleRoad = true;
+}
 
 VehicleRoad::~VehicleRoad()
 {
@@ -170,7 +172,9 @@ CANIMAL* AnimalRoad::AnimalFactory()
 	return animal;
 }
 
-AnimalRoad::AnimalRoad() : v(0) {}
+AnimalRoad::AnimalRoad() : v(0) {
+	Road::isVehicleRoad = false;
+}
 
 AnimalRoad::~AnimalRoad()
 {
@@ -245,3 +249,5 @@ TREE::TREE() {
 	int r = rand() % 4;
 	sprite = sf::Sprite(texture[r]);
 }
+
+

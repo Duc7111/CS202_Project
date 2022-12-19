@@ -34,6 +34,8 @@ public:
 
 	void drawRoad();
 	virtual void drawObj() = 0;
+
+	bool isVehicleRoad;
 };
 
 #define OBJ_MAX 5
@@ -154,6 +156,8 @@ public:
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
+
+bool isVehicleRoad(Road* ptr);
 
 class TREE {
 private:
