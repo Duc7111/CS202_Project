@@ -40,7 +40,7 @@ public:
 	void loadGame(); // Thực hiện tải lại trò chơi đã lưu
 	void saveGame(); // Thực hiện lưu lại dữ liệu trò chơi
 	void pauseGame(); // Tạm dừng Thread
-	void gameLose();
+	void gameLose(sf::RenderWindow& window);
 
 	//void resumeGame(); //Quay lai Thread
 

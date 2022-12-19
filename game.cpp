@@ -1,6 +1,7 @@
 ﻿#include "game.h"
 #include "effect.h"
 #include "audio.h"
+#include "menu.h"
 #include "highScore.h"
 #include <chrono>
 #include <thread>
@@ -145,9 +146,8 @@ void CGAME::saveGame() {
 
 	fout.close();
 }
-void gameLose() {
-
-	sf::RenderWindow window(sf::VideoMode(1000, 800), "Game Lose");
+void CGAME::gameLose(sf::RenderWindow& window) {
+	window.clear();
 	compareHighScore(CGAME::score);
 	window.setTitle("Game over");
 
@@ -180,7 +180,7 @@ void gameLose() {
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed) {
-				window.close();
+				graphicalMenu(window);
 			}
 			if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
@@ -281,7 +281,7 @@ void pauseGame()
 				window.close();
 				break;
 			case 1: {
-				CGAME::saveGame();
+				CGAME::singleton().saveGame();
 				window.close();
 				break;
 			}

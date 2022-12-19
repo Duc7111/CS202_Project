@@ -52,8 +52,8 @@ void viewHighScore() {
 	int i = 1;
 	for (it; it != highScores.rend(); it++)
 	{
-		std::cout << i << " - ";
-		std::cout << *it << "\n";
+		std::cout << i++ << ". ";
+		std::cout << *it << " pts\n";
 	}
 
 }

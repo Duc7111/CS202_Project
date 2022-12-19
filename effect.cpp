@@ -20,7 +20,7 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite targetSpri
 	explodeSprite.setPosition(explodePos - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
 
-	CGAME::gameLose();
+	CGAME::singleton().gameLose();
 }
 
 void explosion::animateExplosion(sf::RenderWindow& window, sf::Vector2f position) {
@@ -29,5 +29,6 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Vector2f position
 	explodeSprite.setPosition(position - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
 
-	CGAME::gameLose();
+	//de lam sao no van hien hieu ung roi moi mo cua so moi
+	CGAME::singleton().gameLose();
 }
