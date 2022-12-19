@@ -7,6 +7,8 @@ const std::string explosionPath = "explosion/";
 const float explosionBreak = 0.2f;
 extern sf::Texture explosionTexture;
 
+extern int timeCount=0,
+
 namespace explosion {
 	void loadTexture();
 

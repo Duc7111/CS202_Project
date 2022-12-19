@@ -439,7 +439,7 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload) {
-
+    timeCount=0;
 	sf::Clock clock;
 	sf::Time elapsed;
 
