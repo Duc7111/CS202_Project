@@ -395,8 +395,6 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	window.clear();
 	//std::cout << player.getPosition().x << " " << player.getPosition().y << "\n";
-	std::cout << player.getPositionInWorld().x << " ";
-	std::cout << player.getPositionInWorld().y << "\n";
 	if (!noMove) {
 		view.setCenter(sf::Vector2f(view.getCenter().x, player.getPositionInWorld().y));
 	}

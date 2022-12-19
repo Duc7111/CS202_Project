@@ -26,18 +26,13 @@ void explosion::animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf:
 	explodeSprite.setScale(3, 3);
 	explodeSprite.setPosition(explodePos - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
-	while (timeCount <= 500)
+	window.display();
+	while (timeCount <= 1000)
 	{
-		std::cout << timeCount << " ";
 		timeCount++;
 	}
-	//std::cout << clock.getElapsedTime().asSeconds() << "\n";
+
 	CGAME::singleton().gameLose(window);
-
-	//if (clock.getElapsedTime().asSeconds() > 1.f) {
-	//	CGAME::singleton().gameLose(window);
-	//}
-
 }
 
 void explosion::animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf::Vector2f position) {
@@ -45,17 +40,12 @@ void explosion::animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf:
 	explodeSprite.setScale(3, 3);
 	explodeSprite.setPosition(position - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
-
-	while (timeCount <= 500)
+	window.display();
+	while (timeCount <= 1000)
 	{
-		std::cout << timeCount << " ";
 		timeCount++;
 	}
-	//std::cout << clock.getElapsedTime().asSeconds() << "\n";
+
 	CGAME::singleton().gameLose(window);
-	////de no chay effect trc khi qua menu gameLose
-	//if (clock.getElapsedTime().asSeconds() > 1.f) {
-	//	CGAME::singleton().gameLose(window);
-	//}
 
 }
