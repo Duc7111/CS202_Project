@@ -5,7 +5,14 @@ float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
 {
 	return (mX / 13.0f) * 1300;
 }
-
+void CPEOPLE::setPeople(int mX, int mY, int mDirection, int animation) {
+	this->mX = mX;
+	this->mY = mY;
+	this->mDirection = mDirection;
+	this->mState = mState;
+	this->animation = animation;
+	loadTexture();
+}
 CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
 	texture[0].loadFromFile("player_back.png");
 	texture[1].loadFromFile("player_front.png");
@@ -37,7 +44,12 @@ sf::Vector2f CPEOPLE::getPositionInWorld() const {
 unsigned int CPEOPLE::getDirection() const {
 	return mDirection;
 }
-
+unsigned int CPEOPLE::getState() const {
+	return mState;
+}
+unsigned int CPEOPLE::getAnimation() const {
+	return animation;
+}
 int CPEOPLE::goUp() {
 	//if (mY == 18) return;
 	if (animation) return 1;

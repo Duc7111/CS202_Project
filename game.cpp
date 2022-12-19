@@ -147,64 +147,126 @@ void CGAME::startGame()
 //	fout.close();
 //}
 void CGAME::gameLose(sf::RenderWindow& window) {
-	window.clear();
+	float diffY;
+	diffY = window.getView().getCenter().y - 610;
+	diffY = abs(diffY);
+
+
 	compareHighScore(CGAME::score);
 	window.setTitle("Game over");
 
-	sf::Font font1, font2;
-	font1.loadFromFile("AlfaSlabOne-Regular.ttf");
-	font2.loadFromFile("Prompt-Bold.ttf");
+	sf::Font font;
+	font.loadFromFile("RubikGemstones-Regular.ttf");
 
-	sf::Text gameOverTitle, finalScore;
-	gameOverTitle.setFont(font1);
-	finalScore.setFont(font2);
-	gameOverTitle.setString("YOU LOST! PRESS ENTER TO EXIT");
-	finalScore.setString("Final score: " + to_string(CGAME::score));
+	sf::Text finalScore;
+	finalScore.setFont(font);
+	finalScore.setString("FINAL SCORE: " + to_string(CGAME::score));
 
-	gameOverTitle.setFillColor(sf::Color::Green);
-	finalScore.setFillColor(sf::Color::Cyan);
+	finalScore.setFillColor(sf::Color::White);
 
-	gameOverTitle.setCharacterSize(50);
-	gameOverTitle.setStyle(sf::Text::Bold);
 	finalScore.setCharacterSize(50);
 	finalScore.setStyle(sf::Text::Bold);
 
-	gameOverTitle.setPosition(300, 100);
-	finalScore.setPosition(300, 500);
+	finalScore.setPosition(450, 420 - diffY);
 
-	sf::Texture bgTexture;
-	sf::Sprite bgSprite;
+	sf::Sprite bgSprite(CGAME::bgTexture);
+	bgSprite.setScale(1300, 1300);
+	bgSprite.setPosition(-100, 0 - diffY);
+
+	sf::Texture roadTexture;
+	roadTexture.loadFromFile("road2.png");
+	sf::Sprite roadSprite(roadTexture);
+	roadSprite.setPosition(0, 400 - diffY);
+	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
+	roadSprite.setScale(sf::Vector2f(scale, scale));
+
+
+
+	sf::Text option;
+	sf::Font font2;
+	font2.loadFromFile("SecularOne-Regular.ttf");
+	option.setString("Play again");
+	option.setFont(font2);
+	option.setCharacterSize(50);
+	option.setPosition(450, 600 - diffY);
+
+	sf::Text option2(option);
+	option2.setString("Quit game");
+	option2.setPosition(450, 700 - diffY);
+
+	sf::Text arrow(option);
+	arrow.setString("-");
+	arrow.setPosition(350, 600 - diffY);
+
+	int index = 0;
 
 	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
+		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				graphicalMenu(window);
+				window.close();
 			}
-			if (event.type == sf::Event::KeyPressed) {
+			else if (event.type == sf::Event::KeyPressed) {
 				switch (event.key.code) {
-				case sf::Keyboard::Key::Enter:
-					window.close();
+				case sf::Keyboard::Key::W:
+					if (index == 0)
+						index = 1;
+					else
+						index--;
 					break;
-
+				case sf::Keyboard::Key::S:
+					if (index == 1)
+						index = 0;
+					else
+						index++;
+					break;
+				case sf::Keyboard::Key::Enter: {
+					switch (index) {
+					case 0:
+						playGame(window);
+						break;
+					case 1:
+						exit(0);
+						break;
+					}
+					break;
+				}
 				default:
 					break;
 				}
+
 			}
 		}
+		option.setFillColor(sf::Color::White);
+		option.setStyle(sf::Text::Regular);
+		option2.setFillColor(sf::Color::White);
+		option2.setStyle(sf::Text::Regular);
+		if (index == 0) {
+			option.setFillColor(sf::Color::Yellow);
+			option.setStyle(sf::Text::Underlined);
+		}
+		else {
+			option2.setFillColor(sf::Color::Yellow);
+			option2.setStyle(sf::Text::Underlined);
+		}
+		arrow.setPosition(350, 600 + 100 * index - diffY);
+		arrow.setFillColor(sf::Color::Yellow);
 
 		window.clear();
 
-
+		window.draw(bgSprite);
+		window.draw(roadSprite);
 		window.draw(finalScore);
-		window.draw(gameOverTitle);
+		window.draw(arrow);
+		window.draw(option);
+		window.draw(option2);
 
 		window.display();
 	}
 }
+sf::Clock CGAME::clock;
 //Continnue when game is good designed
-void CGAME::pauseGame(const CPEOPLE& player, const WORLD& world)
+void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world)
 {
 	sf::RenderWindow window(sf::VideoMode(400, 200), "Pause screen", sf::Style::None);
 	bool moveInput[2] = { 1,1 };
@@ -282,13 +344,14 @@ void CGAME::pauseGame(const CPEOPLE& player, const WORLD& world)
 				break;
 			case 1: {
 				/*CGAME::singleton().saveGame();*/
-				saveGame(player, world);
+				saveGame(renderWindow, player, world);
 				window.close();
 				break;
 			}
 
 			case 2:
 				//cho nay quay ve menu
+				/*graphicalMenu(renderWindow);*/
 				window.close();
 				break;
 			}
@@ -311,31 +374,32 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	int y = player.getPosition().y;
 
-	if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
-		//se co ktra di len di xuong de chon y phu hop
-		if (player.getDirection() == 1) { //di len
-			YCar -= moveOffset;
-			YTruck -= moveOffset;
-			addBg(player, CGAME::bgs);
-		}
-		else if (player.getDirection() == 2) {
-			YCar += moveOffset;
-			YTruck += moveOffset;
-		}
+	//if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
+	//	//se co ktra di len di xuong de chon y phu hop
+	//	if (player.getDirection() == 1) { //di len
+	//		YCar -= moveOffset;
+	//		YTruck -= moveOffset;
+	//		addBg(player, CGAME::bgs);
+	//	}
+	//	else if (player.getDirection() == 2) {
+	//		YCar += moveOffset;
+	//		YTruck += moveOffset;
+	//	}
 
-		player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
-		initializeVehicles();
+	//	//player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
+	//	//initializeVehicles();
 
-	}
-	else if (y % 15 != 0)
-		player.reinitializedVehicle = false;
+	//}
+	////else if (y % 15 != 0)
+	////	//player.reinitializedVehicle = false;
 
 	window.clear();
+	//std::cout << player.getPosition().x << " " << player.getPosition().y << "\n";
+	std::cout << player.getPositionInWorld().x << " ";
+	std::cout << player.getPositionInWorld().y << "\n";
 	if (!noMove) {
 		view.setCenter(sf::Vector2f(view.getCenter().x, player.getPositionInWorld().y));
 	}
-	//initializeVehicles() //di chuyen len thi tao xe o tren
-	//khi di chuyen den mot mY % n nhat dinh thi no se initializeVehicle (phai ktra dang di xuong hay di len)
 	window.setView(view);
 }
 
@@ -408,12 +472,6 @@ void playGame(sf::RenderWindow& window, bool reload) {
 	VehicleRoad::loadTexture();
 	AnimalRoad::loadTexture();
 
-	WORLD world;
-	if (reload)
-		CGAME::singleton().loadGame(window, player, world);
-	else if (!reload)
-		world.createWorld(window);
-
 	CGAME::bgTexture.loadFromFile("bg.png");
 	sf::Sprite bg(CGAME::bgTexture);
 	bg.setScale(1300, 1300);
@@ -422,6 +480,16 @@ void playGame(sf::RenderWindow& window, bool reload) {
 	bg2.setPosition(-100, bgPos -= bgOffset);
 	CGAME::bgs.push_back(bg);
 	CGAME::bgs.push_back(bg2);
+
+	WORLD world;
+	if (reload)
+		CGAME::singleton().loadGame(window, player, world);
+	else if (!reload)
+		world.createWorld(window);
+
+
+
+
 
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
 
@@ -457,7 +525,7 @@ void playGame(sf::RenderWindow& window, bool reload) {
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::Escape:
-					CGAME::singleton().pauseGame(player, world);
+					CGAME::singleton().pauseGame(window, player, world);
 					break;
 				default:
 					break;
@@ -507,17 +575,22 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 
 }
 
-void CGAME::saveGame(const CPEOPLE& player, const WORLD& world) {
+void CGAME::saveGame(const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world) {
 	std::ofstream ofs("game.bin", std::ios::binary);
 
 	if (!ofs)
 		return;
 
 	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
-	float posX = player.getPositionInWorld().x;
-	ofs.write((char*)&posX, sizeof(posX));
-	float posY = player.getPositionInWorld().y;
-	ofs.write((char*)&posY, sizeof(posY));
+
+	int mX = player.getPosition().x;
+	int mY = player.getPosition().y;
+	ofs.write((char*)&mX, sizeof(mX));
+	ofs.write((char*)&mY, sizeof(mY));
+	int mDirection = player.getDirection();
+	int animation = player.getAnimation();
+	ofs.write((char*)&mDirection, sizeof(mDirection));
+	ofs.write((char*)&animation, sizeof(animation));
 
 	//save mấy cái của road ngay trước mặt nữa
 	for (int i = 0; i < 7; i++) {
@@ -538,10 +611,14 @@ void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 		return;
 
 	ifs.read((char*)&CGAME::score, sizeof(int));
-	float posX, posY;
-	ifs.read((char*)&posX, sizeof(float));
-	ifs.read((char*)&posY, sizeof(float));
-	player.getSprite().setPosition(sf::Vector2f(posX, posY));
+
+	int mX, mY, mDirection, mState, animation;
+	ifs.read((char*)&mX, sizeof(int));
+	ifs.read((char*)&mY, sizeof(int));
+	ifs.read((char*)&mDirection, sizeof(int));
+	ifs.read((char*)&animation, sizeof(int));
+	player.setPeople(mX, mY, mDirection, animation);
+	//de coi lai cai set view player
 
 	for (int i = 0; i < 7; ++i) {
 		bool isRoad;

@@ -66,7 +66,8 @@ bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 	for (int i = 0; i < vQueue.size(); i++) {
 		if (IsNearby(player, vQueue[i]->getSprite(), 5))
 			if (vQueue[i]->CollidedWithPlayer(player)) {
-				explosion::animateExplosion(window, vQueue[i]->getSprite().getPosition());
+				sf::Clock clock;
+				explosion::animateExplosion(clock, window, vQueue[i]->getSprite().getPosition());
 				return true;
 			}
 	}
@@ -143,7 +144,8 @@ bool AnimalRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 	for (int i = 0; i < aQueue.size(); i++) {
 		if (IsNearby(player, aQueue[i]->getSprite(), 5))
 			if (aQueue[i]->CollidedWithPlayer(player)) {
-				explosion::animateExplosion(window, aQueue[i]->getSprite().getPosition());
+				sf::Clock clock;
+				explosion::animateExplosion(clock, window, aQueue[i]->getSprite().getPosition());
 				return true;
 			}
 	}

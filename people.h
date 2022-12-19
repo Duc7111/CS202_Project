@@ -25,12 +25,15 @@ class CPEOPLE {
 	static float calcY(int Y);
 public:
 	CPEOPLE();
+	void setPeople(int mX, int mY, int mDirection, int animation); //cái này dùng cho phần save load
 	void loadTexture(); // load texture
 	void drawPlayer(sf::RenderWindow& window); // draw current object	sf::Vector2i getPosition(); // Return mY, mX in the form of sf::Vector2i
 	sf::Vector2i getPosition() const;
 	int getPrevY() const;
 	sf::Vector2f getPositionInWorld() const;
 	unsigned int getDirection() const;
+	unsigned int getState() const;
+	unsigned int getAnimation() const;
 	// signal: 0 = move executed, 1 = animation is currently playing, 2 = hitting border
 	int goUp(); // go up
 	int goDown(); // go down

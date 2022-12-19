@@ -10,8 +10,8 @@ extern sf::Texture explosionTexture;
 namespace explosion {
 	void loadTexture();
 
-	void animateExplosion(sf::RenderWindow& window, sf::Vector2f position);
-	void animateExplosion(sf::RenderWindow& window, sf::Sprite targetSprite); //lam hieu ung no, lam bien mat targetSprite
+	void animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf::Vector2f position);
+	void animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf::Sprite targetSprite); //lam hieu ung no, lam bien mat targetSprite
 	//cai nay se dung trong cai gameLose
 }
 

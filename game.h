@@ -37,9 +37,9 @@ public:
 	void resetGame(); // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu
 	void exitGame(HANDLE); // Thực hiện thoát Thread
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
-	void saveGame(const CPEOPLE& player, const WORLD& world);
+	void saveGame(const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world);
 	void loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world);
-	void pauseGame(const CPEOPLE& player, const WORLD& world); // Tạm dừng Thread
+	void pauseGame(sf::RenderWindow& gameWindow, const CPEOPLE& player, const WORLD& world); // Tạm dừng Thread
 	void gameLose(sf::RenderWindow& window);
 
 	//void resumeGame(); //Quay lai Thread
@@ -66,6 +66,8 @@ public:
 		static CGAME instance;
 		return instance;
 	}
+
+	static sf::Clock clock;
 };
 const float setX = -1200;
 const float speed = 100;
