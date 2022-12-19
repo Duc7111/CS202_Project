@@ -156,5 +156,13 @@ public:
 };
 
 class TREE {
+private:
+	sf::Sprite sprite;
 
+public:
+	TREE();
+	sf::Sprite getSprite();
+	static void loadTexture();
+	static sf::Texture texture[4];
+	void drawInWindow(sf::RenderWindow& window);
 };

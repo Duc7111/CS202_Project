@@ -1,5 +1,8 @@
 ﻿#include "road.h"
 #include "people.h"
+#include "game.h"
+#include <thread>
+#include <chrono>
 #include <iostream>
 #include "effect.h"
 
@@ -58,7 +61,6 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	vehicle->setPosition(x, sprite.getPosition().y + 20);
 	return vehicle;
 }
-
 bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 	//sẽ tối ưu hơn bằng cách chỉ check những xe nào trong phạm vi của người chơi
 	for (int i = 0; i < vQueue.size(); i++) {
@@ -221,4 +223,25 @@ void AnimalRoad::drawObj()
 {
 	for (int i = aQueue.size() - 1; i > -1; --i)
 		aQueue[i]->drawInWindow(WINDOW);
+}
+
+//////////////////////////////
+sf::Texture TREE::texture[4];
+sf::Sprite TREE::getSprite() {
+	return this->sprite;
+}
+void TREE::loadTexture() {
+	texture[0].loadFromFile("tree/1.png");
+	texture[1].loadFromFile("tree/2.png");
+	texture[2].loadFromFile("tree/3.png");
+	texture[3].loadFromFile("tree/4.png");
+}
+
+void TREE::drawInWindow(sf::RenderWindow& window) {
+	window.draw(sprite);
+}
+TREE::TREE() {
+	srand(time(0));
+	int r = rand() % 4;
+	sprite = sf::Sprite(texture[r]);
 }

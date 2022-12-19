@@ -1,6 +1,9 @@
 ﻿#include "game.h"
 #include "effect.h"
 #include "audio.h"
+#include "highScore.h"
+#include <chrono>
+#include <thread>
 
 sf::Texture CGAME::carTexture;
 sf::Texture CGAME::truckTexture;
@@ -76,8 +79,13 @@ void CGAME::startGame()
 	}
 }
 
-void CGAME::loadGame(ifstream& fin)
+void CGAME::loadGame()
 {
+	std::cout << "Please input the path to load game file: ";
+	std::string path;
+	std::cin >> path;
+	std::ifstream fin;
+	fin.open(path);
 	resetGame();
 	//level
 	fin.read((char*)&level, sizeof(level));
@@ -102,10 +110,17 @@ void CGAME::loadGame(ifstream& fin)
 	}
 	//People
 	fin.read((char*)&cn, sizeof(cn));
+
+	fin.close();
 }
 
-void CGAME::saveGame(ofstream& fout)
-{
+void CGAME::saveGame() {
+	std::cout << "Please input the path to save game file: ";
+	std::string path;
+	std::cin >> path;
+	std::ofstream fout;
+	fout.open(path);
+
 	//Level
 	fout.write((char*)&level, sizeof(level));
 	//Obstacle
@@ -127,9 +142,69 @@ void CGAME::saveGame(ofstream& fout)
 	}
 	//People
 	fout.write((char*)&cn, sizeof(cn));
+
+	fout.close();
+}
+void gameLose() {
+
+	sf::RenderWindow window(sf::VideoMode(1000, 800), "Game Lose");
+	compareHighScore(CGAME::score);
+	window.setTitle("Game over");
+
+	sf::Font font1, font2;
+	font1.loadFromFile("AlfaSlabOne-Regular.ttf");
+	font2.loadFromFile("Prompt-Bold.ttf");
+
+	sf::Text gameOverTitle, finalScore;
+	gameOverTitle.setFont(font1);
+	finalScore.setFont(font2);
+	gameOverTitle.setString("YOU LOST! PRESS ENTER TO EXIT");
+	finalScore.setString("Final score: " + to_string(CGAME::score));
+
+	gameOverTitle.setFillColor(sf::Color::Green);
+	finalScore.setFillColor(sf::Color::Cyan);
+
+	gameOverTitle.setCharacterSize(50);
+	gameOverTitle.setStyle(sf::Text::Bold);
+	finalScore.setCharacterSize(50);
+	finalScore.setStyle(sf::Text::Bold);
+
+	gameOverTitle.setPosition(300, 100);
+	finalScore.setPosition(300, 500);
+
+	sf::Texture bgTexture;
+	sf::Sprite bgSprite;
+
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+			if (event.type == sf::Event::KeyPressed) {
+				switch (event.key.code) {
+				case sf::Keyboard::Key::Enter:
+					window.close();
+					break;
+
+				default:
+					break;
+				}
+			}
+		}
+
+		window.clear();
+
+
+		window.draw(finalScore);
+		window.draw(gameOverTitle);
+
+		window.display();
+	}
 }
 //Continnue when game is good designed
-void CGAME::pauseGame()
+void pauseGame()
 {
 	sf::RenderWindow window(sf::VideoMode(400, 200), "Pause screen", sf::Style::None);
 	bool moveInput[2] = { 1,1 };
@@ -205,10 +280,12 @@ void CGAME::pauseGame()
 			case 0:
 				window.close();
 				break;
-			case 1:
-				//saving functions...
+			case 1: {
+				CGAME::saveGame();
 				window.close();
 				break;
+			}
+
 			case 2:
 				//return something, modify later
 				window.close();
@@ -379,7 +456,7 @@ void playGame(sf::RenderWindow& window) {
 					audio::playMove();
 					break;
 				case sf::Keyboard::Key::Escape:
-					CGAME::pauseGame();
+					pauseGame();
 					break;
 				default:
 					break;
@@ -429,41 +506,41 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 
 }
 
-void saveGame(const CPEOPLE& player, const WORLD& world) {
-	std::ofstream ofs("game.bin", std::ios::binary);
-
-	if (!ofs)
-		return;
-
-	ofs.write((char*)&CGAME::currentScore, sizeof(CGAME::currentScore));
-	float posX = player.getPositionInWorld().x;
-	ofs.write((char*)&posX, sizeof(posX));
-	float posY = player.getPositionInWorld().y;
-	ofs.write((char*)&posY, sizeof(posY));
-
-	//save mấy cái của road ngay trước mặt nữa
-	for (int i = 0; i < 7; i++) {
-		sf::Vector2f roadPos = world.object[i]->sprite.getPosition();
-		ofs.write((char*)&roadPos.x, sizeof(roadPos.x));
-		ofs.write((char*)&roadPos.y, sizeof(roadPos.y));
-	}
-}
-void loadGame(CPEOPLE& player, WORLD& world) {
-	std::ifstream ifs("game.bin", std::ios::binary);
-
-	if (!ifs)
-		return;
-
-	ifs.read((char*)&CGAME::currentScore, sizeof(int));
-	float posX, posY;
-	ifs.read((char*)&posX, sizeof(float));
-	ifs.read((char*)&posY, sizeof(float));
-	player.getSprite().setPosition(sf::Vector2f(posX, posY));
-
-	for (int i = 0; i < 7; i++) {
-		float x, y;
-		ifs.read((char*)&x, sizeof(float));
-		ifs.read((char*)&y, sizeof(float));
-		world.object[i]->sprite.setPosition({ x,y });
-	}
-}
+//void saveGame(const CPEOPLE& player, const WORLD& world) {
+//	std::ofstream ofs("game.bin", std::ios::binary);
+//
+//	if (!ofs)
+//		return;
+//
+//	ofs.write((char*)&CGAME::currentScore, sizeof(CGAME::currentScore));
+//	float posX = player.getPositionInWorld().x;
+//	ofs.write((char*)&posX, sizeof(posX));
+//	float posY = player.getPositionInWorld().y;
+//	ofs.write((char*)&posY, sizeof(posY));
+//
+//	//save mấy cái của road ngay trước mặt nữa
+//	for (int i = 0; i < 7; i++) {
+//		sf::Vector2f roadPos = world.object[i]->sprite.getPosition();
+//		ofs.write((char*)&roadPos.x, sizeof(roadPos.x));
+//		ofs.write((char*)&roadPos.y, sizeof(roadPos.y));
+//	}
+//}
+//void loadGame(CPEOPLE& player, WORLD& world) {
+//	std::ifstream ifs("game.bin", std::ios::binary);
+//
+//	if (!ifs)
+//		return;
+//
+//	ifs.read((char*)&CGAME::currentScore, sizeof(int));
+//	float posX, posY;
+//	ifs.read((char*)&posX, sizeof(float));
+//	ifs.read((char*)&posY, sizeof(float));
+//	player.getSprite().setPosition(sf::Vector2f(posX, posY));
+//
+//	for (int i = 0; i < 7; i++) {
+//		float x, y;
+//		ifs.read((char*)&x, sizeof(float));
+//		ifs.read((char*)&y, sizeof(float));
+//		world.object[i]->sprite.setPosition({ x,y });
+//	}
+//}

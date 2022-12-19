@@ -1,5 +1,9 @@
 #include "effect.h"
 #include<windows.h>
+#include "game.h"
+#include <thread>
+#include <chrono>
+
 sf::Texture explosionTexture;
 
 void explosion::loadTexture() {
@@ -15,6 +19,8 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Sprite targetSpri
 	explodeSprite.setScale(3, 3);
 	explodeSprite.setPosition(explodePos - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
+
+	CGAME::gameLose();
 }
 
 void explosion::animateExplosion(sf::RenderWindow& window, sf::Vector2f position) {
@@ -22,4 +28,6 @@ void explosion::animateExplosion(sf::RenderWindow& window, sf::Vector2f position
 	explodeSprite.setScale(3, 3);
 	explodeSprite.setPosition(position - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
+
+	CGAME::gameLose();
 }

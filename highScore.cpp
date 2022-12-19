@@ -27,13 +27,16 @@ void readHighScore() {
 void compareHighScore(int currentScore) //so sánh điểm hiện tại với top highScores
 {
 	std::multiset<int>::iterator it = highScores.begin();
-	if (currentScore > *(it))
+
+
+	if (highScores.empty() || currentScore > *(it))
 	{
-		if (highScores.size() == 5)
+		if (highScores.size() >= 5)
 			highScores.erase(it);
 		highScores.insert(currentScore);
 		writeHighScore();
 	}
+
 }
 void writeHighScore() {
 	std::ofstream ofs;
