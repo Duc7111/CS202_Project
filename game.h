@@ -61,6 +61,11 @@ public:
 	static sf::Text currentScore;
 
 	static sf::Font font;
+
+	static CGAME& singleton() {
+		static CGAME instance;
+		return instance;
+	}
 };
 const float setX = -1200;
 const float speed = 100;
