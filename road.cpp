@@ -128,7 +128,7 @@ void VehicleRoad::save(ofstream& fout)
 	{
 		bool type = typeid(*vQueue[i]) == typeid(CCAR);
 		fout.write((char*)&type, sizeof(bool));
-		if(type) fout.write((char*)vQueue[i], sizeof(CCAR));
+		if (type) fout.write((char*)vQueue[i], sizeof(CCAR));
 		else fout.write((char*)vQueue[i], sizeof(CTRUCK));
 	}
 }

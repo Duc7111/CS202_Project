@@ -23,8 +23,12 @@ CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
 }
 
 void CPEOPLE::loadTexture() {
-
-	sprite.setTexture(texture[0]);
+	int index;
+	if (mDirection == 0)
+		index = 0;
+	else
+		index = mDirection - 1;
+	sprite.setTexture(texture[index]);
 	sprite.setPosition(calcX(mX), calcY(mY));
 }
 

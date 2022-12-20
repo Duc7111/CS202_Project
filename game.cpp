@@ -364,7 +364,7 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 	}
 }
 
-void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
+void moveWorld(sf::RenderWindow& window, CPEOPLE& player, bool reload) {
 	sf::View view = window.getView();
 	sf::Vector2i position = player.getPosition();
 	unsigned int direction = player.getDirection();
@@ -374,28 +374,13 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player) {
 
 	int y = player.getPosition().y;
 
-	//if (y > 0 && y % 15 == 0 && !player.reinitializedVehicle) {
-	//	//se co ktra di len di xuong de chon y phu hop
-	//	if (player.getDirection() == 1) { //di len
-	//		YCar -= moveOffset;
-	//		YTruck -= moveOffset;
-	//		addBg(player, CGAME::bgs);
-	//	}
-	//	else if (player.getDirection() == 2) {
-	//		YCar += moveOffset;
-	//		YTruck += moveOffset;
-	//	}
-
-	//	//player.reinitializedVehicle = true; //ngan khong cho dang dung no cu di chuyen duong
-	//	//initializeVehicles();
-
 	//}
 	////else if (y % 15 != 0)
 	////	//player.reinitializedVehicle = false;
 
 	window.clear();
 	//std::cout << player.getPosition().x << " " << player.getPosition().y << "\n";
-	if (!noMove) {
+	if (reload || !noMove) {
 		view.setCenter(sf::Vector2f(view.getCenter().x, player.getPositionInWorld().y));
 	}
 	window.setView(view);
@@ -603,6 +588,8 @@ void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 	ifs.read((char*)&CGAME::score, sizeof(int));
 
 	ifs >> player;
+
+	moveWorld(window, player, true); //de lam them cai ktra xem co move hay chua trc do
 
 	//int xView, yView;
 	//ifs.read((char*)&xView, sizeof(int));

@@ -95,7 +95,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 		window.draw(generated[i]->getSprite());
 	}
 }
-void moveWorld(sf::RenderWindow& window, CPEOPLE& player);
+void moveWorld(sf::RenderWindow& window, CPEOPLE& player, bool reload = false);
 void playGame(sf::RenderWindow& window, bool reload = false);
 
 

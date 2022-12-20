@@ -4,7 +4,7 @@
 #include "animal.h"
 #include "position.h"
 #include "dice.h"
-
+#include <fstream>
 #include <random>
 #include <time.h>
 #include <string>
