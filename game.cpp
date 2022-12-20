@@ -570,7 +570,41 @@ void CGAME::saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const C
 }
 void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 	if (!ifs)
-		exit(0);
+	{
+		sf::Font font;
+		font.loadFromFile("ZenDots-Regular.ttf");
+
+		sf::Text title;
+		title.setFont(font);
+		title.setString("File cannot be opened (because it is non-existent, etc.)");
+		title.setFillColor(sf::Color::White);
+		title.setCharacterSize(35);
+		title.setStyle(sf::Text::Bold);
+		title.setPosition(50, 220 - diffY);
+
+		while (window.isOpen()) {
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == sf::Event::Closed) {
+					graphicalMenu(window);
+				}
+
+				else if (event.type == sf::Event::KeyPressed)
+				{
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+					{
+						graphicalMenu(window);
+					}
+				}
+			}
+
+			window.clear();
+			window.draw(title);
+			window.display();
+		}
+
+
+	}
 
 	ifs.read((char*)&CGAME::score, sizeof(int));
 
@@ -592,6 +626,7 @@ void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& play
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world) {
 	sf::RenderWindow window(sf::VideoMode(1280, 700), "Save game", sf::Style::Titlebar | sf::Style::Close);
 	window.setView(window.getDefaultView());
+
 	sf::Font font;
 	font.loadFromFile("RubikGemstones-Regular.ttf");
 
