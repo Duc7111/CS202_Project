@@ -21,6 +21,9 @@ public:
 	void drawWorld(sf::RenderWindow& window);
 	void checkCollide(sf::RenderWindow& window, CPEOPLE player);
 	std::deque<Road*> object;
+
+	friend std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world);
+	friend void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world);
 private:
 	Road* createRoad(int index);
 	sf::Texture texture;

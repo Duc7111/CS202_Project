@@ -96,3 +96,52 @@ void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 				if (object[i] && object[i]->checkCollide(window, player))
 					return;
 }
+
+std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world) {
+	ofs.write((char*)&world.forwardIndex, sizeof(world.forwardIndex));
+	ofs.write((char*)&world.backwardIndex, sizeof(world.backwardIndex));
+
+	for (int i = 0; i < world.object.size(); i++) {
+		bool isRoad = world.object[i];
+		ofs.write((char*)&isRoad, sizeof(isRoad));
+		if (!isRoad)
+			continue;
+		bool isVehicleRoad = world.object[i]->isVehicleRoad;
+		ofs.write((char*)&isVehicleRoad, sizeof(isVehicleRoad));
+		ofs.write((char*)&world.object[i]->index, sizeof(world.object[i]->index));
+	}
+
+	return ofs;
+}
+
+void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world) {
+	ifs.read((char*)&world.forwardIndex, sizeof(int));
+	ifs.read((char*)&world.backwardIndex, sizeof(int));
+
+	for (int i = 0; i < 7; i++) {
+		bool isRoad;
+		ifs.read((char*)&isRoad, sizeof(bool));
+		if (!isRoad)
+		{
+			world.object.push_back(nullptr);
+			continue;
+		}
+		Road* temp;
+		bool isVehicleRoad;
+		ifs.read((char*)&isVehicleRoad, sizeof(bool));
+		if (isVehicleRoad) {
+			temp = new VehicleRoad;
+		}
+		else {
+			temp = new AnimalRoad;
+		}
+		temp->isVehicleRoad = isVehicleRoad;
+		int index;
+		ifs.read((char*)&index, sizeof(int));
+		temp->index = index;
+		temp->setWindow(&window);
+		temp->resetSprite();
+		temp->setPosition(index);
+		world.object.push_back(temp);
+	}
+}

@@ -53,4 +53,7 @@ public:
 	float getRealX(float mX); //cai nay chi dung cho cai camera
 
 	friend bool IsNearby(const CPEOPLE& player, const sf::Sprite& otherSprite, float distance);
+
+	friend std::ifstream& operator>>(std::ifstream& ifs, CPEOPLE& people);
+	friend std::ofstream& operator<<(std::ofstream& ofs, const CPEOPLE& people);
 };

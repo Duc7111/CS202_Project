@@ -173,3 +173,36 @@ bool IsNearby(const CPEOPLE& player, const sf::Sprite& otherSprite, float distan
 		return true;
 	return false;
 }
+std::ifstream& operator>>(std::ifstream& ifs, CPEOPLE& people) {
+	ifs.read((char*)&people.mX, sizeof(int));
+	ifs.read((char*)&people.mY, sizeof(int));
+	ifs.read((char*)&people.mDirection, sizeof(int));
+	ifs.read((char*)&people.animation, sizeof(int));
+	ifs.read((char*)&people.mPrevY, sizeof(int));
+	int size;
+	ifs.read((char*)&size, sizeof(int));
+	for (int i = 0; i < size; i++) {
+		int a, b;
+		ifs.read((char*)&a, sizeof(int));
+		ifs.read((char*)&b, sizeof(int));
+		people.visitedY[a] = b;
+	}
+	people.loadTexture();
+
+	return ifs;
+}
+std::ofstream& operator<<(std::ofstream& ofs, const CPEOPLE& people) {
+	ofs.write((char*)&people.mX, sizeof(int));
+	ofs.write((char*)&people.mY, sizeof(int));
+	ofs.write((char*)&people.mDirection, sizeof(int));
+	ofs.write((char*)&people.animation, sizeof(int));
+	ofs.write((char*)&people.mPrevY, sizeof(int));
+	int size = people.visitedY.size();
+	ofs.write((char*)&size, sizeof(int));
+	std::map<int, int> m = people.visitedY;
+	for (std::map<int, int>::iterator it = m.begin(); it != m.end(); ++it) {
+		ofs.write((char*)&it->first, sizeof(it->first));
+		ofs.write((char*)&it->second, sizeof(it->second));
+	}
+	return ofs;
+}

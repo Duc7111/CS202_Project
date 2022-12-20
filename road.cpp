@@ -30,7 +30,9 @@ void Road::setWindow(sf::RenderWindow* window)
 
 void Road::setPosition(float y)
 {
+	index = y;
 	sprite.setPosition(sf::Vector2f(0.f, ((6.0f - y) / 7.0f) * 700));
+
 }
 
 void Road::drawRoad()

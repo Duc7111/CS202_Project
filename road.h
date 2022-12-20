@@ -36,6 +36,7 @@ public:
 	virtual void drawObj() = 0;
 
 	bool isVehicleRoad;
+	int index;
 };
 
 #define OBJ_MAX 5

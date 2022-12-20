@@ -439,7 +439,7 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload) {
-    timeCount=0;
+	timeCount = 0;
 	sf::Clock clock;
 	sf::Time elapsed;
 
@@ -581,24 +581,16 @@ void CGAME::saveGame(const sf::RenderWindow& window, const CPEOPLE& player, cons
 
 	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
 
-	int mX = player.getPosition().x;
-	int mY = player.getPosition().y;
-	ofs.write((char*)&mX, sizeof(mX));
-	ofs.write((char*)&mY, sizeof(mY));
-	int mDirection = player.getDirection();
-	int animation = player.getAnimation();
-	ofs.write((char*)&mDirection, sizeof(mDirection));
-	ofs.write((char*)&animation, sizeof(animation));
+	ofs << player;
+
+	//sf::View view = window.getDefaultView();
+	//int xView = view.getCenter().x;
+	//int yView = view.getCenter().y;
+	//ofs.write((char*)&xView, sizeof(xView));
+	//ofs.write((char*)&yView, sizeof(yView));
 
 	//save mấy cái của road ngay trước mặt nữa
-	for (int i = 0; i < 7; i++) {
-		bool isRoad = world.object[i];
-		ofs.write((char*)&isRoad, sizeof(isRoad));
-		if (!isRoad)
-			continue;
-		bool isVehicleRoad = world.object[i]->isVehicleRoad;
-		ofs.write((char*)&isVehicleRoad, sizeof(isVehicleRoad));
-	}
+	ofs << world;
 
 	ofs.close();
 }
@@ -610,34 +602,16 @@ void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 
 	ifs.read((char*)&CGAME::score, sizeof(int));
 
-	int mX, mY, mDirection, mState, animation;
-	ifs.read((char*)&mX, sizeof(int));
-	ifs.read((char*)&mY, sizeof(int));
-	ifs.read((char*)&mDirection, sizeof(int));
-	ifs.read((char*)&animation, sizeof(int));
-	player.setPeople(mX, mY, mDirection, animation);
-	//de coi lai cai set view player
+	ifs >> player;
 
-	for (int i = 0; i < 7; ++i) {
-		bool isRoad;
-		ifs.read((char*)&isRoad, sizeof(bool));
-		if (!isRoad)
-		{
-			world.object.push_back(nullptr);
-			continue;
-		}
-		bool isVehicleRoad;
-		ifs.read((char*)&isVehicleRoad, sizeof(bool));
-		Road* temp;
-		if (isVehicleRoad)
-			temp = new VehicleRoad;
-		else
-			temp = new AnimalRoad;
-		temp->setWindow(&window);
-		temp->resetSprite();
-		temp->setPosition(i);
-		world.object.push_back(temp);
-	}
+	//int xView, yView;
+	//ifs.read((char*)&xView, sizeof(int));
+	//ifs.read((char*)&yView, sizeof(int));
+	//sf::View view;
+	//view.setCenter(sf::Vector2f(xView, yView));
+	//window.setView(view);
+
+	inputRoads(ifs, window, world);
 
 	ifs.close();
 }
