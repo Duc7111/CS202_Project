@@ -15,9 +15,6 @@ void explosion::loadTexture() {
 	explosionTexture = sf::Texture(temp);
 }
 
-void explodeDraw(sf::RenderWindow& window, sf::Vector2f position) {
-
-}
 
 void explosion::animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf::Sprite targetSprite) {
 	sf::Vector2f explodePos = targetSprite.getPosition();
