@@ -8,8 +8,6 @@
 sf::Texture menuBg;
 
 void graphicalMenu(sf::RenderWindow& window) {
-
-
 	menuBg.loadFromFile("menu bg.png");
 
 
@@ -26,7 +24,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 	title.setCharacterSize(75);
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(sf::Vector2f(window.getSize().x / 2 - 100, 50));
+	title.setPosition(sf::Vector2f(window.getSize().x / 2 - 100, 50 - diffY));
 
 	auto rectangle = sf::RectangleShape{ {title.getLocalBounds().width + 20,title.getLocalBounds().height + 30} };
 	rectangle.setOutlineThickness(5.f);
@@ -54,13 +52,13 @@ void graphicalMenu(sf::RenderWindow& window) {
 		}
 		options[i].setFont(font2);
 		options[i].setCharacterSize(50);
-		options[i].setPosition(150, 150 + i * 100);
+		options[i].setPosition(150, 150 + i * 100 - diffY);
 	}
 
 	sf::Text arrow(options[0]);
 	arrow.setString("-");
 	arrow.setFillColor(sf::Color::Yellow);
-	arrow.setPosition(50, 150);
+	arrow.setPosition(50, 150 - diffY);
 
 	int index = 0;
 
@@ -93,10 +91,10 @@ void graphicalMenu(sf::RenderWindow& window) {
 						Settings::settingsSound(window);
 						break;
 					case 2:
-						playGame(window, true);
+						reloadWindow(window);
 						break;
 					case 3:
-						viewHighScore();
+						viewHighScore(window);
 						break;
 					}
 					break;
@@ -114,7 +112,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 		}
 		options[index].setFillColor(sf::Color::Yellow);
 		options[index].setStyle(sf::Text::Underlined);
-		arrow.setPosition(50, 150 + 100 * index);
+		arrow.setPosition(50, 150 + 100 * index - diffY);
 
 		window.draw(bg);
 

@@ -9,6 +9,7 @@
 
 int main(int argc, char** argv[]) {
 	readHighScore();
+	CGAME::bgTexture.loadFromFile("bg.png");
 	//them may cai event handler o day
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_SHOWMAXIMIZED);

@@ -146,8 +146,8 @@ void CGAME::startGame()
 //
 //	fout.close();
 //}
+float diffY = 0;
 void CGAME::gameLose(sf::RenderWindow& window) {
-	float diffY;
 	diffY = window.getView().getCenter().y - 610;
 	diffY = abs(diffY);
 
@@ -288,11 +288,6 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 	opt[1].setString("Save");
 	opt[1].setCharacterSize(30);
 	opt[1].setPosition(sf::Vector2f(0.f, 100.f));
-
-	opt[2].setFont(font);
-	opt[2].setString("Quit");
-	opt[2].setCharacterSize(30);
-	opt[2].setPosition(sf::Vector2f(0.f, 140.f));
 	int i = 0;
 	while (window.isOpen())
 	{
@@ -318,7 +313,7 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 				}
 			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && moveInput[0])
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && moveInput[0])
 		{
 			if (i > 0)
 			{
@@ -327,9 +322,9 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 			}
 			moveInput[0] = false;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && moveInput[1])
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && moveInput[1])
 		{
-			if (i < 2)
+			if (i < 1)
 			{
 				opt[i].setStyle(sf::Text::Regular);
 				opt[++i].setStyle(sf::Text::Underlined);
@@ -344,22 +339,16 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 				break;
 			case 1: {
 				/*CGAME::singleton().saveGame();*/
-				saveGame(renderWindow, player, world);
+				saveWindow(renderWindow, player, world);
 				window.close();
 				break;
 			}
 
-			case 2:
-				//cho nay quay ve menu
-				/*graphicalMenu(renderWindow);*/
-				window.close();
-				break;
 			}
 		window.clear();
 		window.draw(Title);
 		window.draw(opt[0]);
 		window.draw(opt[1]);
-		window.draw(opt[2]);
 		window.display();
 	}
 }
@@ -423,8 +412,9 @@ sf::Texture CGAME::elephantTexture;
 sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
-void playGame(sf::RenderWindow& window, bool reload) {
+void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	timeCount = 0;
+	CGAME::score = 0;
 	sf::Clock clock;
 	sf::Time elapsed;
 
@@ -455,7 +445,7 @@ void playGame(sf::RenderWindow& window, bool reload) {
 	VehicleRoad::loadTexture();
 	AnimalRoad::loadTexture();
 
-	CGAME::bgTexture.loadFromFile("bg.png");
+
 	sf::Sprite bg(CGAME::bgTexture);
 	bg.setScale(1300, 1300);
 	bg.setPosition(-100, 0);
@@ -465,8 +455,11 @@ void playGame(sf::RenderWindow& window, bool reload) {
 	CGAME::bgs.push_back(bg2);
 
 	WORLD world;
-	if (reload)
-		CGAME::singleton().loadGame(window, player, world);
+	if (reload) {
+		std::ifstream ifs(loadPath, std::ios::binary);
+		CGAME::singleton().loadGame(ifs, window, player, world);
+	}
+
 	else if (!reload)
 		world.createWorld(window);
 
@@ -558,11 +551,7 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 
 }
 
-void CGAME::saveGame(const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world) {
-	std::ofstream ofs("game.bin", std::ios::binary);
-
-	if (!ofs)
-		return;
+void CGAME::saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world) {
 
 	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
 
@@ -579,11 +568,9 @@ void CGAME::saveGame(const sf::RenderWindow& window, const CPEOPLE& player, cons
 
 	ofs.close();
 }
-void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
-	std::ifstream ifs("game.bin", std::ios::binary);
-
+void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 	if (!ifs)
-		return;
+		exit(0);
 
 	ifs.read((char*)&CGAME::score, sizeof(int));
 
@@ -601,4 +588,151 @@ void CGAME::loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
 	inputRoads(ifs, window, world);
 
 	ifs.close();
+}
+void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world) {
+	sf::RenderWindow window(sf::VideoMode(1280, 700), "Save game", sf::Style::Titlebar | sf::Style::Close);
+	window.setView(window.getDefaultView());
+	sf::Font font;
+	font.loadFromFile("RubikGemstones-Regular.ttf");
+
+	sf::Text title;
+	title.setFont(font);
+	title.setString("Please enter path to save your game: ");
+	title.setFillColor(sf::Color::White);
+	title.setCharacterSize(50);
+	title.setStyle(sf::Text::Bold);
+	title.setPosition(50, 220 - diffY);
+
+	sf::Sprite bgSprite(CGAME::bgTexture);
+	bgSprite.setScale(1300, 1300);
+	bgSprite.setPosition(-100, 0 - diffY);
+
+	sf::Texture roadTexture;
+	roadTexture.loadFromFile("road2.png");
+	sf::Sprite roadSprite(roadTexture);
+	roadSprite.setPosition(0, 400 - diffY);
+	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
+	roadSprite.setScale(sf::Vector2f(scale, scale));
+
+	std::string inputPath = "";
+	sf::Text output;
+	output.setPosition(50, 420 - diffY);
+	output.setFont(font);
+	output.setCharacterSize(45);
+	output.setStyle(sf::Text::Italic);
+	output.setString(inputPath);
+	output.setFillColor(sf::Color::White);
+
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				graphicalMenu(window);
+			}
+			else if (event.type == sf::Event::TextEntered) {
+				if (std::isprint(event.text.unicode))
+				{
+					inputPath += event.text.unicode;
+
+					output.setString(inputPath);
+				}
+			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+				{
+					std::ofstream ofs(inputPath, std::ios::binary);
+					CGAME::singleton().saveGame(ofs, renderWindow, player, world);
+					window.close();
+				}
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
+					if (!inputPath.empty())
+						inputPath.pop_back();
+					output.setString(inputPath);
+				}
+			}
+
+
+		}
+
+		window.clear();
+
+		window.draw(bgSprite);
+		window.draw(roadSprite);
+		window.draw(title);
+		window.draw(output);
+
+		window.display();
+	}
+}
+void reloadWindow(sf::RenderWindow& window) {
+	sf::Font font;
+	font.loadFromFile("RubikGemstones-Regular.ttf");
+
+	sf::Text title;
+	title.setFont(font);
+	title.setString("Please enter path to your save game: ");
+	title.setFillColor(sf::Color::White);
+	title.setCharacterSize(50);
+	title.setStyle(sf::Text::Bold);
+	title.setPosition(50, 220 - diffY);
+
+	sf::Sprite bgSprite(CGAME::bgTexture);
+	bgSprite.setScale(1300, 1300);
+	bgSprite.setPosition(-100, 0 - diffY);
+
+	sf::Texture roadTexture;
+	roadTexture.loadFromFile("road2.png");
+	sf::Sprite roadSprite(roadTexture);
+	roadSprite.setPosition(0, 400 - diffY);
+	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
+	roadSprite.setScale(sf::Vector2f(scale, scale));
+
+	std::string inputPath = "";
+
+	sf::Text output;
+	output.setPosition(50, 420 - diffY);
+	output.setFont(font);
+	output.setCharacterSize(45);
+	output.setStyle(sf::Text::Italic);
+	output.setString(inputPath);
+	output.setFillColor(sf::Color::White);
+
+	while (window.isOpen()) {
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				graphicalMenu(window);
+			}
+			else if (event.type == sf::Event::TextEntered) {
+				if (std::isprint(event.text.unicode))
+				{
+					inputPath += event.text.unicode;
+
+					output.setString(inputPath);
+				}
+			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+					playGame(window, true, inputPath);
+				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
+					if (!inputPath.empty())
+						inputPath.pop_back();
+					output.setString(inputPath);
+				}
+			}
+
+
+		}
+
+		window.clear();
+
+		window.draw(bgSprite);
+		window.draw(roadSprite);
+		window.draw(title);
+		window.draw(output);
+
+		window.display();
+	}
 }

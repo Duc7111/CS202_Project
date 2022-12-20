@@ -31,8 +31,8 @@ public:
 
 	virtual void run() = 0;
 
-	virtual void save(ofstream&) = 0;
-	virtual void load(ifstream&) = 0;
+	//virtual void save(ofstream&) = 0;
+	//virtual void load(ifstream&) = 0;
 
 	virtual bool checkCollide(sf::RenderWindow& window, CPEOPLE player) = 0;
 
@@ -133,8 +133,8 @@ public:
 	void setPosition(float y);
 	void setVelocity(float velocity);
 
-	void save(ofstream&);
-	void load(ifstream&);
+	//void save(ofstream&);
+	//void load(ifstream&);
 
 	void run();
 	void drawObj();
@@ -160,8 +160,8 @@ public:
 	void setPosition(float y);
 	void setVelocity(float velocity);
 
-	void save(ofstream&);
-	void load(ifstream&);
+	//void save(ofstream&);
+	//void load(ifstream&);
 
 	void run();
 	void drawObj();

@@ -37,8 +37,8 @@ public:
 	void resetGame(); // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu
 	void exitGame(HANDLE); // Thực hiện thoát Thread
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
-	void saveGame(const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world);
-	void loadGame(sf::RenderWindow& window, CPEOPLE& player, WORLD& world);
+	void saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world);
+	void loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world);
 	void pauseGame(sf::RenderWindow& gameWindow, const CPEOPLE& player, const WORLD& world); // Tạm dừng Thread
 	void gameLose(sf::RenderWindow& window);
 
@@ -96,7 +96,7 @@ void drawObjects(sf::RenderWindow& window, std::vector<T*>& generated) {
 	}
 }
 void moveWorld(sf::RenderWindow& window, CPEOPLE& player, bool reload = false);
-void playGame(sf::RenderWindow& window, bool reload = false);
+void playGame(sf::RenderWindow& window, bool reload = false, std::string loadPath = "");
 
 
 //extern ROAD road1, road2, road3, road4;
@@ -106,3 +106,8 @@ void addBg(const CPEOPLE& player, std::vector<sf::Sprite>& bgs); //dung khi di c
 void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs);
 
 const float moveOffset = 950;
+
+extern float diffY;
+
+void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world);
+void reloadWindow(sf::RenderWindow& window);

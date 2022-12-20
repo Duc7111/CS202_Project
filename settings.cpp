@@ -1,6 +1,6 @@
 #include "settings.h"
 #include "menu.h"
-
+#include "game.h"
 
 sf::Texture muteTex, unmuteTex;
 
@@ -14,6 +14,10 @@ void loadTextureOfSettings() {
 
 void Settings::settingsSound(sf::RenderWindow& window) {
 
+	sf::Sprite bgSprite(CGAME::bgTexture);
+	bgSprite.setScale(1300, 1300);
+	bgSprite.setPosition(-100, 0 - diffY);
+
 	sf::Font font;
 	font.loadFromFile("ZenDots-Regular.ttf");
 	sf::Text title;
@@ -22,12 +26,12 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 	title.setCharacterSize(65);
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(450, 50);
+	title.setPosition(450, 50 - diffY);
 
 	sf::Text note(title);
 	note.setString("Press Enter to Mute / Unmute.");
 	note.setCharacterSize(35);
-	note.setPosition(300, 350);
+	note.setPosition(300, 350 - diffY);
 
 
 	sf::Sprite sound;
@@ -38,7 +42,14 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 		sound.setTexture(unmuteTex);
 	}
 	sound.setScale(0.5f, 0.5f);
-	sound.setPosition(550, 200);
+	sound.setPosition(550, 200 - diffY);
+
+	sf::Texture roadTexture;
+	roadTexture.loadFromFile("road2.png");
+	sf::Sprite roadSprite(roadTexture);
+	roadSprite.setPosition(0, 500 - diffY);
+	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
+	roadSprite.setScale(sf::Vector2f(scale, scale));
 
 
 	while (window.isOpen()) {
@@ -48,7 +59,7 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 				graphicalMenu(window);
 			}
 			if (event.type == sf::Event::KeyPressed) {
-				if (sf::Keyboard::Key::Enter) {
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
 					if (!isMuted) {
 						sound.setTexture(muteTex, true);
 						isMuted = true;
@@ -62,11 +73,15 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 		}
 
 		window.clear();
+		window.draw(bgSprite);
+		window.draw(roadSprite);
 
 		window.draw(note);
 		window.draw(title);
 
 		window.draw(sound);
+
+
 
 		window.display();
 	}
