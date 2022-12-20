@@ -4,6 +4,7 @@
 #include "animal.h"
 #include "position.h"
 #include "dice.h"
+
 #include <random>
 #include <time.h>
 #include <string>
@@ -29,6 +30,9 @@ public:
 	virtual void setVelocity(float velocity) = 0;
 
 	virtual void run() = 0;
+
+	virtual void save(ofstream&) = 0;
+	virtual void load(ifstream&) = 0;
 
 	virtual bool checkCollide(sf::RenderWindow& window, CPEOPLE player) = 0;
 
@@ -129,6 +133,9 @@ public:
 	void setPosition(float y);
 	void setVelocity(float velocity);
 
+	void save(ofstream&);
+	void load(ifstream&);
+
 	void run();
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
@@ -152,6 +159,9 @@ public:
 
 	void setPosition(float y);
 	void setVelocity(float velocity);
+
+	void save(ofstream&);
+	void load(ifstream&);
 
 	void run();
 	void drawObj();

@@ -116,6 +116,50 @@ void VehicleRoad::setVelocity(float velocity)
 	else v = -velocity;
 }
 
+void VehicleRoad::save(ofstream& fout)
+{
+	//traficlight, velocity
+	fout.write((char*)&traficLight, sizeof(TF));
+	fout.write((char*)&v, sizeof(float));
+	//Cars
+	int n = vQueue.size();
+	fout.write((char*)&n, sizeof(int));
+	for (int i = 0; i < n; ++i)
+	{
+		bool type = typeid(*vQueue[i]) == typeid(CCAR);
+		fout.write((char*)&type, sizeof(bool));
+		if(type) fout.write((char*)vQueue[i], sizeof(CCAR));
+		else fout.write((char*)vQueue[i], sizeof(CTRUCK));
+	}
+}
+
+void VehicleRoad::load(ifstream& fin)
+{
+	//traficlight, velocity
+	fin.read((char*)&traficLight, sizeof(TF));
+	fin.read((char*)&v, sizeof(float));
+	//Cars
+	int n;
+	fin.read((char*)&n, sizeof(int));
+	for (int i = 0; i < n; ++i)
+	{
+		bool type;
+		CVEHICLE* temp;
+		fin.read((char*)&type, sizeof(bool));
+		if (type)
+		{
+			temp = new CCAR;
+			fin.read((char*)temp, sizeof(CCAR));
+		}
+		else
+		{
+			temp = new CTRUCK;
+			fin.read((char*)temp, sizeof(CTRUCK));
+		}
+		vQueue.push(temp);
+	}
+}
+
 void VehicleRoad::run()
 {
 	// Trafic light
@@ -211,6 +255,46 @@ void AnimalRoad::setVelocity(float velocity)
 {
 	if (!side) v = velocity;
 	else v = -velocity;
+}
+
+void AnimalRoad::save(ofstream& fout)
+{
+	fout.write((char*)&v, sizeof(float));
+	//Cars
+	int n = aQueue.size();
+	fout.write((char*)&n, sizeof(int));
+	for (int i = 0; i < n; ++i)
+	{
+		bool type = typeid(*aQueue[i]) == typeid(CCAT);
+		fout.write((char*)&type, sizeof(bool));
+		if (type) fout.write((char*)aQueue[i], sizeof(CCAT));
+		else fout.write((char*)aQueue[i], sizeof(CELEPHANT));
+	}
+}
+
+void AnimalRoad::load(ifstream& fin)
+{
+	fin.read((char*)&v, sizeof(float));
+	//Cars
+	int n;
+	fin.read((char*)&n, sizeof(int));
+	for (int i = 0; i < n; ++i)
+	{
+		bool type;
+		CANIMAL* temp;
+		fin.read((char*)&type, sizeof(bool));
+		if (type)
+		{
+			temp = new CCAT;
+			fin.read((char*)temp, sizeof(CCAT));
+		}
+		else
+		{
+			temp = new CELEPHANT;
+			fin.read((char*)temp, sizeof(CELEPHANT));
+		}
+		aQueue.push(temp);
+	}
 }
 
 void AnimalRoad::run()
