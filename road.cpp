@@ -160,7 +160,7 @@ void VehicleRoad::setVelocity(float velocity)
 //	}
 //}
 
-void VehicleRoad::run()
+void VehicleRoad::run(bool reload)
 {
 	// Trafic light
 	traficLight.function();
@@ -297,7 +297,7 @@ void AnimalRoad::setVelocity(float velocity)
 //	}
 //}
 
-void AnimalRoad::run()
+void AnimalRoad::run(bool reload)
 {
 	// New animal
 	if (aQueue.size() == 0 || (aQueue.size() < OBJ_MAX && aQueue[0]->getSprite().getPosition().x > 0 && aQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
@@ -339,3 +339,85 @@ TREE::TREE() {
 }
 
 
+void VehicleRoad::input(std::ifstream& ifs) {
+	int size;
+	ifs.read((char*)&size, sizeof(int));
+	for (int i = size - 1; i > -1; --i)
+	{
+		bool isCar;
+		ifs.read((char*)&isCar, sizeof(bool));
+
+		float x, y;
+		ifs.read((char*)&x, sizeof(float));
+		ifs.read((char*)&y, sizeof(float));
+
+		CVEHICLE* temp;
+		if (isCar)
+			temp = new CCAR;
+		else
+			temp = new CTRUCK;
+
+		temp->setPosition(x, y);
+
+		vQueue.push(temp);
+	}
+
+	bool traficLight;
+	ifs.read((char*)&traficLight, sizeof(bool));
+	this->traficLight.status = traficLight;
+}
+
+void AnimalRoad::input(std::ifstream& ifs) {
+	int size;
+	ifs.read((char*)&size, sizeof(int));
+	for (int i = size - 1; i > -1; --i)
+	{
+		bool isElephant;
+		ifs.read((char*)&isElephant, sizeof(bool));
+
+		float x, y;
+		ifs.read((char*)&x, sizeof(float));
+		ifs.read((char*)&y, sizeof(float));
+
+		CANIMAL* temp;
+		if (isElephant)
+			temp = new CELEPHANT;
+		else
+			temp = new CCAT;
+
+		temp->setPosition(x, y);
+
+		aQueue.push(temp);
+	}
+}
+
+void VehicleRoad::output(std::ofstream& ofs) {
+	int size = vQueue.size();
+	ofs.write((char*)&size, sizeof(size));
+	for (int i = 0; i < vQueue.size(); i++)
+	{
+		ofs.write((char*)&vQueue[i]->isCar, sizeof(vQueue[i]->isCar));
+
+		float x, y;
+		x = vQueue[i]->getSprite().getPosition().x;
+		y = vQueue[i]->getSprite().getPosition().y;
+		ofs.write((char*)&x, sizeof(x));
+		ofs.write((char*)&y, sizeof(y));
+
+	}
+
+	ofs.write((char*)&traficLight.status, sizeof(traficLight.status));
+}
+
+void AnimalRoad::output(std::ofstream& ofs) {
+	int size = aQueue.size();
+	ofs.write((char*)&size, sizeof(size));
+	for (int i = 0; i < aQueue.size(); i++)
+	{
+		float x, y;
+		x = aQueue[i]->getSprite().getPosition().x;
+		y = aQueue[i]->getSprite().getPosition().y;
+		ofs.write((char*)&x, sizeof(x));
+		ofs.write((char*)&y, sizeof(y));
+	}
+}

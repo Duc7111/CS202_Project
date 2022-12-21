@@ -25,6 +25,8 @@ void CANIMAL::drawInWindow(sf::RenderWindow& window)
 }
 
 CCAT::CCAT() {
+	CANIMAL::isElephant = false;
+
 	CANIMAL::sprite = sf::Sprite(CGAME::catTexture);
 	sf::Vector2u size = CGAME::catTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
@@ -64,6 +66,8 @@ bool CCAT::CollidedWithPlayer(CPEOPLE player) {
 /// /////////////////
 
 CELEPHANT::CELEPHANT() {
+	CANIMAL::isElephant = true;
+
 	CANIMAL::sprite = sf::Sprite(CGAME::elephantTexture);
 	sf::Vector2u size = CGAME::elephantTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);

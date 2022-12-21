@@ -29,7 +29,7 @@ public:
 	virtual void setPosition(float y) = 0;
 	virtual void setVelocity(float velocity) = 0;
 
-	virtual void run() = 0;
+	virtual void run(bool reload = false) = 0;
 
 	//virtual void save(ofstream&) = 0;
 	//virtual void load(ifstream&) = 0;
@@ -41,6 +41,9 @@ public:
 
 	bool isVehicleRoad;
 	int index;
+
+	virtual void input(std::ifstream& ifs) = 0;
+	virtual void output(std::ofstream& ofs) = 0;
 };
 
 #define OBJ_MAX 5
@@ -136,7 +139,10 @@ public:
 	//void save(ofstream&);
 	//void load(ifstream&);
 
-	void run();
+	void input(std::ifstream& ifs);
+	void output(std::ofstream& ofs);
+
+	void run(bool reload = false);
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
@@ -163,7 +169,10 @@ public:
 	//void save(ofstream&);
 	//void load(ifstream&);
 
-	void run();
+	void input(std::ifstream& ifs);
+	void output(std::ofstream& ofs);
+
+	void run(bool reload = false);
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };

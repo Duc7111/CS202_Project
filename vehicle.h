@@ -28,6 +28,8 @@ public:
 
 	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
 
+	bool isCar;
+
 protected:
 	sf::Sprite sprite;
 	//sf::Texture texture;

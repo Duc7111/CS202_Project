@@ -109,6 +109,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world) {
 		bool isVehicleRoad = world.object[i]->isVehicleRoad;
 		ofs.write((char*)&isVehicleRoad, sizeof(isVehicleRoad));
 		ofs.write((char*)&world.object[i]->index, sizeof(world.object[i]->index));
+		world.object[i]->output(ofs);
 	}
 
 	return ofs;
@@ -139,6 +140,7 @@ void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world) {
 		int index;
 		ifs.read((char*)&index, sizeof(int));
 		temp->index = index;
+		temp->input(ifs);
 		temp->setWindow(&window);
 		temp->resetSprite();
 		temp->setPosition(index);

@@ -25,6 +25,8 @@ public:
 	friend void scale(CANIMAL*, float, float);
 
 	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
+
+	bool isElephant;
 };
 
 class CELEPHANT : public CANIMAL {

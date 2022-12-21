@@ -413,6 +413,7 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
+	window.setView(window.getDefaultView());
 	timeCount = 0;
 	CGAME::score = 0;
 	sf::Clock clock;
