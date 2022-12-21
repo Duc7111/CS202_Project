@@ -88,6 +88,10 @@ public:
 		size_v = 0;
 	}
 
+	void sizeInc() {
+		size_v++;
+	}
+
 	T& operator[](int i)
 	{
 		return arr[(front + i) % OBJ_MAX];

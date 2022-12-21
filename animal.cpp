@@ -5,6 +5,7 @@ void CANIMAL::Move(float x, float y)
 {
 	sf::Vector2f pos = sprite.getPosition();
 	sprite.setPosition(pos.x + x, pos.y + y);
+	currentPos = { pos.x + x,pos.y + y };
 }
 
 void CANIMAL::Tell()
@@ -20,7 +21,9 @@ void CANIMAL::setPosition(float x, float y)
 {
 	this->sprite.setPosition({ x,y });
 }
-
+sf::Vector2f CANIMAL::getCurrentPos() {
+	return currentPos;
+}
 void CANIMAL::drawInWindow(sf::RenderWindow& window)
 {
 }

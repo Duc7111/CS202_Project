@@ -9,6 +9,8 @@ protected:
 	int mX, mY;
 	float speed;
 	sf::Sprite sprite;
+
+	sf::Vector2f currentPos;
 public:
 	void Move(float x, float y);
 	virtual void Tell() = 0;
@@ -27,6 +29,8 @@ public:
 	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
 
 	bool isElephant;
+
+	sf::Vector2f getCurrentPos();
 };
 
 class CELEPHANT : public CANIMAL {

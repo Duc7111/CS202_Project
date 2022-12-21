@@ -355,7 +355,7 @@ void VehicleRoad::input(std::ifstream& ifs) {
 	int size;
 	ifs.read((char*)&size, sizeof(int));
 
-	for (int i = 0; i < size; i++)
+	for (int i = size - 1; i > -1; --i)
 	{
 		bool isCar;
 		ifs.read((char*)&isCar, sizeof(bool));
@@ -373,7 +373,9 @@ void VehicleRoad::input(std::ifstream& ifs) {
 
 		temp->getSprite().setPosition({ x, y });
 
-		vQueue.push(temp);
+		vQueue[i] = temp;
+
+		vQueue.sizeInc();
 	}
 
 	bool side;
@@ -387,7 +389,7 @@ void AnimalRoad::input(std::ifstream& ifs) {
 	int size;
 	ifs.read((char*)&size, sizeof(int));
 
-	for (int i = 0; i < size; i++)
+	for (int i = size - 1; i > -1; --i)
 	{
 		bool isElephant;
 		ifs.read((char*)&isElephant, sizeof(bool));
@@ -405,7 +407,8 @@ void AnimalRoad::input(std::ifstream& ifs) {
 
 		temp->getSprite().setPosition({ x, y });
 
-		aQueue.push(temp);
+		aQueue[i] = temp;
+		aQueue.sizeInc();
 	}
 
 	bool side;
@@ -426,8 +429,8 @@ void VehicleRoad::output(std::ofstream& ofs) {
 		ofs.write((char*)&vQueue[i]->isCar, sizeof(vQueue[i]->isCar));
 
 		float x, y;
-		x = vQueue[i]->getSprite().getPosition().x;
-		y = vQueue[i]->getSprite().getPosition().y;
+		x = vQueue[i]->getCurrentPos().x;
+		y = vQueue[i]->getCurrentPos().y;
 		ofs.write((char*)&x, sizeof(x));
 		ofs.write((char*)&y, sizeof(y));
 	}
@@ -445,8 +448,8 @@ void AnimalRoad::output(std::ofstream& ofs) {
 		ofs.write((char*)&aQueue[i]->isElephant, sizeof(aQueue[i]->isElephant));
 
 		float x, y;
-		x = aQueue[i]->getSprite().getPosition().x;
-		y = aQueue[i]->getSprite().getPosition().y;
+		x = aQueue[i]->getCurrentPos().x;
+		y = aQueue[i]->getCurrentPos().y;
 		ofs.write((char*)&x, sizeof(x));
 		ofs.write((char*)&y, sizeof(y));
 	}
