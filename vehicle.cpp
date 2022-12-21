@@ -55,7 +55,8 @@ sf::Sprite CTRUCK::getSprite() {
 }
 
 void CVEHICLE::Move(float x, float y) {
-	sprite.move(x, y);
+	sf::Vector2f pos = sprite.getPosition();
+	sprite.setPosition(pos.x + x, pos.y + y);
 }
 
 void CVEHICLE::setPosition(float x, float y) {

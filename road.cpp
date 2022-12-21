@@ -77,7 +77,7 @@ bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 }
 
 VehicleRoad::VehicleRoad() : v(0) {
-	Road::isVehicleRoad = true;
+	isVehicleRoad = true;
 }
 
 VehicleRoad::~VehicleRoad()
@@ -160,10 +160,13 @@ void VehicleRoad::setVelocity(float velocity)
 //	}
 //}
 
-void VehicleRoad::run(bool reload)
+void VehicleRoad::run()
 {
 	// Trafic light
-	traficLight.function();
+	if (!reload)
+		traficLight.function();
+	else
+		reload = false;
 	if (!traficLight.status) return;
 	// New vehicle
 	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
@@ -221,7 +224,7 @@ CANIMAL* AnimalRoad::AnimalFactory()
 }
 
 AnimalRoad::AnimalRoad() : v(0) {
-	Road::isVehicleRoad = false;
+	isVehicleRoad = false;
 }
 
 AnimalRoad::~AnimalRoad()
@@ -297,7 +300,7 @@ void AnimalRoad::setVelocity(float velocity)
 //	}
 //}
 
-void AnimalRoad::run(bool reload)
+void AnimalRoad::run()
 {
 	// New animal
 	if (aQueue.size() == 0 || (aQueue.size() < OBJ_MAX && aQueue[0]->getSprite().getPosition().x > 0 && aQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
@@ -340,9 +343,12 @@ TREE::TREE() {
 
 
 void VehicleRoad::input(std::ifstream& ifs) {
+	this->traficLight.status = false;
+
 	int size;
 	ifs.read((char*)&size, sizeof(int));
-	for (int i = size - 1; i > -1; --i)
+
+	for (int i = 0; i < size; i++)
 	{
 		bool isCar;
 		ifs.read((char*)&isCar, sizeof(bool));
@@ -356,21 +362,25 @@ void VehicleRoad::input(std::ifstream& ifs) {
 			temp = new CCAR;
 		else
 			temp = new CTRUCK;
+		temp->isCar = isCar;
 
-		temp->setPosition(x, y);
+		temp->getSprite().setPosition({ x, y });
 
 		vQueue.push(temp);
 	}
 
-	bool traficLight;
-	ifs.read((char*)&traficLight, sizeof(bool));
-	this->traficLight.status = traficLight;
+	bool side;
+	ifs.read((char*)&side, sizeof(bool));
+	this->side = side;
+
+	this->reload = true;
 }
 
 void AnimalRoad::input(std::ifstream& ifs) {
 	int size;
 	ifs.read((char*)&size, sizeof(int));
-	for (int i = size - 1; i > -1; --i)
+
+	for (int i = 0; i < size; i++)
 	{
 		bool isElephant;
 		ifs.read((char*)&isElephant, sizeof(bool));
@@ -384,16 +394,26 @@ void AnimalRoad::input(std::ifstream& ifs) {
 			temp = new CELEPHANT;
 		else
 			temp = new CCAT;
+		temp->isElephant = isElephant;
 
-		temp->setPosition(x, y);
+		temp->getSprite().setPosition({ x, y });
 
 		aQueue.push(temp);
 	}
+
+	bool side;
+	ifs.read((char*)&side, sizeof(bool));
+	this->side = side;
+
+	this->reload = true;
 }
 
 void VehicleRoad::output(std::ofstream& ofs) {
+
+
 	int size = vQueue.size();
 	ofs.write((char*)&size, sizeof(size));
+
 	for (int i = 0; i < vQueue.size(); i++)
 	{
 		ofs.write((char*)&vQueue[i]->isCar, sizeof(vQueue[i]->isCar));
@@ -403,21 +423,25 @@ void VehicleRoad::output(std::ofstream& ofs) {
 		y = vQueue[i]->getSprite().getPosition().y;
 		ofs.write((char*)&x, sizeof(x));
 		ofs.write((char*)&y, sizeof(y));
-
 	}
 
-	ofs.write((char*)&traficLight.status, sizeof(traficLight.status));
+	ofs.write((char*)&side, sizeof(side));
 }
 
 void AnimalRoad::output(std::ofstream& ofs) {
 	int size = aQueue.size();
 	ofs.write((char*)&size, sizeof(size));
+
 	for (int i = 0; i < aQueue.size(); i++)
 	{
+		ofs.write((char*)&aQueue[i]->isElephant, sizeof(aQueue[i]->isElephant));
+
 		float x, y;
 		x = aQueue[i]->getSprite().getPosition().x;
 		y = aQueue[i]->getSprite().getPosition().y;
 		ofs.write((char*)&x, sizeof(x));
 		ofs.write((char*)&y, sizeof(y));
 	}
+
+	ofs.write((char*)&side, sizeof(side));
 }

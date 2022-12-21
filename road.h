@@ -16,6 +16,7 @@ protected:
 	static sf::RenderWindow* windowHandle;
 	static sf::Texture texture[2];
 
+	bool reload = false;
 
 	bool side; //left: false,  right: true
 public:
@@ -29,7 +30,7 @@ public:
 	virtual void setPosition(float y) = 0;
 	virtual void setVelocity(float velocity) = 0;
 
-	virtual void run(bool reload = false) = 0;
+	virtual void run() = 0;
 
 	//virtual void save(ofstream&) = 0;
 	//virtual void load(ifstream&) = 0;
@@ -142,7 +143,7 @@ public:
 	void input(std::ifstream& ifs);
 	void output(std::ofstream& ofs);
 
-	void run(bool reload = false);
+	void run();
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };
@@ -172,7 +173,7 @@ public:
 	void input(std::ifstream& ifs);
 	void output(std::ofstream& ofs);
 
-	void run(bool reload = false);
+	void run();
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
 };

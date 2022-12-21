@@ -3,7 +3,8 @@
 
 void CANIMAL::Move(float x, float y)
 {
-	this->sprite.move(x, y);
+	sf::Vector2f pos = sprite.getPosition();
+	sprite.setPosition(pos.x + x, pos.y + y);
 }
 
 void CANIMAL::Tell()
@@ -26,7 +27,6 @@ void CANIMAL::drawInWindow(sf::RenderWindow& window)
 
 CCAT::CCAT() {
 	CANIMAL::isElephant = false;
-
 	CANIMAL::sprite = sf::Sprite(CGAME::catTexture);
 	sf::Vector2u size = CGAME::catTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
