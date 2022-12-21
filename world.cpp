@@ -140,10 +140,16 @@ void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world) {
 		int index;
 		ifs.read((char*)&index, sizeof(int));
 		temp->index = index;
-		temp->input(ifs);
+
 		temp->setWindow(&window);
 		temp->resetSprite();
+
+		temp->input(ifs);
+
 		temp->setPosition(index);
+
+
+
 		world.object.push_back(temp);
 	}
 }

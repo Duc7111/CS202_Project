@@ -106,8 +106,10 @@ void VehicleRoad::setPosition(float y)
 	if (side) traficLight.shape.setPosition(sf::Vector2f(20.f, Road::sprite.getPosition().y));
 	else traficLight.shape.setPosition(sf::Vector2f(WINDOW.getSize().x - 20.f, Road::sprite.getPosition().y));
 	// Reset queue
-	for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
-	vQueue.reset();
+	if (!reload) {
+		for (int i = vQueue.size() - 1; i > -1; --i) delete vQueue[i];
+		vQueue.reset();
+	}
 }
 
 void VehicleRoad::setVelocity(float velocity)
@@ -165,9 +167,12 @@ void VehicleRoad::run()
 	// Trafic light
 	if (!reload)
 		traficLight.function();
-	else
+	else {
+		traficLight.shape.setFillColor(sf::Color::Red);
+	}
+	if (!reload && !traficLight.status) return;
+	if (reload)
 		reload = false;
-	if (!traficLight.status) return;
 	// New vehicle
 	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
 		vQueue.push(VehicleFactory());
@@ -250,8 +255,10 @@ void AnimalRoad::setPosition(float y)
 	// Road position
 	Road::setPosition(y);
 	// Reset queue
-	for (int i = aQueue.size() - 1; i > -1; --i) delete aQueue[i];
-	aQueue.reset();
+	if (!reload) {
+		for (int i = aQueue.size() - 1; i > -1; --i) delete aQueue[i];
+		aQueue.reset();
+	}
 }
 
 void AnimalRoad::setVelocity(float velocity)
@@ -414,7 +421,7 @@ void VehicleRoad::output(std::ofstream& ofs) {
 	int size = vQueue.size();
 	ofs.write((char*)&size, sizeof(size));
 
-	for (int i = 0; i < vQueue.size(); i++)
+	for (int i = vQueue.size() - 1; i > -1; --i)
 	{
 		ofs.write((char*)&vQueue[i]->isCar, sizeof(vQueue[i]->isCar));
 
@@ -432,8 +439,9 @@ void AnimalRoad::output(std::ofstream& ofs) {
 	int size = aQueue.size();
 	ofs.write((char*)&size, sizeof(size));
 
-	for (int i = 0; i < aQueue.size(); i++)
+	for (int i = aQueue.size() - 1; i > -1; --i)
 	{
+
 		ofs.write((char*)&aQueue[i]->isElephant, sizeof(aQueue[i]->isElephant));
 
 		float x, y;
