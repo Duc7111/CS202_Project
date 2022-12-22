@@ -60,7 +60,7 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 	}
 	for (int i = 6; i >= 0; --i) {
 		if (object[i]) {
-			object[i]->setVelocity(7.f);
+			object[i]->setVelocity(calculateVelocity(forwardIndex));
 			object[i]->run();
 			object[i]->drawObj();
 		}
@@ -95,6 +95,10 @@ void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 			if (IsNearby(player, object[i]->sprite, 5))
 				if (object[i] && object[i]->checkCollide(window, player))
 					return;
+}
+
+float WORLD::calculateVelocity(int index) {
+	return ((index - static_cast<float>(6)) / (13)) + sin(((index - static_cast<float>(6)) / (13)));
 }
 
 std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world) {

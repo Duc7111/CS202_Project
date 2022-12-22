@@ -31,8 +31,7 @@ void Road::setWindow(sf::RenderWindow* window)
 void Road::setPosition(float y)
 {
 	index = y;
-	sprite.setPosition(sf::Vector2f(0.f, ((6.0f - y) / 7.0f) * 700));
-
+	sprite.setPosition(0.f, ((6.0f - y) / 7.0f) * 700);
 }
 
 void Road::drawRoad()
@@ -60,7 +59,7 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	else
 		x = DICE::random(-x * 5, -x);
 
-	vehicle->setPosition(x, sprite.getPosition().y + 20);
+	vehicle->setPosition(x, sprite.getPosition().y + 50);
 	return vehicle;
 }
 bool VehicleRoad::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
@@ -95,7 +94,7 @@ void VehicleRoad::resetSprite()
 	sprite.setTexture(texture[0]);
 	float scale = (float)M_CELL / (sprite.getTexture()->getSize().y);
 	sprite.setScale(sf::Vector2f(scale, scale));
-	sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
+	//sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
 }
 
 void VehicleRoad::setPosition(float y)
@@ -230,7 +229,7 @@ CANIMAL* AnimalRoad::AnimalFactory()
 	else
 		x = DICE::random(-x * 5, -x);
 
-	animal->setPosition(x, sprite.getPosition().y + 20);
+	animal->setPosition(x, sprite.getPosition().y + 50);
 	return animal;
 }
 
@@ -253,7 +252,7 @@ void AnimalRoad::resetSprite()
 	sprite.setTexture(texture[1]);
 	float scale = (float)M_CELL / (sprite.getTexture()->getSize().y);
 	sprite.setScale(sf::Vector2f(scale, scale));
-	sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
+	//sprite.setOrigin(sf::Vector2f(0.f, (float)M_CELL / 2));
 }
 
 void AnimalRoad::setPosition(float y)
