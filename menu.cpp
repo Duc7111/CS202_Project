@@ -88,7 +88,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 					}
 					break;
 				}
-				else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(0, 0, 0, 127));
+				else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(255, 255, 255, 50));
 				else buttons[i].setFillColor(sf::Color::Transparent);
 			}
 		}
