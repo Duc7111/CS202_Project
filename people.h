@@ -21,13 +21,14 @@ class CPEOPLE {
 	static constexpr float velocity = 10.0f;
 	std::map<int, int> visitedY; //cai nay dung de tinh diem nguoi choi
 	void animate();
+	sf::Clock clock;
 	static float calcX(int X);
 	static float calcY(int Y);
 public:
 	CPEOPLE();
 	void setPeople(int mX, int mY, int mDirection, int animation); //cái này dùng cho phần save load
 	void loadTexture(); // load texture
-	void drawPlayer(sf::RenderWindow& window); // draw current object	sf::Vector2i getPosition(); // Return mY, mX in the form of sf::Vector2i
+	void draw(sf::RenderWindow& window); // draw current object	sf::Vector2i getPosition(); // Return mY, mX in the form of sf::Vector2i
 	sf::Vector2i getPosition() const;
 	int getPrevY() const;
 	sf::Vector2f getPositionInWorld() const;

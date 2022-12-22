@@ -16,6 +16,7 @@ protected:
 	static sf::RenderWindow* windowHandle;
 	static sf::Texture texture[2];
 
+	bool reload = false;
 
 	bool side; //left: false,  right: true
 	sf::Clock timer;
@@ -42,6 +43,9 @@ public:
 
 	bool isVehicleRoad;
 	int index;
+
+	virtual void input(std::ifstream& ifs) = 0;
+	virtual void output(std::ofstream& ofs) = 0;
 };
 
 #define OBJ_MAX 5
@@ -83,6 +87,10 @@ public:
 	{
 		front = OBJ_MAX;
 		size_v = 0;
+	}
+
+	void sizeInc() {
+		size_v++;
 	}
 
 	T& operator[](int i)
@@ -137,6 +145,9 @@ public:
 	//void save(ofstream&);
 	//void load(ifstream&);
 
+	void input(std::ifstream& ifs);
+	void output(std::ofstream& ofs);
+
 	void run();
 	void drawObj();
 	bool checkCollide(sf::RenderWindow& window, CPEOPLE player);
@@ -163,6 +174,9 @@ public:
 
 	//void save(ofstream&);
 	//void load(ifstream&);
+
+	void input(std::ifstream& ifs);
+	void output(std::ofstream& ofs);
 
 	void run();
 	void drawObj();

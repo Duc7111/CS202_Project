@@ -11,7 +11,8 @@ class CPEOPLE;
 class CVEHICLE {
 private:
 	int mX, mY;
-
+protected:
+	sf::Vector2f currentPos;
 
 public:
 	void Move(float x, float y);
@@ -28,6 +29,9 @@ public:
 
 	virtual bool CollidedWithPlayer(CPEOPLE player) = 0;
 
+	bool isCar;
+
+	sf::Vector2f getCurrentPos();
 protected:
 	sf::Sprite sprite;
 	//sf::Texture texture;

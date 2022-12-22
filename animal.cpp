@@ -3,7 +3,9 @@
 
 void CANIMAL::Move(float x, float y)
 {
-	this->sprite.move(x, y);
+	sf::Vector2f pos = sprite.getPosition();
+	sprite.setPosition(pos.x + x, pos.y + y);
+	currentPos = { pos.x + x,pos.y + y };
 }
 
 void CANIMAL::Tell()
@@ -19,12 +21,15 @@ void CANIMAL::setPosition(float x, float y)
 {
 	this->sprite.setPosition({ x,y });
 }
-
+sf::Vector2f CANIMAL::getCurrentPos() {
+	return currentPos;
+}
 void CANIMAL::drawInWindow(sf::RenderWindow& window)
 {
 }
 
 CCAT::CCAT() {
+	CANIMAL::isElephant = false;
 	CANIMAL::sprite = sf::Sprite(CGAME::catTexture);
 	sf::Vector2u size = CGAME::catTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);
@@ -64,6 +69,8 @@ bool CCAT::CollidedWithPlayer(CPEOPLE player) {
 /// /////////////////
 
 CELEPHANT::CELEPHANT() {
+	CANIMAL::isElephant = true;
+
 	CANIMAL::sprite = sf::Sprite(CGAME::elephantTexture);
 	sf::Vector2u size = CGAME::elephantTexture.getSize();
 	sprite.setOrigin(size.x / 2, size.y / 2);

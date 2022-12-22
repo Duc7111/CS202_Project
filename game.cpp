@@ -413,9 +413,9 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
+	window.setView(window.getDefaultView());
 	timeCount = 0;
 	CGAME::score = 0;
-	sf::Clock clock;
 	sf::Time elapsed;
 
 	explosion::loadTexture();
@@ -503,6 +503,9 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				case sf::Keyboard::Key::Escape:
 					CGAME::singleton().pauseGame(window, player, world);
 					break;
+				case sf::Keyboard::Key::T:
+					saveWindow(window, player, world);
+					break;
 				default:
 					break;
 				}
@@ -519,7 +522,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 		world.drawWorld(window);
 
-		player.drawPlayer(window);
+		player.draw(window);
 
 		world.checkCollide(window, player); //ktra va chạm
 
