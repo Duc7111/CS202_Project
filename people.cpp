@@ -32,7 +32,7 @@ void CPEOPLE::loadTexture() {
 	sprite.setPosition(calcX(mX), calcY(mY));
 }
 
-void CPEOPLE::draw(sf::RenderWindow& window, sf::Clock& clock) {
+void CPEOPLE::draw(sf::RenderWindow& window) {
 	if (clock.getElapsedTime().asMicroseconds() >= 8333) { // 120 fps
 		animate();
 		clock.restart();
@@ -143,21 +143,33 @@ void CPEOPLE::animate() {
 		if (mDirection % 2 == 1) {
 			if (mDirection == 1) {
 				if (position.y > drawVar) sprite.move(0, -velocity);
-				else animation = false;
+				else {
+					sprite.setPosition(position.x, drawVar); // avoid floating point error
+					animation = false;
+				}
 			}
 			else {
 				if (position.x < drawVar) sprite.move(velocity, 0);
-				else animation = false;
+				else {
+					sprite.setPosition(drawVar, position.y);
+					animation = false;
+				}
 			}
 		}
 		else {
 			if (mDirection == 2) {
 				if (position.y < drawVar) sprite.move(0, velocity);
-				else animation = false;
+				else {
+					sprite.setPosition(position.x, drawVar);
+					animation = false;
+				}
 			}
 			else {
 				if (position.x > drawVar) sprite.move(-velocity, 0);
-				else animation = false;
+				else {
+					sprite.setPosition(drawVar, position.y);
+					animation = false;
+				}
 			}
 		}
 	}

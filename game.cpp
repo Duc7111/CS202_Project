@@ -416,7 +416,6 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	window.setView(window.getDefaultView());
 	timeCount = 0;
 	CGAME::score = 0;
-	sf::Clock clock;
 	sf::Time elapsed;
 
 	explosion::loadTexture();
@@ -523,7 +522,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 		world.drawWorld(window);
 
-		player.draw(window, clock);
+		player.draw(window);
 
 		world.checkCollide(window, player); //ktra va chạm
 
