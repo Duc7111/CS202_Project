@@ -18,6 +18,7 @@ protected:
 
 
 	bool side; //left: false,  right: true
+	sf::Clock timer;
 public:
 	Road();
 	sf::Sprite sprite;
