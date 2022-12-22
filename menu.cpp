@@ -34,32 +34,30 @@ void graphicalMenu(sf::RenderWindow& window) {
 	sf::Font font2;
 	font2.loadFromFile("SecularOne-Regular.ttf");
 
-	sf::Text options[4];
+	RectangleButton buttons[4];
 	for (int i = 0; i < 4; i++) {
 		switch (i) {
 		case 0:
-			options[i].setString("Play game");
+			buttons[i].text.setString("Play game");
 			break;
 		case 1:
-			options[i].setString("Settings");
+			buttons[i].text.setString("Settings");
 			break;
 		case 2:
-			options[i].setString("Reload");
+			buttons[i].text.setString("Reload");
 			break;
 		case 3:
-			options[i].setString("High score");
+			buttons[i].text.setString("High score");
 			break;
 		}
-		options[i].setFont(font2);
-		options[i].setCharacterSize(50);
-		options[i].setPosition(150, 150 + i * 100 - diffY);
+		buttons[i].setWindow(&window);
+		buttons[i].text.setFont(font2);
+		buttons[i].text.setCharacterSize(50);
+		buttons[i].setSize(340, 100);
+		buttons[i].setFillColor(sf::Color::Transparent);
+		buttons[i].setPosition(100, 150 + i * 100);
+		//buttons[i].setPosition(150, 150 + i * 100 - diffY);
 	}
-
-	sf::Text arrow(options[0]);
-	arrow.setString("-");
-	arrow.setFillColor(sf::Color::Yellow);
-	arrow.setPosition(50, 150 - diffY);
-
 	int index = 0;
 
 	while (window.isOpen()) {
@@ -68,21 +66,12 @@ void graphicalMenu(sf::RenderWindow& window) {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
-			else if (event.type == sf::Event::KeyPressed) {
-				switch (event.key.code) {
-				case sf::Keyboard::Key::W:
-					if (index == 0)
-						index = 3;
-					else
-						index--;
-					break;
-				case sf::Keyboard::Key::S:
-					if (index == 3)
-						index = 0;
-					else
-						index++;
-					break;
-				case sf::Keyboard::Key::Enter: {
+			for (auto& button : buttons) {
+				button.eventListener(event);
+			}
+			for (int i = 0; i < 4; i++) {
+				if (buttons[i].mousePressed()) {
+					index = i;
 					switch (index) {
 					case 0:
 						playGame(window);
@@ -99,29 +88,18 @@ void graphicalMenu(sf::RenderWindow& window) {
 					}
 					break;
 				}
-				default:
-					break;
-				}
-
+				else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(0, 0, 0, 127));
+				else buttons[i].setFillColor(sf::Color::Transparent);
 			}
 		}
-
-		for (int i = 0; i < 4; i++) {
-			options[i].setFillColor(sf::Color::White);
-			options[i].setStyle(sf::Text::Regular);
-		}
-		options[index].setFillColor(sf::Color::Yellow);
-		options[index].setStyle(sf::Text::Underlined);
-		arrow.setPosition(50, 150 + 100 * index - diffY);
 
 		window.draw(bg);
 
 		window.draw(rectangle);
 		window.draw(title);
 
-		window.draw(arrow);
-		for (sf::Text option : options) {
-			window.draw(option);
+		for (auto& button : buttons) {
+			button.draw();
 		}
 
 		window.display();
