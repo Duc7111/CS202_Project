@@ -169,7 +169,11 @@ void VehicleRoad::run()
 	else {
 		traficLight.shape.setFillColor(sf::Color::Red);
 	}
-	if (!reload && !traficLight.status) return;
+	if (!reload && !traficLight.status)
+	{
+		timer.restart();
+		return;
+	}
 
 	// New vehicle
 	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
@@ -179,7 +183,7 @@ void VehicleRoad::run()
 		|| (!side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete vQueue.pop();
 
-	float s = v * timer.getElapsedTime().asSeconds();
+	float s = v * timer.getElapsedTime().asMilliseconds();
 	for (int i = vQueue.size() - 1; i > -1; --i)
 		vQueue[i]->Move(s, 0);
 	timer.restart();
@@ -317,7 +321,7 @@ void AnimalRoad::run()
 		|| (!side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete aQueue.pop();
 
-	float s = v * timer.getElapsedTime().asSeconds();
+	float s = v * timer.getElapsedTime().asMilliseconds()*0.3f;
 	for (int i = aQueue.size() - 1; i > -1; --i)
 		aQueue[i]->Move(s, 0);
 	timer.restart();
