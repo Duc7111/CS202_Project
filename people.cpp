@@ -32,8 +32,11 @@ void CPEOPLE::loadTexture() {
 	sprite.setPosition(calcX(mX), calcY(mY));
 }
 
-void CPEOPLE::drawPlayer(sf::RenderWindow& window) {
-	animate();
+void CPEOPLE::draw(sf::RenderWindow& window, sf::Clock& clock) {
+	if (clock.getElapsedTime().asMicroseconds() >= 8333) { // 120 fps
+		animate();
+		clock.restart();
+	}
 	window.draw(sprite);
 }
 

@@ -523,7 +523,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 		world.drawWorld(window);
 
-		player.drawPlayer(window);
+		player.draw(window, clock);
 
 		world.checkCollide(window, player); //ktra va chạm
 
