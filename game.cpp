@@ -504,6 +504,9 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				case sf::Keyboard::Key::Escape:
 					CGAME::singleton().pauseGame(window, player, world);
 					break;
+				case sf::Keyboard::Key::T:
+					saveWindow(window, player, world);
+					break;
 				default:
 					break;
 				}
