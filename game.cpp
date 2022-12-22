@@ -300,11 +300,11 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 			{
 				switch (event.key.code)
 				{
-				case sf::Keyboard::Up:
+				case sf::Keyboard::W:
 					moveInput[0] = true;
 					break;
 
-				case sf::Keyboard::Down:
+				case sf::Keyboard::S:
 					moveInput[1] = true;
 					break;
 
