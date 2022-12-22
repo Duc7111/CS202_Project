@@ -2,6 +2,7 @@
 
 #include<SFML/Graphics.hpp>
 #include "people.h"
+#include <SFML/Audio.hpp>
 
 class CANIMAL {
 
