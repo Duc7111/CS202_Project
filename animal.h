@@ -46,6 +46,8 @@ public:
 	void setSpeed(float speed);
 	void drawInWindow(sf::RenderWindow& window);
 	bool CollidedWithPlayer(CPEOPLE player);
+	sf::SoundBuffer tellBuffer;
+	sf::Sound tell;
 };
 
 class CCAT : public CANIMAL {
@@ -59,4 +61,6 @@ public:
 	void drawInWindow(sf::RenderWindow& window);
 	void setSpeed(float speed);
 	bool CollidedWithPlayer(CPEOPLE player);
+	sf::SoundBuffer tellBuffer;
+	sf::Sound tell;
 };
