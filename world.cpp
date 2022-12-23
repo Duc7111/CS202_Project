@@ -60,7 +60,7 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 	}
 	for (int i = 6; i >= 0; --i) {
 		if (object[i]) {
-			object[i]->setVelocity(calculateVelocity(forwardIndex));
+			//object[i]->setVelocity(calculateVelocity(forwardIndex));
 			object[i]->run();
 			object[i]->drawObj();
 		}
@@ -77,11 +77,13 @@ Road* WORLD::createRoad(int index) {
 		tmp = new VehicleRoad;
 		tmp->resetSprite();
 		tmp->setPosition(index);
+		tmp->setVelocity(calculateVelocity(index));
 		return tmp;
 	case animal:
 		tmp = new AnimalRoad;
 		tmp->resetSprite();
 		tmp->setPosition(index);
+		tmp->setVelocity(calculateVelocity(index));
 		return tmp;
 	default:
 		break;
@@ -98,7 +100,12 @@ void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 }
 
 float WORLD::calculateVelocity(int index) {
-	return ((index - static_cast<float>(6)) / (13)) + sin(((index - static_cast<float>(6)) / (13)));
+	static vector<float> v = {0.f, 0.0};
+	if (v.size() <= index)
+		for(int i = v.size() - 1; i <= index; ++i)
+			v.push_back(511.f/512.f * v[i] + 0.03125f);
+	return v[index];
+	//return ((index - static_cast<float>(6)) / (13)) + sin(((index - static_cast<float>(6)) / (13)));
 }
 
 std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world) {
