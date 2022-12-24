@@ -38,7 +38,7 @@ void explosion::animateExplosion(sf::Clock& clock, sf::RenderWindow& window, sf:
 	explodeSprite.setPosition(position - sf::Vector2f(0, 100));
 	window.draw(explodeSprite);
 	window.display();
-	while (timeCount <= 1000)
+	while (timeCount <= 1500)
 	{
 		timeCount++;
 	}

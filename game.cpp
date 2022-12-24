@@ -414,6 +414,7 @@ sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	window.setView(window.getDefaultView());
+	CGAME::defaultView = window.getView();
 	timeCount = 0;
 	CGAME::score = 0;
 	sf::Time elapsed;
@@ -626,9 +627,10 @@ void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& play
 
 	ifs.close();
 }
+sf::View CGAME::defaultView;
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world) {
 	sf::RenderWindow window(sf::VideoMode(1280, 700), "Save game", sf::Style::Titlebar | sf::Style::Close);
-	window.setView(window.getDefaultView());
+	window.setView(CGAME::defaultView);
 
 	sf::Font font;
 	font.loadFromFile("RubikGemstones-Regular.ttf");

@@ -68,6 +68,8 @@ public:
 	}
 
 	static sf::Clock clock;
+
+	static sf::View defaultView;
 };
 const float setX = -1200;
 const float speed = 100;
