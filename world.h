@@ -7,19 +7,11 @@
 #include "people.h"
 #include "road.h"
 
-class TERRAIN {
-
-};
-
-
-
 class WORLD {
 public:
-	static const float vehicle_velocity[12];
 	WORLD();
 	~WORLD();
 	void createWorld(sf::RenderWindow& window);
-	void loadBackground();
 	void forward();
 	bool backward();
 	void drawWorld(sf::RenderWindow& window);
@@ -30,8 +22,6 @@ public:
 private:
 	static float calculateVelocity(int index);
 	Road* createRoad(int index);
-	sf::Texture texture;
-	sf::Sprite sprite;
 	SEED seed;
 	int forwardIndex;
 	int backwardIndex;

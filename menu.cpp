@@ -58,7 +58,6 @@ void graphicalMenu(sf::RenderWindow& window) {
 		buttons[i].setPosition(100, 150 + i * 100);
 		//buttons[i].setPosition(150, 150 + i * 100 - diffY);
 	}
-	int index = 0;
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -69,28 +68,28 @@ void graphicalMenu(sf::RenderWindow& window) {
 			for (auto& button : buttons) {
 				button.eventListener(event);
 			}
-			for (int i = 0; i < 4; i++) {
-				if (buttons[i].mousePressed()) {
-					index = i;
-					switch (index) {
-					case 0:
-						playGame(window);
-						break;
-					case 1:
-						Settings::settingsSound(window);
-						break;
-					case 2:
-						reloadWindow(window);
-						break;
-					case 3:
-						viewHighScore(window);
-						break;
-					}
+		}
+
+		for (int i = 0; i < 4; i++) {
+			if (buttons[i].mousePressed()) {
+				switch (i) {
+				case 0:
+					playGame(window);
+					break;
+				case 1:
+					Settings::settingsSound(window);
+					break;
+				case 2:
+					reloadWindow(window);
+					break;
+				case 3:
+					viewHighScore(window);
 					break;
 				}
-				else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(255, 255, 255, 50));
-				else buttons[i].setFillColor(sf::Color::Transparent);
+				break;
 			}
+			else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(255, 255, 255, 50));
+			else buttons[i].setFillColor(sf::Color::Transparent);
 		}
 
 		window.draw(bg);

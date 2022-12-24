@@ -26,11 +26,6 @@ void WORLD::createWorld(sf::RenderWindow& window) {
 	window.draw(CGAME::currentScore);
 }
 
-void WORLD::loadBackground() {
-	texture.loadFromFile("bg.png");
-	sprite.setTexture(texture);
-}
-
 void WORLD::forward() {
 	if (backwardIndex < 0) {
 		++backwardIndex;
@@ -54,13 +49,7 @@ bool WORLD::backward() {
 void WORLD::drawWorld(sf::RenderWindow& window) {
 	for (int i = 0; i < 7; ++i) {
 		if (object[i]) {
-			//object[i]->setPosition(forwardIndex + i - 2);
 			object[i]->drawRoad();
-		}
-	}
-	for (int i = 6; i >= 0; --i) {
-		if (object[i]) {
-			//object[i]->setVelocity(calculateVelocity(forwardIndex));
 			object[i]->run();
 			object[i]->drawObj();
 		}

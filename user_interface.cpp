@@ -35,9 +35,7 @@ void RectangleButton::setFillColor(const sf::Color& color) {
 }
 
 bool RectangleButton::mouseHover() {
-	bool tmp = status[0];
-	status[0] = false;
-	return tmp;
+	return status[0];
 }
 
 bool RectangleButton::mousePressed() {
