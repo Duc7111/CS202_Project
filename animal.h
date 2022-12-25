@@ -46,6 +46,7 @@ public:
 	void setSpeed(float speed);
 	void drawInWindow(sf::RenderWindow& window);
 	bool CollidedWithPlayer(CPEOPLE player);
+	bool isSetSound = false;
 	sf::SoundBuffer tellBuffer;
 	sf::Sound tell;
 };
@@ -61,6 +62,7 @@ public:
 	void drawInWindow(sf::RenderWindow& window);
 	void setSpeed(float speed);
 	bool CollidedWithPlayer(CPEOPLE player);
+	bool isSetSound = false;
 	sf::SoundBuffer tellBuffer;
 	sf::Sound tell;
 };

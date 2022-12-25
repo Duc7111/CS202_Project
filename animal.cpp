@@ -38,6 +38,17 @@ CCAT::CCAT() {
 
 void CCAT::Tell()
 {
+	if (isSetSound == false) {
+		if (!tellBuffer.loadFromFile(". / sound / sound_bird.wav")) {
+			cout << "Wrong location . File does not existed" ;
+		}
+		tell.setBuffer(tellBuffer);
+		tell.setVolume(80.f);
+		isSetSound = true;
+	}
+	tell.play();
+
+	cout << "telling";
 }
 
 void CCAT::setSpeed(float speed) {
