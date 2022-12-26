@@ -447,18 +447,20 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	AnimalRoad::loadTexture();
 
 
-	sf::Sprite bg(CGAME::bgTexture);
-	bg.setScale(1300, 1300);
-	bg.setPosition(-100, 0);
-	sf::Sprite bg2(bg); //de keo len trong moveWorld
-	bg2.setPosition(-100, bgPos -= bgOffset);
-	CGAME::bgs.push_back(bg);
-	CGAME::bgs.push_back(bg2);
+	//sf::Sprite bg(CGAME::bgTexture);
+	//bg.setScale(1300, 1300);
+	//bg.setPosition(-100, 0);
+	//sf::Sprite bg2(bg); //de keo len trong moveWorld
+	//bg2.setPosition(-100, bgPos -= bgOffset);
+	//CGAME::bgs.push_back(bg);
+	//CGAME::bgs.push_back(bg2);
+	BACKGROUND background;
 
 	WORLD world;
 	if (reload) {
 		std::ifstream ifs(loadPath, std::ios::binary);
 		CGAME::singleton().loadGame(ifs, window, player, world);
+		background.updateOnLoad(world);
 	}
 
 	else if (!reload)
@@ -486,6 +488,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 					if (player.goUp()) break;
 					audio::playMove();
 					world.forward();
+					background.update(world);
 					break;
 				case sf::Keyboard::Key::S:
 					if (world.backward()) {
@@ -517,9 +520,11 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 		window.clear();
 
-		window.draw(bg);
+		//window.draw(bg);
 
-		drawBgs(window, CGAME::bgs);
+		//drawBgs(window, CGAME::bgs);
+
+		background.draw(window);
 
 		world.drawWorld(window);
 
