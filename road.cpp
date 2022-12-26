@@ -333,25 +333,7 @@ void AnimalRoad::drawObj()
 }
 
 //////////////////////////////
-sf::Texture TREE::texture[4];
-sf::Sprite TREE::getSprite() {
-	return this->sprite;
-}
-void TREE::loadTexture() {
-	texture[0].loadFromFile("tree/1.png");
-	texture[1].loadFromFile("tree/2.png");
-	texture[2].loadFromFile("tree/3.png");
-	texture[3].loadFromFile("tree/4.png");
-}
 
-void TREE::drawInWindow(sf::RenderWindow& window) {
-	window.draw(sprite);
-}
-TREE::TREE() {
-	srand(time(0));
-	int r = rand() % 4;
-	sprite = sf::Sprite(texture[r]);
-}
 
 
 void VehicleRoad::input(std::ifstream& ifs) {
@@ -472,4 +454,29 @@ void AnimalRoad::output(std::ofstream& ofs) {
 	}
 
 
+}
+
+///////////////////////////////////
+
+sf::Texture TREE::texture[4];
+sf::Sprite TREE::getSprite() {
+	return this->sprite;
+}
+void TREE::loadTexture() {
+	texture[0].loadFromFile("tree/1.png");
+	texture[1].loadFromFile("tree/2.png");
+	texture[2].loadFromFile("tree/3.png");
+	texture[3].loadFromFile("tree/4.png");
+}
+
+void TREE::drawInWindow(sf::RenderWindow& window) {
+	window.draw(sprite);
+}
+TREE::TREE() {
+	srand(time(0));
+	int r = rand() % 4;
+	sprite = sf::Sprite(texture[r]);
+}
+void TREE::setPosition(float x, float y) {
+	this->sprite.setPosition({ x,y });
 }
