@@ -91,6 +91,10 @@ void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 					return;
 }
 
+int WORLD::getForwardIndex() const {
+	return forwardIndex;
+}
+
 float WORLD::calculateVelocity(int index) {
 	static vector<float> v = { 0.f, 0.0 };
 	if (v.size() <= index)
@@ -152,5 +156,39 @@ void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world) {
 		temp->setPosition(index);
 
 		world.object.push_back(temp);
+	}
+}
+
+BACKGROUND::BACKGROUND() {
+	texture.loadFromFile("TX Tileset Grass.png", sf::IntRect(0, 0, 128, 128));
+	texture.setRepeated(true);
+	for (int i = 0; i < 2; ++i) {
+		sprite.push_back(sf::Sprite());
+		sprite.back().setTexture(texture);
+		sprite.back().setTextureRect(sf::IntRect(0, 0, 1536, 1536));
+		sprite.back().setPosition(0, i * -1300);
+	}
+}
+
+void BACKGROUND::update(const WORLD& world) {
+	int index = world.getForwardIndex();
+	if (index % 15 == 0) {
+		sf::Sprite tmp = sprite.front();
+		sprite.pop_front();
+		tmp.setPosition(0, (index / 15 + 1) * -1300);
+		sprite.push_back(tmp);
+	}
+}
+
+void BACKGROUND::updateOnLoad(const WORLD& world) {
+	int index = world.getForwardIndex();
+	for (int i = 0; i < 2; ++i) {
+		sprite[i].setPosition(0, (index / 15 + i) * -1300);
+	}
+}
+
+void BACKGROUND::draw(sf::RenderWindow& window) {
+	for (auto& bg : sprite) {
+		window.draw(bg);
 	}
 }

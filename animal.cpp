@@ -86,6 +86,17 @@ CELEPHANT::CELEPHANT() {
 
 void CELEPHANT::Tell()
 {
+	if (isSetSound == false) {
+		if (!tellBuffer.loadFromFile(". / sound / sound_dinosaur.wav")) {
+			cout << "Wrong location . File does not existed";
+		}
+		tell.setBuffer(tellBuffer);
+		tell.setVolume(80.f);
+		isSetSound = true;
+	}
+	tell.play();
+
+	cout << "telling";
 }
 
 void CELEPHANT::setSpeed(float speed) {

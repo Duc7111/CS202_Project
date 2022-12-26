@@ -39,9 +39,7 @@ bool RectangleButton::mouseHover() {
 }
 
 bool RectangleButton::mousePressed() {
-	bool tmp = status[1];
-	status[1] = false;
-	return tmp;
+	return status[1];
 }
 
 void RectangleButton::draw() {
