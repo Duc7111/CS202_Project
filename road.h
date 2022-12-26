@@ -195,4 +195,5 @@ public:
 	static void loadTexture();
 	static sf::Texture texture[4];
 	void drawInWindow(sf::RenderWindow& window);
+	void setPosition(float x, float y);
 };

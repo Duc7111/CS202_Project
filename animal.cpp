@@ -8,9 +8,6 @@ void CANIMAL::Move(float x, float y)
 	currentPos = { pos.x + x,pos.y + y };
 }
 
-void CANIMAL::Tell()
-{
-}
 
 sf::Sprite CANIMAL::getSprite()
 {
@@ -40,11 +37,10 @@ void CCAT::Tell()
 {
 	if (isSetSound == false) {
 		if (!tellBuffer.loadFromFile(". / sound / sound_bird.wav")) {
-			cout << "Wrong location . File does not existed" ;
+			cout << "Wrong location . File does not existed";
 		}
 		tell.setBuffer(tellBuffer);
 		tell.setVolume(80.f);
-		isSetSound = true;
 	}
 	tell.play();
 

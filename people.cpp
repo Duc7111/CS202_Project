@@ -14,10 +14,9 @@ void CPEOPLE::setPeople(int mX, int mY, int mDirection, int animation) {
 	loadTexture();
 }
 CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
-	texture[0].loadFromFile("player_back.png");
-	texture[1].loadFromFile("player_front.png");
-	texture[2].loadFromFile("player_right.png");
-	texture[3].loadFromFile("player_left.png");
+	for (int i = 0; i < 4; ++i) {
+		texture[i].loadFromFile("player.png", sf::IntRect(0, 80 * i, 80, 80));
+	}
 	img = texture[0].copyToImage();
 	drawVar = 0;
 }
