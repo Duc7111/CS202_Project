@@ -21,6 +21,7 @@ public:
 	friend std::ofstream& operator<<(std::ofstream& ofs, const WORLD& world);
 	friend void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world);
 private:
+	int treeIndex = 0;
 	static float calculateVelocity(int index);
 	Road* createRoad(int index);
 	SEED seed;

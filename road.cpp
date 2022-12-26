@@ -473,14 +473,20 @@ void TREE::drawInWindow(sf::RenderWindow& window) {
 	window.draw(sprite);
 }
 TREE::TREE() {
-	srand(time(0));
 	int r = rand() % 4;
 	sprite = sf::Sprite(texture[r]);
+	sprite.setScale(0.1f, 0.1f);
 }
 void TREE::setPosition(float x, float y) {
 	this->sprite.setPosition({ x,y });
 }
-void TREE::drawTree(sf::RenderWindow& window, int index) {
-	sprite.setPosition(0.f, ((6.0f - index) / 7.0f) * 700);
+void TREE::drawTree(sf::RenderWindow& window, int startPos, int index) {
+	setPosition(startPos * 150, ((6.0f - index) / 7.0f) * 700);
 	drawInWindow(window);
+}
+void drawTrees(sf::RenderWindow& window, int index) {
+	for (int i = 0; i < 5; i++) {
+		TREE temp;
+		temp.drawTree(window, i, index);
+	}
 }

@@ -195,5 +195,8 @@ public:
 	static void loadTexture();
 	static sf::Texture texture[4];
 	void setPosition(float x, float y);
-	void drawTree(sf::RenderWindow& window, int index);
+	void drawTree(sf::RenderWindow& window, int startPos, int index);
 };
+
+void drawTrees(sf::RenderWindow& window, int index);
+

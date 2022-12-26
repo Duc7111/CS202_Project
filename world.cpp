@@ -53,12 +53,15 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 			object[i]->run();
 			object[i]->drawObj();
 		}
-		else { //neu cho nay khong co duong thi se ve cay
-
+		else {
+			drawTrees(window, treeIndex + i);
 		}
+
 	}
+	treeIndex += 6;
 	window.draw(CGAME::currentScore);
 }
+
 
 Road* WORLD::createRoad(int index) {
 	Road* tmp = nullptr;
