@@ -188,12 +188,12 @@ bool isVehicleRoad(Road* ptr);
 class TREE {
 private:
 	sf::Sprite sprite;
-
+	void drawInWindow(sf::RenderWindow& window);
 public:
 	TREE();
 	sf::Sprite getSprite();
 	static void loadTexture();
 	static sf::Texture texture[4];
-	void drawInWindow(sf::RenderWindow& window);
 	void setPosition(float x, float y);
+	void drawTree(sf::RenderWindow& window, int index);
 };

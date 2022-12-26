@@ -53,6 +53,9 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 			object[i]->run();
 			object[i]->drawObj();
 		}
+		else { //neu cho nay khong co duong thi se ve cay
+
+		}
 	}
 	window.draw(CGAME::currentScore);
 }
@@ -89,10 +92,10 @@ void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
 }
 
 float WORLD::calculateVelocity(int index) {
-	static vector<float> v = {0.f, 0.0};
+	static vector<float> v = { 0.f, 0.0 };
 	if (v.size() <= index)
-		for(int i = v.size() - 1; i <= index; ++i)
-			v.push_back(511.f/512.f * v[i] + 0.03125f);
+		for (int i = v.size() - 1; i <= index; ++i)
+			v.push_back(511.f / 512.f * v[i] + 0.03125f);
 	return v[index];
 	//return ((index - static_cast<float>(6)) / (13)) + sin(((index - static_cast<float>(6)) / (13)));
 }

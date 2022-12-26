@@ -480,3 +480,7 @@ TREE::TREE() {
 void TREE::setPosition(float x, float y) {
 	this->sprite.setPosition({ x,y });
 }
+void TREE::drawTree(sf::RenderWindow& window, int index) {
+	sprite.setPosition(0.f, ((6.0f - index) / 7.0f) * 700);
+	drawInWindow(window);
+}
