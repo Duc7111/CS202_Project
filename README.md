@@ -11,4 +11,7 @@ This is project in Programming Systems Course (CS202) ,HCMUS .
 ## Usage
 You just need to use W , A , S , D to make your character move up , left , down ,right
 ## Members
-U
+- Vương Quang Việt Tùng 
+- Nguyễn Đình Triết 
+- Phan Trung Đức 
+- Đinh Quang Hiếu 
