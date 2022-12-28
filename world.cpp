@@ -54,7 +54,7 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 			object[i]->drawObj();
 		}
 		else {
-			drawTrees(window, treeIndex + i);
+			/*drawTrees(window, treeIndex + i);*/
 		}
 
 	}

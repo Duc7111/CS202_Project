@@ -198,5 +198,15 @@ public:
 	void drawTree(sf::RenderWindow& window, int startPos, int index);
 };
 
-void drawTrees(sf::RenderWindow& window, int index);
+class TREEROAD {
+private:
+	int index;
+	std::vector<TREE> trees;
+
+public:
+	TREEROAD(int index);
+	TREEROAD() = default;
+	void drawTrees(sf::RenderWindow& window);
+};
+
 
