@@ -7,7 +7,13 @@ This is project in Programming Systems Course (CS202) ,HCMUS .
 - The difficulty of the game is the number of vehicles and animals involved in moving on the road .
  
 ## Feature
-
+- Single player game 
+- Colorful and smooth UI 
+- Traffic light to reduce game difficulty 
+- Funny music game 
+- Simple and easy gameplay
+- Can mute or unmute the sound 
+- Have a highscore board 
 ## Usage
 You just need to use W , A , S , D to make your character move up , left , down ,right
 ## Members
