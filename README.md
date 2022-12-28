@@ -9,5 +9,6 @@ This is project in Programming Systems Course (CS202) ,HCMUS .
 ## Feature
 
 ## Usage
-
+You just need to use W , A , S , D to make your character move up , left , down ,right
 ## Members
+U
