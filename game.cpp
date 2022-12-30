@@ -510,6 +510,9 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				case sf::Keyboard::Key::T:
 					saveWindow(window, player, world);
 					break;
+				case sf::Keyboard::Key::L:
+					reloadWindow(window);
+					break;
 				default:
 					break;
 				}
@@ -710,7 +713,10 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 		window.display();
 	}
 }
-void reloadWindow(sf::RenderWindow& window) {
+void reloadWindow(sf::RenderWindow& window, bool fromGame) {
+	if (fromGame)
+		window.setView(CGAME::defaultView);
+
 	sf::Font font;
 	font.loadFromFile("RubikGemstones-Regular.ttf");
 
@@ -752,6 +758,11 @@ void reloadWindow(sf::RenderWindow& window) {
 			else if (event.type == sf::Event::TextEntered) {
 				if (std::isprint(event.text.unicode))
 				{
+					if (fromGame)
+					{
+						fromGame = false;
+						continue;
+					}
 					inputPath += event.text.unicode;
 
 					output.setString(inputPath);

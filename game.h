@@ -112,4 +112,4 @@ const float moveOffset = 950;
 extern float diffY;
 
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world);
-void reloadWindow(sf::RenderWindow& window);
+void reloadWindow(sf::RenderWindow& window, bool fromGame = true);

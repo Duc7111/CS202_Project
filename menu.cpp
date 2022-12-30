@@ -80,7 +80,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 					Settings::settingsSound(window);
 					break;
 				case 2:
-					reloadWindow(window);
+					reloadWindow(window, false);
 					break;
 				case 3:
 					viewHighScore(window);
