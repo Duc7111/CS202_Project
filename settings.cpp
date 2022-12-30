@@ -13,7 +13,7 @@ void loadTextureOfSettings() {
 }
 
 void Settings::settingsSound(sf::RenderWindow& window) {
-
+	menuSound.stop();
 	sf::Sprite bgSprite(CGAME::bgTexture);
 	bgSprite.setScale(1300, 1300);
 	bgSprite.setPosition(-100, 0 - diffY);

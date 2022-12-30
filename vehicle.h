@@ -1,6 +1,7 @@
 
 #pragma once
 #include "graphics.h"
+#include <SFML/Audio.hpp>
 
 extern float YCar;
 extern float YTruck;
@@ -11,9 +12,13 @@ class CPEOPLE;
 class CVEHICLE {
 private:
 	int mX, mY;
+	sf::SoundBuffer hornBuffer;
+	sf::Sound hornSound;
+	bool isSetSound = false;
+
 protected:
 	sf::Vector2f currentPos;
-
+	sf::Sprite sprite;
 public:
 	void Move(float x, float y);
 	void setPosition(float x, float y);
@@ -31,11 +36,11 @@ public:
 
 	bool isCar;
 
+
 	sf::Vector2f getCurrentPos();
-protected:
-	sf::Sprite sprite;
-	//sf::Texture texture;
-	//lam thu virtual get set voi 2 cai texture/sprite
+
+	void horn();
+
 };
 
 class CCAR : public CVEHICLE {

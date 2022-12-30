@@ -413,6 +413,7 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
+	menuSound.stop();
 	window.setView(window.getDefaultView());
 	CGAME::defaultView = window.getView();
 	timeCount = 0;
@@ -714,6 +715,7 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 	}
 }
 void reloadWindow(sf::RenderWindow& window, bool fromGame) {
+	menuSound.stop();
 	if (fromGame)
 		window.setView(CGAME::defaultView);
 

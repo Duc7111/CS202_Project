@@ -183,8 +183,11 @@ void VehicleRoad::run()
 		delete vQueue.pop();
 
 	float s = v * timer.getElapsedTime().asMilliseconds();
-	for (int i = vQueue.size() - 1; i > -1; --i)
+	for (int i = vQueue.size() - 1; i > -1; --i) {
+		vQueue[i]->horn();
 		vQueue[i]->Move(s, 0);
+	}
+
 	timer.restart();
 }
 

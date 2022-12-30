@@ -2,11 +2,28 @@
 #include "vehicle.h"
 #include "game.h"
 #include "people.h"
+#include "settings.h"
 
 float YCar = 150.f;
 float YTruck = 400.f;
 
+void CVEHICLE::horn() {
+	if (Settings::isMuted)
+		return;
+	if (isSetSound == false) {
+		if (!hornBuffer.loadFromFile("car.wav")) {
+			cout << "Wrong location . File does not existed";
+		}
+		hornSound.setBuffer(hornBuffer);
+		hornSound.setVolume(80.f);
+		isSetSound = true;
 
+		hornSound.play();
+
+		cout << "horn";
+	}
+
+}
 CCAR::CCAR() {
 	CVEHICLE::isCar = true;
 

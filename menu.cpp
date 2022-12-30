@@ -6,8 +6,16 @@
 #include "highScore.h"
 
 sf::Texture menuBg;
+sf::SoundBuffer menuSb;
+sf::Sound menuSound;
 
 void graphicalMenu(sf::RenderWindow& window) {
+	if (!menuSb.loadFromFile("bg.wav")) {
+		cout << "Wrong location . File does not existed";
+	}
+	menuSound.setBuffer(menuSb);
+	menuSound.setVolume(40.f);
+
 	menuBg.loadFromFile("menu bg.png");
 
 
@@ -59,6 +67,9 @@ void graphicalMenu(sf::RenderWindow& window) {
 		//buttons[i].setPosition(150, 150 + i * 100 - diffY);
 	}
 
+	if (!Settings::isMuted)
+		menuSound.play();
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -100,6 +111,8 @@ void graphicalMenu(sf::RenderWindow& window) {
 		for (auto& button : buttons) {
 			button.draw();
 		}
+
+
 
 		window.display();
 
