@@ -322,7 +322,11 @@ void AnimalRoad::run()
 
 	float s = v * timer.getElapsedTime().asMilliseconds() * 0.3f;
 	for (int i = aQueue.size() - 1; i > -1; --i)
+	{
+		if (i == aQueue.size() - 1)
+			aQueue[i]->Tell(); //chi co con dau tien la ra tieng
 		aQueue[i]->Move(s, 0);
+	}
 	timer.restart();
 }
 

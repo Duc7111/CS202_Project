@@ -1,5 +1,6 @@
 #include "animal.h"
 #include "game.h"
+#include "settings.h"
 
 void CANIMAL::Move(float x, float y)
 {
@@ -35,16 +36,21 @@ CCAT::CCAT() {
 
 void CCAT::Tell()
 {
+	if (Settings::isMuted)
+		return;
 	if (isSetSound == false) {
-		if (!tellBuffer.loadFromFile(". / sound / sound_bird.wav")) {
+		if (!tellBuffer.loadFromFile("cat.wav")) {
 			cout << "Wrong location . File does not existed";
 		}
 		tell.setBuffer(tellBuffer);
 		tell.setVolume(80.f);
-	}
-	tell.play();
+		isSetSound = true;
 
-	cout << "telling";
+		tell.play();
+
+		cout << "telling";
+	}
+
 }
 
 void CCAT::setSpeed(float speed) {
@@ -86,17 +92,21 @@ CELEPHANT::CELEPHANT() {
 
 void CELEPHANT::Tell()
 {
+	if (Settings::isMuted)
+		return;
 	if (isSetSound == false) {
-		if (!tellBuffer.loadFromFile(". / sound / sound_dinosaur.wav")) {
+		if (!tellBuffer.loadFromFile("elephant.wav")) {
 			cout << "Wrong location . File does not existed";
 		}
 		tell.setBuffer(tellBuffer);
 		tell.setVolume(80.f);
 		isSetSound = true;
-	}
-	tell.play();
 
-	cout << "telling";
+		tell.play();
+
+		cout << "telling";
+	}
+
 }
 
 void CELEPHANT::setSpeed(float speed) {
