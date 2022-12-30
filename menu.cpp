@@ -16,8 +16,11 @@ void graphicalMenu(sf::RenderWindow& window) {
 	menuSound.setBuffer(menuSb);
 	menuSound.setVolume(40.f);
 
-	menuBg.loadFromFile("menu bg.png");
+	//menuBg.loadFromFile("menu bg.png");
+	BACKGROUND background;
 
+	CPEOPLE player;
+	player.loadTexture();
 
 	sf::Sprite bg(menuBg);
 	bg.setScale(1.f, 1.f);
@@ -32,7 +35,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 	title.setCharacterSize(75);
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(sf::Vector2f(window.getSize().x / 2 - 100, 50 - diffY));
+	title.setPosition(sf::Vector2f(window.getSize().x / 2 - 100, 50));
 
 	auto rectangle = sf::RectangleShape{ {title.getLocalBounds().width + 20,title.getLocalBounds().height + 30} };
 	rectangle.setOutlineThickness(5.f);
@@ -70,6 +73,8 @@ void graphicalMenu(sf::RenderWindow& window) {
 	if (!Settings::isMuted)
 		menuSound.play();
 
+	player.setPosition(610, 350);
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -103,7 +108,11 @@ void graphicalMenu(sf::RenderWindow& window) {
 			else buttons[i].setFillColor(sf::Color::Transparent);
 		}
 
-		window.draw(bg);
+		/*window.draw(bg);*/
+
+		background.draw(window);
+		player.draw(window);
+		std::cout << player.getPositionInWorld().x << " " << player.getPositionInWorld().y << "\n";
 
 		window.draw(rectangle);
 		window.draw(title);
@@ -111,7 +120,6 @@ void graphicalMenu(sf::RenderWindow& window) {
 		for (auto& button : buttons) {
 			button.draw();
 		}
-
 
 
 		window.display();

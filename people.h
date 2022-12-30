@@ -46,7 +46,7 @@ public:
 	sf::Texture getTexture() { return texture[0]; }
 	sf::Image getImage() { return img; }
 
-
+	void setPosition(float x, float y);
 	bool reinitializedVehicle = false;
 
 	bool collidedWithEnemy(int& collidedIndex);

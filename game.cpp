@@ -521,6 +521,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 		}
 		CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 		moveWorld(window, player);
+		std::cout << player.getPositionInWorld().x << " " << player.getPositionInWorld().y << "\n";
 
 		window.clear();
 

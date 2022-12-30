@@ -224,3 +224,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const CPEOPLE& people) {
 	}
 	return ofs;
 }
+
+void CPEOPLE::setPosition(float x, float y) {
+	sprite.setPosition(x, y);
+}
