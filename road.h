@@ -116,7 +116,7 @@ private:
 		void function()
 		{
 			sf::Time time = clock.getElapsedTime();
-			if (time.asSeconds() >= 3.f)
+			if (time.asSeconds() >= 5.f)
 			{
 				status = !status;
 				if (status) shape.setFillColor(sf::Color::Green);
