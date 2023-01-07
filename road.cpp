@@ -48,7 +48,11 @@ CVEHICLE* VehicleRoad::VehicleFactory()
 	if (DICE::flip()) vehicle = new CCAR;
 	else vehicle = new CTRUCK;
 	//side
-	if (side) scale(vehicle, -1.f, 1.f);
+	if (side)
+	{
+		scale(vehicle, -1.f, 1.f);
+		vehicle->side = true;
+	}
 	//position
 	float x;
 	if (vQueue.isEmpty()) x = 10.f;
@@ -176,7 +180,8 @@ void VehicleRoad::run()
 		timer.restart();
 		return;
 	}
-
+	if (CGAME::isLose)
+		return;
 	// New vehicle
 	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
 		vQueue.push(VehicleFactory());
@@ -188,7 +193,7 @@ void VehicleRoad::run()
 	float s = v * timer.getElapsedTime().asMilliseconds();
 	for (int i = vQueue.size() - 1; i > -1; --i) {
 		vQueue[i]->horn();
-		vQueue[i]->Move(4, 0);
+		vQueue[i]->Move(10, 0);
 	}
 
 	timer.restart();
@@ -222,7 +227,11 @@ CANIMAL* AnimalRoad::AnimalFactory()
 	if (DICE::flip()) animal = new CCAT;
 	else animal = new CELEPHANT;
 	//side
-	if (side) scale(animal, -1.f, 1.f);
+	if (side)
+	{
+		scale(animal, -1.f, 1.f);
+		animal->side = true;
+	}
 	//position
 	float x;
 	if (aQueue.isEmpty()) x = 10.f;
@@ -286,13 +295,15 @@ void AnimalRoad::run()
 	if ((side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x < -50.f)
 		|| (!side && aQueue[aQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete aQueue.pop();
+	if (CGAME::isLose)
+		return;
 
 	float s = v * timer.getElapsedTime().asMilliseconds() * 0.3f;
 	for (int i = aQueue.size() - 1; i > -1; --i)
 	{
 		if (i == aQueue.size() - 1)
 			aQueue[i]->Tell(); //chi co con dau tien la ra tieng
-		aQueue[i]->Move(1.5f, 0);
+		aQueue[i]->Move(5.f, 0);
 	}
 	timer.restart();
 }

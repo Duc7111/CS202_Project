@@ -62,6 +62,8 @@ public:
 
 	static sf::Font font;
 
+	static bool isLose;
+
 	static CGAME& singleton() {
 		static CGAME instance;
 		return instance;

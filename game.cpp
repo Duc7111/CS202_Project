@@ -148,6 +148,7 @@ void CGAME::startGame()
 //}
 float diffY = 0;
 void CGAME::gameLose(sf::RenderWindow& window) {
+	CGAME::isLose = true;
 	diffY = window.getView().getCenter().y - 610;
 	diffY = abs(diffY);
 
@@ -405,6 +406,7 @@ void initializeVehicles() { //de tao xe, va dung cap nhat vi tri xe khi di len
 
 }
 
+bool CGAME::isLose = false;
 std::vector<CVEHICLE*> generatedVehicles;
 int YScoreText = 300;
 sf::Texture CGAME::catTexture;
@@ -413,6 +415,7 @@ sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
+	CGAME::isLose = false;
 	menuSound.stop();
 	window.setView(window.getDefaultView());
 	CGAME::defaultView = window.getView();
