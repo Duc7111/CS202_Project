@@ -41,6 +41,8 @@ public:
 
 	void horn();
 
+	bool side = false;
+
 };
 
 class CCAR : public CVEHICLE {
@@ -81,15 +83,4 @@ public:
 	bool CollidedWithPlayer(CPEOPLE player);
 };
 
-class TRAFFICLIGHT {
-private:
-	sf::Texture texture[3];
-public:
-	TRAFFICLIGHT();
-	sf::Sprite sprite;
-	int status = 2;//mac dinh la den xanh
-
-	void switchStatus(int newStatus);
-	static bool isStopped; //ktra den xanh den do
-};
 

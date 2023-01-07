@@ -32,6 +32,8 @@ public:
 	bool isElephant;
 
 	sf::Vector2f getCurrentPos();
+
+	bool side = false;
 };
 
 class CELEPHANT : public CANIMAL {

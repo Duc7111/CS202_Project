@@ -166,13 +166,16 @@ void VehicleRoad::run()
 	// Trafic light
 	if (!reload)
 		traficLight.function();
-	if (!reload && !traficLight.status)
+	else {
+		traficLight.status = false;
+		reload = false;
+		traficLight.shape.setFillColor(sf::Color::Red);
+	}
+	if (!traficLight.status)
 	{
 		timer.restart();
 		return;
 	}
-	else
-		reload = false;
 
 	// New vehicle
 	if (vQueue.size() == 0 || (vQueue.size() < OBJ_MAX && vQueue[0]->getSprite().getPosition().x > 0 && vQueue[0]->getSprite().getPosition().x < WINDOW.getSize().x + 20.f))
@@ -185,7 +188,7 @@ void VehicleRoad::run()
 	float s = v * timer.getElapsedTime().asMilliseconds();
 	for (int i = vQueue.size() - 1; i > -1; --i) {
 		vQueue[i]->horn();
-		vQueue[i]->Move(s, 0);
+		vQueue[i]->Move(1, 0);
 	}
 
 	timer.restart();
@@ -273,45 +276,6 @@ void AnimalRoad::setVelocity(float velocity)
 	else v = -velocity;
 }
 
-//void AnimalRoad::save(ofstream& fout)
-//{
-//	fout.write((char*)&v, sizeof(float));
-//	//Cars
-//	int n = aQueue.size();
-//	fout.write((char*)&n, sizeof(int));
-//	for (int i = 0; i < n; ++i)
-//	{
-//		bool type = typeid(*aQueue[i]) == typeid(CCAT);
-//		fout.write((char*)&type, sizeof(bool));
-//		if (type) fout.write((char*)aQueue[i], sizeof(CCAT));
-//		else fout.write((char*)aQueue[i], sizeof(CELEPHANT));
-//	}
-//}
-//
-//void AnimalRoad::load(ifstream& fin)
-//{
-//	fin.read((char*)&v, sizeof(float));
-//	//Cars
-//	int n;
-//	fin.read((char*)&n, sizeof(int));
-//	for (int i = 0; i < n; ++i)
-//	{
-//		bool type;
-//		CANIMAL* temp;
-//		fin.read((char*)&type, sizeof(bool));
-//		if (type)
-//		{
-//			temp = new CCAT;
-//			fin.read((char*)temp, sizeof(CCAT));
-//		}
-//		else
-//		{
-//			temp = new CELEPHANT;
-//			fin.read((char*)temp, sizeof(CELEPHANT));
-//		}
-//		aQueue.push(temp);
-//	}
-//}
 
 void AnimalRoad::run()
 {
@@ -328,7 +292,7 @@ void AnimalRoad::run()
 	{
 		if (i == aQueue.size() - 1)
 			aQueue[i]->Tell(); //chi co con dau tien la ra tieng
-		aQueue[i]->Move(s, 0);
+		aQueue[i]->Move(1, 0);
 	}
 	timer.restart();
 }
@@ -372,8 +336,10 @@ void VehicleRoad::input(std::ifstream& ifs) {
 
 		temp->setPosition(x, y);
 
-		if (side)
+		if (side) {
+			temp->side = true;
 			scale(temp, -1.f, 1.f);
+		}
 
 		vQueue[i] = temp;
 
@@ -409,8 +375,11 @@ void AnimalRoad::input(std::ifstream& ifs) {
 		temp->isElephant = isElephant;
 
 		temp->setPosition(x, y);
-		if (side)
+		if (side) {
+			temp->side = true;
 			scale(temp, -1.f, 1.f);
+		}
+
 
 		aQueue[i] = temp;
 		aQueue.sizeInc();

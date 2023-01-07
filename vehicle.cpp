@@ -72,6 +72,8 @@ sf::Sprite CTRUCK::getSprite() {
 }
 
 void CVEHICLE::Move(float x, float y) {
+	if (this->side)
+		x = -x;
 	sf::Vector2f pos = sprite.getPosition();
 	sprite.setPosition(pos.x + x, pos.y + y);
 	currentPos = { sprite.getPosition().x,sprite.getPosition().y };
@@ -104,18 +106,6 @@ sf::Image CTRUCK::getImage() {
 	return CGAME::truckImage;
 }
 
-TRAFFICLIGHT::TRAFFICLIGHT() {
-	texture[0].loadFromFile("trafficLight/red.png");
-	texture[1].loadFromFile("trafficLight/yellow.png");
-	texture[2].loadFromFile("trafficLight/green.png");
-	status = 2;
-	sprite = sf::Sprite(texture[status]);
-}
-
-void TRAFFICLIGHT::switchStatus(int newStatus) {
-	sprite = sf::Sprite(texture[newStatus]);
-
-}
 
 bool CCAR::setTexture(std::string fileName) {
 	if (!CGAME::carTexture.loadFromFile(fileName))
