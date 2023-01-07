@@ -158,6 +158,8 @@ void inputRoads(std::ifstream& ifs, sf::RenderWindow& window, WORLD& world) {
 
 		temp->setPosition(index);
 
+		temp->setVelocity(WORLD::calculateVelocity(index));
+
 		world.object.push_back(temp);
 	}
 }

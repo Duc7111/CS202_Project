@@ -4,8 +4,6 @@
 
 void CANIMAL::Move(float x, float y)
 {
-	if (this->side)
-		x = -x;
 	sf::Vector2f pos = sprite.getPosition();
 	sprite.setPosition(pos.x + x, pos.y + y);
 	currentPos = { pos.x + x,pos.y + y };

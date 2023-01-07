@@ -193,7 +193,7 @@ void VehicleRoad::run()
 	float s = v * timer.getElapsedTime().asMilliseconds();
 	for (int i = vQueue.size() - 1; i > -1; --i) {
 		vQueue[i]->horn();
-		vQueue[i]->Move(8, 0);
+		vQueue[i]->Move(s, 0);
 	}
 
 	timer.restart();
@@ -298,12 +298,12 @@ void AnimalRoad::run()
 	if (CGAME::isLose)
 		return;
 
-	float s = v * timer.getElapsedTime().asMilliseconds() * 0.3f;
+	float s = v * timer.getElapsedTime().asMilliseconds() * 0.6f;
 	for (int i = aQueue.size() - 1; i > -1; --i)
 	{
 		if (i == aQueue.size() - 1)
 			aQueue[i]->Tell(); //chi co con dau tien la ra tieng
-		aQueue[i]->Move(3.5, 0);
+		aQueue[i]->Move(s, 0);
 	}
 	timer.restart();
 }
@@ -395,8 +395,6 @@ void AnimalRoad::input(std::ifstream& ifs) {
 		aQueue[i] = temp;
 		aQueue.sizeInc();
 	}
-
-
 
 	this->reload = true;
 }
