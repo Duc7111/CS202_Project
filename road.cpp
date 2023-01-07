@@ -193,7 +193,7 @@ void VehicleRoad::run()
 	float s = v * timer.getElapsedTime().asMilliseconds();
 	for (int i = vQueue.size() - 1; i > -1; --i) {
 		vQueue[i]->horn();
-		vQueue[i]->Move(10, 0);
+		vQueue[i]->Move(8, 0);
 	}
 
 	timer.restart();
@@ -303,7 +303,7 @@ void AnimalRoad::run()
 	{
 		if (i == aQueue.size() - 1)
 			aQueue[i]->Tell(); //chi co con dau tien la ra tieng
-		aQueue[i]->Move(5.f, 0);
+		aQueue[i]->Move(3.5, 0);
 	}
 	timer.restart();
 }
