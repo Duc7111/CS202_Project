@@ -99,7 +99,7 @@ int WORLD::getForwardIndex() const {
 }
 
 float WORLD::calculateVelocity(int index) {
-	static vector<float> v = { 0.f, 0.0 };
+	static vector<float> v = { 0.f };
 	if (v.size() <= index)
 		for (int i = v.size() - 1; i <= index; ++i)
 			v.push_back(511.f / 512.f * v[i] + 0.03125f);
