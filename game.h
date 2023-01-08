@@ -20,39 +20,39 @@ extern std::vector<CVEHICLE*> generatedVehicles;
 const float roadOffset = 175;
 
 struct Timer {
-	sf::Clock mC;
+	sf::Clock clock;
 	float runTime;
-	bool bPaused;
+	bool isPaused;
 
 	Timer() {
-		bPaused = false;
+		isPaused = false;
 		runTime = 0;
-		mC.restart();
+		clock.restart();
 	}
 
 	void Reset() {
-		mC.restart();
+		clock.restart();
 		runTime = 0;
-		bPaused = false;
+		isPaused = false;
 	}
 
 	void Start() {
-		if (bPaused) {
-			mC.restart();
+		if (isPaused) {
+			clock.restart();
 		}
-		bPaused = false;
+		isPaused = false;
 	}
 
 	void Pause() {
-		if (!bPaused) {
-			runTime += mC.getElapsedTime().asSeconds();
+		if (!isPaused) {
+			runTime += clock.getElapsedTime().asSeconds();
 		}
-		bPaused = true;
+		isPaused = true;
 	}
 
 	int GetElapsedSeconds() {
-		if (!bPaused) {
-			return runTime + mC.getElapsedTime().asSeconds();
+		if (!isPaused) {
+			return runTime + clock.getElapsedTime().asSeconds();
 		}
 		return runTime;
 	}
