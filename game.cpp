@@ -567,7 +567,7 @@ void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& play
 	ifs.read((char*)&CGAME::score, sizeof(int));
 	int time;
 	ifs.read((char*)&time, sizeof(time));
-	remainingTime = 10 - time; //thoi gian con lai
+	remainingTime = 15 - time; //thoi gian con lai
 
 	ifs >> player;
 
