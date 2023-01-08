@@ -19,6 +19,46 @@ extern std::vector<CVEHICLE*> generatedVehicles;
 
 const float roadOffset = 175;
 
+struct Timer {
+	sf::Clock mC;
+	float runTime;
+	bool bPaused;
+
+	Timer() {
+		bPaused = false;
+		runTime = 0;
+		mC.restart();
+	}
+
+	void Reset() {
+		mC.restart();
+		runTime = 0;
+		bPaused = false;
+	}
+
+	void Start() {
+		if (bPaused) {
+			mC.restart();
+		}
+		bPaused = false;
+	}
+
+	void Pause() {
+		if (!bPaused) {
+			runTime += mC.getElapsedTime().asSeconds();
+		}
+		bPaused = true;
+	}
+
+	int GetElapsedSeconds() {
+		if (!bPaused) {
+			return runTime + mC.getElapsedTime().asSeconds();
+		}
+		return runTime;
+	}
+};
+
+
 using namespace std;
 class CGAME
 {
@@ -38,7 +78,7 @@ public:
 	void exitGame(HANDLE); // Thực hiện thoát Thread
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
 	void saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world);
-	void loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world);
+	void loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world, int& remainingTime);
 	void pauseGame(sf::RenderWindow& gameWindow, const CPEOPLE& player, const WORLD& world); // Tạm dừng Thread
 	void gameLose(sf::RenderWindow& window);
 
@@ -63,6 +103,10 @@ public:
 	static sf::Font font;
 
 	static bool isLose;
+
+	static int remainingTime;
+	static sf::Text standingTime;
+	static Timer standingTimer;
 
 	static CGAME& singleton() {
 		static CGAME instance;
@@ -115,3 +159,4 @@ extern float diffY;
 
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world);
 void reloadWindow(sf::RenderWindow& window, bool fromGame = true);
+

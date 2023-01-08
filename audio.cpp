@@ -3,9 +3,11 @@
 
 sf::Sound move;
 sf::Sound lose;
+sf::Sound clockTick;
 
 sf::SoundBuffer sb1;
 sf::SoundBuffer sb2;
+sf::SoundBuffer sb3;
 
 void audio::loadSound() {
 
@@ -14,6 +16,9 @@ void audio::loadSound() {
 
 	sb2.loadFromFile(soundFolder + "lose.wav");
 	lose.setBuffer(sb2);
+
+	sb3.loadFromFile(soundFolder + "clockTicking.wav");
+	clockTick.setBuffer(sb3);
 }
 
 void audio::playLose() {
@@ -24,4 +29,9 @@ void audio::playLose() {
 void audio::playMove() {
 	if (!Settings::isMuted)
 		move.play();
+}
+
+void audio::clockTicking() {
+	if (!Settings::isMuted)
+		clockTick.play();
 }

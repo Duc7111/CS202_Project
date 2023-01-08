@@ -134,6 +134,8 @@ void CGAME::gameLose(sf::RenderWindow& window) {
 
 	int index = 0;
 
+	audio::playLose();
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -269,6 +271,7 @@ void CGAME::pauseGame(sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 			switch (i)
 			{
 			case 0:
+				CGAME::standingTimer.Start();
 				window.close();
 				break;
 			case 1: {
@@ -346,6 +349,8 @@ sf::Texture CGAME::catTexture;
 sf::Texture CGAME::elephantTexture;
 sf::Image CGAME::catImage;
 sf::Image CGAME::elephantImage;
+Timer CGAME::standingTimer;
+sf::Text CGAME::standingTime;
 
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	CGAME::isLose = false;
@@ -353,9 +358,9 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 	window.setView(window.getDefaultView());
 
-	timeCount = 0;
+	//timeCount = 0;
 	CGAME::score = 0;
-	sf::Time elapsed;
+	//sf::Time elapsed;
 
 	explosion::loadTexture();
 	audio::loadSound();
@@ -381,23 +386,20 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	CGAME::currentScore.setCharacterSize(45);
 	CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 
+	CGAME::standingTime = sf::Text(CGAME::currentScore);
+	CGAME::standingTime.setCharacterSize(40);
+	CGAME::standingTime.setPosition(1000, player.getPositionInWorld().y - YScoreText);
+	CGAME::standingTime.setFillColor(sf::Color::Red);
+
 	VehicleRoad::loadTexture();
 	AnimalRoad::loadTexture();
 
-
-	//sf::Sprite bg(CGAME::bgTexture);
-	//bg.setScale(1300, 1300);
-	//bg.setPosition(-100, 0);
-	//sf::Sprite bg2(bg); //de keo len trong moveWorld
-	//bg2.setPosition(-100, bgPos -= bgOffset);
-	//CGAME::bgs.push_back(bg);
-	//CGAME::bgs.push_back(bg2);
 	BACKGROUND background;
 
 	WORLD world;
 	if (reload) {
 		std::ifstream ifs(loadPath, std::ios::binary);
-		CGAME::singleton().loadGame(ifs, window, player, world);
+		CGAME::singleton().loadGame(ifs, window, player, world, CGAME::remainingTime);
 		background.updateOnLoad(world);
 	}
 
@@ -405,15 +407,13 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 		world.createWorld(window);
 
 
-
-
-
 	const sf::Time update_ms = sf::seconds(1.f / 30.f);
-
+	CGAME::standingTimer.Reset();
 	//window.setFramerateLimit(60);
 
 	while (window.isOpen()) {
 		CGAME::currentScore.setString(std::to_string(CGAME::score)); //hien thi diem
+		CGAME::standingTime.setString(std::to_string(CGAME::remainingTime - (int)CGAME::standingTimer.GetElapsedSeconds()));
 		//std:://cout << player.drawPosition(15, 0).y << " "; //680
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -424,6 +424,8 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				switch (event.key.code) {
 				case sf::Keyboard::Key::W:
 					if (player.goUp()) break;
+					CGAME::standingTimer.Reset();
+					CGAME::remainingTime = 10;
 					audio::playMove();
 					world.forward();
 					background.update(world);
@@ -433,22 +435,31 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 						if (player.goDown()) break;
 					}
 					audio::playMove();
+					CGAME::standingTimer.Reset();
+					CGAME::remainingTime = 10;
 					break;
 				case sf::Keyboard::Key::A:
 					if (player.goLeft()) break;
 					audio::playMove();
+					CGAME::standingTimer.Reset();
+					CGAME::remainingTime = 10;
 					break;
 				case sf::Keyboard::Key::D:
 					if (player.goRight()) break;
 					audio::playMove();
+					CGAME::standingTimer.Reset();
+					CGAME::remainingTime = 10;
 					break;
 				case sf::Keyboard::Key::Escape:
+					CGAME::standingTimer.Pause();
 					CGAME::singleton().pauseGame(window, player, world);
 					break;
 				case sf::Keyboard::Key::T:
+					CGAME::standingTimer.Pause();
 					saveWindow(window, player, world);
 					break;
 				case sf::Keyboard::Key::L:
+					CGAME::standingTimer.Pause();
 					reloadWindow(window);
 					break;
 				default:
@@ -457,19 +468,22 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 			}
 		}
 		CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
+		CGAME::standingTime.setPosition(1000, player.getPositionInWorld().y - YScoreText);
+
 		moveWorld(window, player);
 
 		window.clear();
 
-		//window.draw(bg);
-
-		//drawBgs(window, CGAME::bgs);
 
 		background.draw(window);
 
 		world.drawWorld(window);
 
 		player.draw(window);
+		if (CGAME::standingTimer.GetElapsedSeconds() == CGAME::remainingTime - 3)
+			audio::clockTicking();
+		if (CGAME::standingTimer.GetElapsedSeconds() >= CGAME::remainingTime) //quá thời gian
+			CGAME::singleton().gameLose(window);
 
 		world.checkCollide(window, player); //ktra va chạm
 
@@ -504,13 +518,15 @@ void drawBgs(sf::RenderWindow& window, std::vector<sf::Sprite> bgs) {
 void CGAME::saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const CPEOPLE& player, const WORLD& world) {
 
 	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
+	int timer = CGAME::standingTimer.GetElapsedSeconds();
+	ofs.write((char*)&timer, sizeof(timer));
 
 	ofs << player;
 	ofs << world;
 
 	ofs.close();
 }
-void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world) {
+void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& player, WORLD& world, int& remainingTime) {
 	if (!ifs)
 	{
 		sf::Font font;
@@ -549,22 +565,20 @@ void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& play
 	}
 
 	ifs.read((char*)&CGAME::score, sizeof(int));
+	int time;
+	ifs.read((char*)&time, sizeof(time));
+	remainingTime = 10 - time; //thoi gian con lai
 
 	ifs >> player;
 
 	moveWorld(window, player, true); //de lam them cai ktra xem co move hay chua trc do
 
-	//int xView, yView;
-	//ifs.read((char*)&xView, sizeof(int));
-	//ifs.read((char*)&yView, sizeof(int));
-	//sf::View view;
-	//view.setCenter(sf::Vector2f(xView, yView));
-	//window.setView(view);
 
 	inputRoads(ifs, window, world);
 
 	ifs.close();
 }
+int CGAME::remainingTime = 10;
 sf::View CGAME::defaultView;
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world) {
 	sf::RenderWindow window(sf::VideoMode(1280, 700), "Save game", sf::Style::Titlebar | sf::Style::Close);
@@ -605,6 +619,7 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
+				CGAME::standingTimer.Start();
 				window.close();
 			}
 			else if (event.type == sf::Event::TextEntered) {
@@ -622,6 +637,7 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 					std::ofstream ofs(inputPath, std::ios::binary);
 					CGAME::singleton().saveGame(ofs, renderWindow, player, world);
 					window.close();
+					CGAME::standingTimer.Start();
 				}
 				else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace)) {
 					if (!inputPath.empty())

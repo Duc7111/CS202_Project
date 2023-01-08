@@ -1,4 +1,4 @@
-#include "world.h"
+﻿#include "world.h"
 #include "game.h"
 
 WORLD::WORLD() {
@@ -24,6 +24,7 @@ void WORLD::createWorld(sf::RenderWindow& window) {
 		object.push_back(tmp);
 	}
 	window.draw(CGAME::currentScore);
+	window.draw(CGAME::standingTime);
 }
 
 void WORLD::forward() {
@@ -60,6 +61,7 @@ void WORLD::drawWorld(sf::RenderWindow& window) {
 	}
 	treeIndex += 6;
 	window.draw(CGAME::currentScore);
+	window.draw(CGAME::standingTime);
 }
 
 
@@ -87,6 +89,7 @@ Road* WORLD::createRoad(int index) {
 }
 
 void WORLD::checkCollide(sf::RenderWindow& window, CPEOPLE player) {
+
 	for (int i = 0; i < object.size(); i++)
 		if (object[i])
 			if (IsNearby(player, object[i]->sprite, 5))
