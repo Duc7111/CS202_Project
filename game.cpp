@@ -80,72 +80,6 @@ void CGAME::startGame()
 	}
 }
 
-//void CGAME::loadGame()
-//{
-//	std::cout << "Please input the path to load game file: ";
-//	std::string path;
-//	std::cin >> path;
-//	std::ifstream fin;
-//	fin.open(path);
-//	resetGame();
-//	//level
-//	fin.read((char*)&level, sizeof(level));
-//	//Obtacles (vehicle & animal)
-//	int n;
-//	fin.read((char*)&n, sizeof(int));
-//	arrVehicle.resize(n);
-//	for (CVEHICLE* p : arrVehicle)
-//	{
-//		bool t;
-//		fin.read((char*)&t, sizeof(bool));
-//		p = makeVehicle(t);
-//	}
-//
-//	fin.read((char*)&n, sizeof(int));
-//	arrVehicle.resize(n);
-//	for (CVEHICLE* p : arrVehicle)
-//	{
-//		bool t;
-//		fin.read((char*)&t, sizeof(bool));
-//		p = makeVehicle(t);
-//	}
-//	//People
-//	fin.read((char*)&cn, sizeof(cn));
-//
-//	fin.close();
-//}
-//
-//void CGAME::saveGame() {
-//	std::cout << "Please input the path to save game file: ";
-//	std::string path;
-//	std::cin >> path;
-//	std::ofstream fout;
-//	fout.open(path);
-//
-//	//Level
-//	fout.write((char*)&level, sizeof(level));
-//	//Obstacle
-//	int n = arrVehicle.size();
-//	fout.write((char*)&n, sizeof(int));
-//	for (CVEHICLE* p : arrVehicle)
-//	{
-//		bool b = typeid(*p) == typeid(CTRUCK);
-//		fout.write((char*)&b, sizeof(b));
-//		if (b) fout.write((char*)p, sizeof(CTRUCK));
-//		else fout.write((char*)p, sizeof(CVEHICLE));
-//	}
-//	for (CANIMAL* p : arrAnimal)
-//	{
-//		bool b = typeid(*p) == typeid(CELEPHANT);
-//		fout.write((char*)&b, sizeof(b));
-//		if (b) fout.write((char*)p, sizeof(CELEPHANT));
-//		else fout.write((char*)p, sizeof(CCAT));
-//	}
-//	//People
-//	fout.write((char*)&cn, sizeof(cn));
-//
-//	fout.close();
-//}
 float diffY = 0;
 void CGAME::gameLose(sf::RenderWindow& window) {
 	CGAME::isLose = true;
@@ -154,7 +88,6 @@ void CGAME::gameLose(sf::RenderWindow& window) {
 
 
 	compareHighScore(CGAME::score);
-	window.setTitle("Game over");
 
 	sf::Font font;
 	font.loadFromFile("RubikGemstones-Regular.ttf");
@@ -369,7 +302,7 @@ void moveWorld(sf::RenderWindow& window, CPEOPLE& player, bool reload) {
 	////	//player.reinitializedVehicle = false;
 
 	window.clear();
-	//std::cout << player.getPosition().x << " " << player.getPosition().y << "\n";
+	//std:://cout << player.getPosition().x << " " << player.getPosition().y << "\n";
 	if (reload || !noMove) {
 		view.setCenter(sf::Vector2f(view.getCenter().x, player.getPositionInWorld().y));
 	}
@@ -417,8 +350,9 @@ sf::Image CGAME::elephantImage;
 void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	CGAME::isLose = false;
 	menuSound.stop();
+
 	window.setView(window.getDefaultView());
-	CGAME::defaultView = window.getView();
+
 	timeCount = 0;
 	CGAME::score = 0;
 	sf::Time elapsed;
@@ -480,7 +414,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 
 	while (window.isOpen()) {
 		CGAME::currentScore.setString(std::to_string(CGAME::score)); //hien thi diem
-		//std::cout << player.drawPosition(15, 0).y << " "; //680
+		//std:://cout << player.drawPosition(15, 0).y << " "; //680
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
@@ -524,7 +458,6 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 		}
 		CGAME::currentScore.setPosition(100, player.getPositionInWorld().y - YScoreText);
 		moveWorld(window, player);
-		std::cout << player.getPositionInWorld().x << " " << player.getPositionInWorld().y << "\n";
 
 		window.clear();
 
@@ -573,14 +506,6 @@ void CGAME::saveGame(std::ofstream& ofs, const sf::RenderWindow& window, const C
 	ofs.write((char*)&CGAME::score, sizeof(CGAME::score));
 
 	ofs << player;
-
-	//sf::View view = window.getDefaultView();
-	//int xView = view.getCenter().x;
-	//int yView = view.getCenter().y;
-	//ofs.write((char*)&xView, sizeof(xView));
-	//ofs.write((char*)&yView, sizeof(yView));
-
-	//save mấy cái của road ngay trước mặt nữa
 	ofs << world;
 
 	ofs.close();
@@ -654,22 +579,22 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 	title.setFillColor(sf::Color::White);
 	title.setCharacterSize(50);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(50, 220 - diffY);
+	title.setPosition(50, 220);
 
 	sf::Sprite bgSprite(CGAME::bgTexture);
 	bgSprite.setScale(1300, 1300);
-	bgSprite.setPosition(-100, 0 - diffY);
+	bgSprite.setPosition(-100, 0);
 
 	sf::Texture roadTexture;
 	roadTexture.loadFromFile("road2.png");
 	sf::Sprite roadSprite(roadTexture);
-	roadSprite.setPosition(0, 400 - diffY);
+	roadSprite.setPosition(0, 400);
 	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
 	roadSprite.setScale(sf::Vector2f(scale, scale));
 
 	std::string inputPath = "";
 	sf::Text output;
-	output.setPosition(50, 420 - diffY);
+	output.setPosition(50, 420);
 	output.setFont(font);
 	output.setCharacterSize(45);
 	output.setStyle(sf::Text::Italic);
@@ -680,7 +605,7 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				graphicalMenu(window);
+				window.close();
 			}
 			else if (event.type == sf::Event::TextEntered) {
 				if (std::isprint(event.text.unicode))
@@ -715,13 +640,14 @@ void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, con
 		window.draw(title);
 		window.draw(output);
 
+		window.setView(CGAME::defaultView);
+
 		window.display();
 	}
 }
 void reloadWindow(sf::RenderWindow& window, bool fromGame) {
 	menuSound.stop();
-	if (fromGame)
-		window.setView(CGAME::defaultView);
+	window.setView(CGAME::defaultView);
 
 	sf::Font font;
 	font.loadFromFile("RubikGemstones-Regular.ttf");
@@ -732,23 +658,23 @@ void reloadWindow(sf::RenderWindow& window, bool fromGame) {
 	title.setFillColor(sf::Color::White);
 	title.setCharacterSize(50);
 	title.setStyle(sf::Text::Bold);
-	title.setPosition(50, 220 - diffY);
+	title.setPosition(50, 220);
 
 	sf::Sprite bgSprite(CGAME::bgTexture);
 	bgSprite.setScale(1300, 1300);
-	bgSprite.setPosition(-100, 0 - diffY);
+	bgSprite.setPosition(-100, 0);
 
 	sf::Texture roadTexture;
 	roadTexture.loadFromFile("road2.png");
 	sf::Sprite roadSprite(roadTexture);
-	roadSprite.setPosition(0, 400 - diffY);
+	roadSprite.setPosition(0, 400);
 	float scale = (float)M_CELL / (roadSprite.getTexture()->getSize().y);
 	roadSprite.setScale(sf::Vector2f(scale, scale));
 
 	std::string inputPath = "";
 
 	sf::Text output;
-	output.setPosition(50, 420 - diffY);
+	output.setPosition(50, 420);
 	output.setFont(font);
 	output.setCharacterSize(45);
 	output.setStyle(sf::Text::Italic);
@@ -794,6 +720,8 @@ void reloadWindow(sf::RenderWindow& window, bool fromGame) {
 		window.draw(roadSprite);
 		window.draw(title);
 		window.draw(output);
+
+		window.setView(CGAME::defaultView);
 
 		window.display();
 	}

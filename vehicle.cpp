@@ -12,7 +12,7 @@ void CVEHICLE::horn() {
 		return;
 	if (isSetSound == false) {
 		if (!hornBuffer.loadFromFile("car.wav")) {
-			cout << "Wrong location . File does not existed";
+			//cout << "Wrong location . File does not existed";
 		}
 		hornSound.setBuffer(hornBuffer);
 		hornSound.setVolume(80.f);
@@ -20,7 +20,7 @@ void CVEHICLE::horn() {
 
 		hornSound.play();
 
-		cout << "horn";
+		//cout << "horn";
 	}
 
 }

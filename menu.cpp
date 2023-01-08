@@ -11,7 +11,7 @@ sf::Sound menuSound;
 
 void graphicalMenu(sf::RenderWindow& window) {
 	if (!menuSb.loadFromFile("bg.wav")) {
-		cout << "Wrong location . File does not existed";
+		//cout << "Wrong location . File does not existed";
 	}
 	menuSound.setBuffer(menuSb);
 	menuSound.setVolume(40.f);
@@ -112,7 +112,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 		background.draw(window);
 		player.draw(window);
-		std::cout << player.getPositionInWorld().x << " " << player.getPositionInWorld().y << "\n";
+
 
 		window.draw(rectangle);
 		window.draw(title);
@@ -121,7 +121,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 			button.draw();
 		}
 
-
+		CGAME::defaultView = window.getView();
 		window.display();
 
 	}

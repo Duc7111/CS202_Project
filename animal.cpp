@@ -40,7 +40,7 @@ void CCAT::Tell()
 		return;
 	if (isSetSound == false) {
 		if (!tellBuffer.loadFromFile("cat.wav")) {
-			cout << "Wrong location . File does not existed";
+			//cout << "Wrong location . File does not existed";
 		}
 		tell.setBuffer(tellBuffer);
 		tell.setVolume(80.f);
@@ -48,7 +48,7 @@ void CCAT::Tell()
 
 		tell.play();
 
-		cout << "telling";
+		//cout << "telling";
 	}
 
 }
@@ -96,7 +96,7 @@ void CELEPHANT::Tell()
 		return;
 	if (isSetSound == false) {
 		if (!tellBuffer.loadFromFile("elephant.wav")) {
-			cout << "Wrong location . File does not existed";
+			//cout << "Wrong location . File does not existed";
 		}
 		tell.setBuffer(tellBuffer);
 		tell.setVolume(80.f);
@@ -104,7 +104,7 @@ void CELEPHANT::Tell()
 
 		tell.play();
 
-		cout << "telling";
+		//cout << "telling";
 	}
 
 }
