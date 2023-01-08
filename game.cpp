@@ -425,7 +425,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				case sf::Keyboard::Key::W:
 					if (player.goUp()) break;
 					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 10;
+					CGAME::remainingTime = 15;
 					audio::playMove();
 					world.forward();
 					background.update(world);
@@ -436,19 +436,19 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 					}
 					audio::playMove();
 					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 10;
+					CGAME::remainingTime = 15;
 					break;
 				case sf::Keyboard::Key::A:
 					if (player.goLeft()) break;
 					audio::playMove();
 					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 10;
+					CGAME::remainingTime = 15;
 					break;
 				case sf::Keyboard::Key::D:
 					if (player.goRight()) break;
 					audio::playMove();
 					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 10;
+					CGAME::remainingTime = 15;
 					break;
 				case sf::Keyboard::Key::Escape:
 					CGAME::standingTimer.Pause();
@@ -578,7 +578,7 @@ void CGAME::loadGame(std::ifstream& ifs, sf::RenderWindow& window, CPEOPLE& play
 
 	ifs.close();
 }
-int CGAME::remainingTime = 10;
+int CGAME::remainingTime = 15;
 sf::View CGAME::defaultView;
 void saveWindow(const sf::RenderWindow& renderWindow, const CPEOPLE& player, const WORLD& world) {
 	sf::RenderWindow window(sf::VideoMode(1280, 700), "Save game", sf::Style::Titlebar | sf::Style::Close);
