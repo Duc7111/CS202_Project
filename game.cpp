@@ -380,6 +380,7 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 	//
 	CPEOPLE player;
 	player.loadTexture();
+	player.switchCharacter(CPEOPLE::getCharacterIndex());
 
 	CGAME::font.loadFromFile("ZenDots-Regular.ttf");
 	CGAME::currentScore.setFont(CGAME::font);

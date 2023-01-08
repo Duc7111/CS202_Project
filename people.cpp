@@ -1,6 +1,9 @@
 #include "people.h"
 #include "game.h"
 
+sf::FileInputStream CPEOPLE::fis;
+int CPEOPLE::characterIndex = 0;
+
 float CPEOPLE::getRealX(float mX) //cai nay chi dung cho cai camera
 {
 	return (mX / 13.0f) * 1300;
@@ -11,24 +14,40 @@ void CPEOPLE::setPeople(int mX, int mY, int mDirection, int animation) {
 	this->mDirection = mDirection;
 	this->mState = mState;
 	this->animation = animation;
-	loadTexture();
+	// loadTexture();
 }
-CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(0), mState(1), animation(false) {
-	for (int i = 0; i < 4; ++i) {
-		texture[i].loadFromFile("player.png", sf::IntRect(0, 80 * i, 80, 80));
-	}
-	img = texture[0].copyToImage();
+void CPEOPLE::loadFile() {
+	fis.open("character.png");
+}
+CPEOPLE::CPEOPLE() : mX(6), mY(0), mDirection(1), mState(1), animation(false) {
+	//for (int i = 0; i < 4; ++i) {
+	//	texture[i].loadFromFile("player.png", sf::IntRect(0, 80 * i, 80, 80));
+	//}
 	drawVar = 0;
 }
 
 void CPEOPLE::loadTexture() {
-	int index;
-	if (mDirection == 0)
-		index = 0;
-	else
-		index = mDirection - 1;
-	sprite.setTexture(texture[index]);
+	for (size_t i = 0; i < 3; ++i) {
+		textures[i].loadFromStream(fis, sf::IntRect(16 * i, 16 * characterIndex, 16, 16));
+	}
+	sprite.setTexture(textures[1]);
+	sprite.setScale(5.f, 5.f);
+	img = textures[0].copyToImage();
 	sprite.setPosition(calcX(mX), calcY(mY));
+}
+
+int CPEOPLE::getCharacterIndex() {
+	return characterIndex;
+}
+
+void CPEOPLE::switchCharacter(int index) {
+	if (index < 0) index = 19;
+	else if (index > 19) index = 0;
+	for (size_t i = 0; i < 3; ++i) {
+		textures[i].loadFromStream(fis, sf::IntRect(16 * i, 16 * index, 16, 16));
+	}
+	sprite.setTexture(textures[1]);
+	characterIndex = index;
 }
 
 void CPEOPLE::draw(sf::RenderWindow& window) {
@@ -61,7 +80,7 @@ int CPEOPLE::goUp() {
 	if (animation) return 1;
 	if (mDirection != 1) {
 		mDirection = 1;
-		sprite.setTexture(texture[0]);
+		sprite.setTexture(textures[1]);
 	}
 	mPrevY = mY;
 	++mY;
@@ -78,7 +97,7 @@ int CPEOPLE::goDown() {
 	if (mY == 0) return 2;
 	if (mDirection != 2) {
 		mDirection = 2;
-		sprite.setTexture(texture[1]);
+		sprite.setTexture(textures[0]);
 	}
 	mPrevY = mY;
 	--mY;
@@ -92,7 +111,7 @@ int CPEOPLE::goRight() {
 	if (mX == 12) return 2;
 	if (mDirection != 3) {
 		mDirection = 3;
-		sprite.setTexture(texture[2]);
+		sprite.setTexture(textures[2], true);
 	}
 	++mX;
 	drawVar = calcX(mX);
@@ -105,7 +124,13 @@ int CPEOPLE::goLeft() {
 	if (mX == 0) return 2;
 	if (mDirection != 4) {
 		mDirection = 4;
-		sprite.setTexture(texture[3]);
+		sprite.setTexture(textures[2], true);
+		sprite.setTextureRect(sf::IntRect(
+				sprite.getTextureRect().width,
+				sprite.getTextureRect().top,
+				-sprite.getTextureRect().width,
+				sprite.getTextureRect().height
+		));
 	}
 	--mX;
 	drawVar = calcX(mX);
@@ -192,6 +217,9 @@ bool IsNearby(const CPEOPLE& player, const sf::Sprite& otherSprite, float distan
 	return false;
 }
 std::ifstream& operator>>(std::ifstream& ifs, CPEOPLE& people) {
+	//
+	ifs.read((char*)&CPEOPLE::characterIndex, sizeof(int));
+	//
 	ifs.read((char*)&people.mX, sizeof(int));
 	ifs.read((char*)&people.mY, sizeof(int));
 	ifs.read((char*)&people.mDirection, sizeof(int));
@@ -210,6 +238,9 @@ std::ifstream& operator>>(std::ifstream& ifs, CPEOPLE& people) {
 	return ifs;
 }
 std::ofstream& operator<<(std::ofstream& ofs, const CPEOPLE& people) {
+	//
+	ofs.write((char*)&people.characterIndex, sizeof(int));
+	//
 	ofs.write((char*)&people.mX, sizeof(int));
 	ofs.write((char*)&people.mY, sizeof(int));
 	ofs.write((char*)&people.mDirection, sizeof(int));
@@ -222,6 +253,7 @@ std::ofstream& operator<<(std::ofstream& ofs, const CPEOPLE& people) {
 		ofs.write((char*)&it->first, sizeof(it->first));
 		ofs.write((char*)&it->second, sizeof(it->second));
 	}
+	
 	return ofs;
 }
 

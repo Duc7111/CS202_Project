@@ -19,17 +19,18 @@ void graphicalMenu(sf::RenderWindow& window) {
 	//menuBg.loadFromFile("menu bg.png");
 	BACKGROUND background;
 
+	CPEOPLE::loadFile();
 	CPEOPLE player;
 	player.loadTexture();
 
 	sf::Sprite bg(menuBg);
 	bg.setScale(1.f, 1.f);
-
+	
 
 	sf::Font font;
 	font.loadFromFile("ZenDots-Regular.ttf");
 
-	sf::Text title;
+	sf::Text title, characters;
 	title.setFont(font);
 	title.setString("Crossing Road");
 	title.setCharacterSize(75);
@@ -45,7 +46,12 @@ void graphicalMenu(sf::RenderWindow& window) {
 	sf::Font font2;
 	font2.loadFromFile("SecularOne-Regular.ttf");
 
-	RectangleButton buttons[4];
+	characters.setFont(font2);
+	characters.setString("Character");
+	characters.setCharacterSize(40);
+	characters.setPosition(550, 290);
+
+	RectangleButton buttons[4], arrows[2];
 	for (int i = 0; i < 4; i++) {
 		switch (i) {
 		case 0:
@@ -69,6 +75,17 @@ void graphicalMenu(sf::RenderWindow& window) {
 		buttons[i].setPosition(100, 150 + i * 100);
 		//buttons[i].setPosition(150, 150 + i * 100 - diffY);
 	}
+	arrows[0].text.setString("-");
+	arrows[1].text.setString("+");
+	for (int i = 0; i < 2; ++i) {
+		arrows[i].setWindow(&window);
+		arrows[i].text.setFont(font2);
+		arrows[i].text.setCharacterSize(40);
+		arrows[i].setSize(80, 80);
+		arrows[i].setFillColor(sf::Color::Transparent);
+		arrows[i].setPosition(530 + 160 * i, 350);
+	}
+
 
 	if (!Settings::isMuted)
 		menuSound.play();
@@ -84,6 +101,9 @@ void graphicalMenu(sf::RenderWindow& window) {
 			for (auto& button : buttons) {
 				button.eventListener(event);
 			}
+			for (auto& arrow : arrows) {
+				arrow.eventListener(event);
+			}
 		}
 
 		for (int i = 0; i < 4; i++) {
@@ -93,7 +113,7 @@ void graphicalMenu(sf::RenderWindow& window) {
 					playGame(window);
 					break;
 				case 1:
-					Settings::settingsSound(window);
+					Settings::settingsMenu(window);
 					break;
 				case 2:
 					reloadWindow(window, false);
@@ -107,6 +127,21 @@ void graphicalMenu(sf::RenderWindow& window) {
 			else if (buttons[i].mouseHover()) buttons[i].setFillColor(sf::Color(255, 255, 255, 50));
 			else buttons[i].setFillColor(sf::Color::Transparent);
 		}
+		for (int i = 0; i < 2; i++) {
+			if (arrows[i].mousePressed()) {
+				switch (i) {
+				case 0:
+					player.switchCharacter(CPEOPLE::getCharacterIndex() - 1);
+					break;
+				case 1:
+					player.switchCharacter(CPEOPLE::getCharacterIndex() + 1);
+					break;
+				}
+				break;
+			}
+			else if (arrows[i].mouseHover()) arrows[i].setFillColor(sf::Color(255, 255, 255, 50));
+			else arrows[i].setFillColor(sf::Color::Transparent);
+		}
 
 		/*window.draw(bg);*/
 
@@ -116,9 +151,14 @@ void graphicalMenu(sf::RenderWindow& window) {
 
 		window.draw(rectangle);
 		window.draw(title);
+		window.draw(characters);
 
 		for (auto& button : buttons) {
 			button.draw();
+		}
+
+		for (auto& arrow : arrows) {
+			arrow.draw();
 		}
 
 		CGAME::defaultView = window.getView();

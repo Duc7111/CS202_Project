@@ -9,10 +9,12 @@ class CVEHICLE;
 class CANIMAL;
 
 class CPEOPLE {
+	static sf::FileInputStream fis;
+	static int characterIndex;
 	int mX, mY; // position in the cell-based location system
 	int mPrevY = 0; //y truoc do
 	bool mState; // state of living (mState = true if player is alive)
-	sf::Texture texture[4];
+	sf::Texture textures[3];
 	sf::Sprite sprite;
 	unsigned int mDirection; // current direction of moving (default = 0, up = 1, down = 2, right = 3, left = 4)
 	sf::Image img;
@@ -25,9 +27,12 @@ class CPEOPLE {
 	static float calcX(int X);
 	static float calcY(int Y);
 public:
+	static void loadFile();
 	CPEOPLE();
 	void setPeople(int mX, int mY, int mDirection, int animation); //cái này dùng cho phần save load
-	void loadTexture(); // load texture
+	void loadTexture(); // load texture file
+	static int getCharacterIndex();
+	void switchCharacter(int index);
 	void draw(sf::RenderWindow& window); // draw current object	sf::Vector2i getPosition(); // Return mY, mX in the form of sf::Vector2i
 	sf::Vector2i getPosition() const;
 	int getPrevY() const;
@@ -43,7 +48,7 @@ public:
 	bool isFinish();
 	bool isDead();
 	sf::Sprite getSprite() { return sprite; }
-	sf::Texture getTexture() { return texture[0]; }
+	sf::Texture getTexture() { return textures[0]; }
 	sf::Image getImage() { return img; }
 
 	void setPosition(float x, float y);

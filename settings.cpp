@@ -12,7 +12,7 @@ void loadTextureOfSettings() {
 	unmuteTex.loadFromFile("unmute.png");
 }
 
-void Settings::settingsSound(sf::RenderWindow& window) {
+void Settings::settingsMenu(sf::RenderWindow& window) {
 	menuSound.stop();
 	sf::Sprite bgSprite(CGAME::bgTexture);
 	bgSprite.setScale(1300, 1300);
@@ -74,7 +74,7 @@ void Settings::settingsSound(sf::RenderWindow& window) {
 
 		window.clear();
 		window.draw(bgSprite);
-		window.draw(roadSprite);
+		//window.draw(roadSprite);
 
 		window.draw(note);
 		window.draw(title);
