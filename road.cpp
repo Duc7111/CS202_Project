@@ -190,7 +190,7 @@ void VehicleRoad::run()
 		|| (!side && vQueue[vQueue.size() - 1]->getSprite().getPosition().x > WINDOW.getSize().x + 50.f))
 		delete vQueue.pop();
 
-	float s = v * timer.getElapsedTime().asMilliseconds();
+	float s = v * timer.getElapsedTime().asMilliseconds() * 1.3f;
 	for (int i = vQueue.size() - 1; i > -1; --i) {
 		vQueue[i]->horn();
 		vQueue[i]->Move(s, 0);
@@ -298,7 +298,7 @@ void AnimalRoad::run()
 	if (CGAME::isLose)
 		return;
 
-	float s = v * timer.getElapsedTime().asMilliseconds() * 0.6f;
+	float s = v * timer.getElapsedTime().asMilliseconds() * 0.5f;
 	for (int i = aQueue.size() - 1; i > -1; --i)
 	{
 		if (i == aQueue.size() - 1)
