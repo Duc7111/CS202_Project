@@ -441,14 +441,10 @@ void playGame(sf::RenderWindow& window, bool reload, std::string loadPath) {
 				case sf::Keyboard::Key::A:
 					if (player.goLeft()) break;
 					audio::playMove();
-					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 15;
 					break;
 				case sf::Keyboard::Key::D:
 					if (player.goRight()) break;
 					audio::playMove();
-					CGAME::standingTimer.Reset();
-					CGAME::remainingTime = 15;
 					break;
 				case sf::Keyboard::Key::Escape:
 					CGAME::standingTimer.Pause();
