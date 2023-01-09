@@ -3,7 +3,7 @@ This is a Programming Systems (CS202) project, HCMUS.
 
 Github: https://github.com/Duc7111/CS202_Project
 
-Demo video: [Link here]
+Demo video: https://youtu.be/cG2OxhBjce0
 
 ## Description
 - A C++ game where player's aim is to control the character to cross the road without collinding with car or animal.
